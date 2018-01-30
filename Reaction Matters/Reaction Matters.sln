@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reaction Matters", "Reaction Matters.csproj", "{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reaction Matters", "Assembly-CSharp.csproj", "{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
