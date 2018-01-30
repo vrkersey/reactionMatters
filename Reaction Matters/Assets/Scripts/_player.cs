@@ -8,6 +8,7 @@ public class _player : MonoBehaviour {
     Vector3 start_position;
     Rigidbody rb;
 
+    public float movementSpeed = 1f;    
 
     public float sensitivityX = 15F;
     public float sensitivityY = 15F;
@@ -71,26 +72,26 @@ public class _player : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             Vector3 lookDir = this.transform.forward;
-            lookDir.y = 0f;
-            rb.AddForce(lookDir, ForceMode.Impulse);
+            lookDir.y = start_position.y;
+            rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
         }
         else if (Input.GetKey(KeyCode.S))
         {
             Vector3 lookDir = this.transform.forward;
-            lookDir.y = 0f;
-            rb.AddForce(-lookDir, ForceMode.Impulse);
+            lookDir.y = start_position.y;
+            rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
         else if (Input.GetKey(KeyCode.A))
         {
             Vector3 lookDir = this.transform.right;
-            lookDir.y = 0f;
-            rb.AddForce(-lookDir, ForceMode.Impulse);
+            lookDir.y = start_position.y;
+            rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             Vector3 lookDir = this.transform.right;
-            lookDir.y = 0f;
-            rb.AddForce(lookDir, ForceMode.Impulse);
+            lookDir.y = start_position.y;
+            rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
         }
         else
         {
