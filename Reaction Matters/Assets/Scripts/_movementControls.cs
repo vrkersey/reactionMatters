@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _player : MonoBehaviour {
+public class _movementControls : MonoBehaviour {
 
     Vector3 start_position;
     Rigidbody rb;
@@ -23,14 +23,17 @@ public class _player : MonoBehaviour {
     float rotationY = 0F;
     Quaternion originalRotation;
 
-
+    GameObject player;
 
     // Use this for initialization
     void Start () {
+        player = this.transform.parent.gameObject;
+
         originalRotation = transform.localRotation;
 
         start_position = this.transform.position;
-        rb = this.GetComponent<Rigidbody>();
+        this.
+        rb = player.GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 	}
 	
@@ -43,9 +46,14 @@ public class _player : MonoBehaviour {
 
     private void Mouse_Input()
     {
+        float rControllerX = Math.Abs(Input.GetAxis("RightJoystickHorizontal")) > 0.05 ? Input.GetAxis("RightJoystickHorizontal") : 0;
+        float rControllerY = Math.Abs(Input.GetAxis("RightJoystickVertical")) > 0.05 ? Input.GetAxis("RightJoystickVertical") : 0;
+
         // Read the mouse input axis
-        rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-        rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+        rotationX += (Input.GetAxis("Mouse X") + rControllerX) * sensitivityX;
+        rotationY += (Input.GetAxis("Mouse Y") - rControllerY) * sensitivityY;
+
+        //Debug.Log(Input.GetAxis("RightJoystickHorizontal"));
 
         rotationX = ClampAngle(rotationX, minimumX, maximumX);
         rotationY = ClampAngle(rotationY, minimumY, maximumY);
@@ -68,35 +76,48 @@ public class _player : MonoBehaviour {
     private void Keyboard_Input()
     {
 
-        //movements
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        //movements Keyboard
         if (Input.GetKey(KeyCode.W))
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = start_position.y;
             rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
         }
-        else if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = start_position.y;
             rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
-        else if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             Vector3 lookDir = this.transform.right;
             lookDir.y = start_position.y;
             rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             Vector3 lookDir = this.transform.right;
             lookDir.y = start_position.y;
             rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
         }
-        else
+
+        // left joystick movement
+        if (Math.Abs(Input.GetAxis("LeftJoystickVertical")) > 0)
         {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            Vector3 lookDir = this.transform.forward;
+            lookDir.y = start_position.y;
+            rb.AddForce(lookDir * movementSpeed * (-Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
+        }
+
+        if (Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0)
+        {
+            Vector3 lookDir = this.transform.right;
+            lookDir.y = start_position.y;
+            rb.AddForce(lookDir * movementSpeed * Input.GetAxis("LeftJoystickHorizontal"), ForceMode.Impulse);
         }
     }
 }
