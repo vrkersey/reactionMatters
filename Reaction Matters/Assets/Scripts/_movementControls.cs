@@ -16,7 +16,7 @@ public class _movementControls : MonoBehaviour {
     private float minimumX = -360F;
     private float maximumX = 360F;
 
-    private float minimumY = -60F;
+    private float minimumY = -90F;
     private float maximumY = 60F;
 
     float rotationX = 0F;
