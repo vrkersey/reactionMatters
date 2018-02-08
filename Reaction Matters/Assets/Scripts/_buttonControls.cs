@@ -6,13 +6,18 @@ public class _buttonControls : MonoBehaviour {
 
     Vector3 lookdir;
     Vector3 pos;
-    int items;
 
-    public int pickups { get { return items; } }
-
+    public Dictionary<string, List<GameObject> > inventory;
+ 
     // Use this for initialization
     void Start () {
-        
+        //initialize inventory
+        inventory = new Dictionary<string, List<GameObject> >();
+        GameObject pickup = GameObject.FindGameObjectWithTag("Pickup");
+        foreach (string item in pickup.GetComponent<_itemScript>().getItemNames())
+        {
+            inventory.Add(item, new List<GameObject>());
+        }
 	}
 	
 	// Update is called once per frame
@@ -36,14 +41,16 @@ public class _buttonControls : MonoBehaviour {
             GameObject other = hit.collider.gameObject;
             if (other.tag == "Door" && interact)
             {
-                Debug.Log("opened door");
                 StartCoroutine(openDoor(other));
             }
             if (other.tag == "Pickup" && interact)
             {
-                Debug.Log("picked up object");
+                Debug.Log("picked up " + other.GetComponent<_itemScript>().item.ToString());
+                List<GameObject> items;
+                inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
+                items.Add(other);
+                Debug.Log("I have " + items.Count + " of them");
                 other.SetActive(false);
-                items++;
             }
         }
 	}

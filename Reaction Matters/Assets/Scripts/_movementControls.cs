@@ -8,10 +8,10 @@ public class _movementControls : MonoBehaviour {
     Vector3 start_position;
     Rigidbody rb;
 
-    public float movementSpeed = 1f;    
+    private float movementSpeed;    
 
-    public float sensitivityX = 15F;
-    public float sensitivityY = 15F;
+    private float sensitivityX;
+    private float sensitivityY;
 
     private float minimumX = -360F;
     private float maximumX = 360F;
@@ -27,6 +27,11 @@ public class _movementControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        movementSpeed = GameObject.Find("Level Settings").GetComponent<_gameSettings>().movementSpeed;
+        sensitivityX = GameObject.Find("Level Settings").GetComponent<_gameSettings>().sensitivity;
+        sensitivityY = GameObject.Find("Level Settings").GetComponent<_gameSettings>().sensitivity;
+
+
         player = this.transform.parent.gameObject;
 
         originalRotation = transform.localRotation;
