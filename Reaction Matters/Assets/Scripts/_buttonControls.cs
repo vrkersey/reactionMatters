@@ -8,9 +8,13 @@ public class _buttonControls : MonoBehaviour {
     Vector3 pos;
 
     public Dictionary<string, List<GameObject> > inventory;
- 
+
+    private _gameSettings GM;
+
     // Use this for initialization
     void Start () {
+        GM = GameObject.Find("Level Settings").GetComponent<_gameSettings>();
+
         //initialize inventory
         inventory = new Dictionary<string, List<GameObject> >();
         GameObject pickup = GameObject.FindGameObjectWithTag("Pickup");
@@ -23,36 +27,39 @@ public class _buttonControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        bool interact = false;
 
         lookdir = this.transform.Find("Mover").transform.forward;
         pos = this.transform.Find("Mover").transform.position;
 
         if (Input.GetKey(KeyCode.E) || Input.GetButton("AButton"))
         {
-            interact = true;
+            //Looking at an interactable object?
+            RaycastHit hit;
+            if (Physics.Raycast(pos, lookdir, out hit, 3f))
+            {
+                GameObject other = hit.collider.gameObject;
+                if (other.tag == "Door")
+                {
+                    StartCoroutine(openDoor(other));
+                }
+                if (other.tag == "Pickup")
+                {
+                    Debug.Log("picked up " + other.GetComponent<_itemScript>().item.ToString());
+                    List<GameObject> items;
+                    inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
+                    items.Add(other);
+                    Debug.Log("I have " + items.Count + " of them");
+                    other.SetActive(false);
+                }
+            }
         }
-
-
-        //Looking at an interactable object?
-        RaycastHit hit;
-        if (Physics.Raycast(pos, lookdir, out hit, 3f))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButton("AButton"))
         {
-            GameObject other = hit.collider.gameObject;
-            if (other.tag == "Door" && interact)
-            {
-                StartCoroutine(openDoor(other));
-            }
-            if (other.tag == "Pickup" && interact)
-            {
-                Debug.Log("picked up " + other.GetComponent<_itemScript>().item.ToString());
-                List<GameObject> items;
-                inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
-                items.Add(other);
-                Debug.Log("I have " + items.Count + " of them");
-                other.SetActive(false);
-            }
+            GM.TogglePauseMenu();
         }
+
+
+        
 	}
 
     IEnumerator openDoor(GameObject obj)

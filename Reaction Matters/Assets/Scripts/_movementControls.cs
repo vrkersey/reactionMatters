@@ -13,6 +13,8 @@ public class _movementControls : MonoBehaviour {
     private float sensitivityX;
     private float sensitivityY;
 
+    private bool lockMovement = true;
+
     private float minimumX = -360F;
     private float maximumX = 360F;
 
@@ -51,6 +53,9 @@ public class _movementControls : MonoBehaviour {
 
     private void Mouse_Input()
     {
+        if (lockMovement)
+            return;
+
         float rControllerX = Math.Abs(Input.GetAxis("RightJoystickHorizontal")) > 0.05 ? Input.GetAxis("RightJoystickHorizontal") : 0;
         float rControllerY = Math.Abs(Input.GetAxis("RightJoystickVertical")) > 0.05 ? Input.GetAxis("RightJoystickVertical") : 0;
 
@@ -125,4 +130,6 @@ public class _movementControls : MonoBehaviour {
             rb.AddForce(lookDir * movementSpeed * Input.GetAxis("LeftJoystickHorizontal"), ForceMode.Impulse);
         }
     }
+
+    public bool LockMovement { set { lockMovement = value; } }
 }
