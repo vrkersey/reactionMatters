@@ -29,9 +29,9 @@ public class _movementControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        movementSpeed = GameObject.Find("Level Settings").GetComponent<_gameSettings>().movementSpeed;
-        sensitivityX = GameObject.Find("Level Settings").GetComponent<_gameSettings>().sensitivity;
-        sensitivityY = GameObject.Find("Level Settings").GetComponent<_gameSettings>().sensitivity;
+        movementSpeed = GameObject.Find("EventSystem").GetComponent<_gameSettings>().movementSpeed;
+        sensitivityX = GameObject.Find("EventSystem").GetComponent<_gameSettings>().sensitivity;
+        sensitivityY = GameObject.Find("EventSystem").GetComponent<_gameSettings>().sensitivity;
 
 
         player = this.transform.parent.gameObject;
