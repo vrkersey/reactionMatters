@@ -19,7 +19,7 @@ public class _buttonControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        GM = GameObject.Find("EventSystem").GetComponent<_gameSettings>();
+        GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
 
@@ -34,8 +34,8 @@ public class _buttonControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        fireLevel += (fireLevel <= 100 ? Time.deltaTime / 100 : 0);
-        waterLevel += (waterLevel <= 100 ? Time.deltaTime / 100 : 0);
+        fireLevel += (fireLevel <= 1 ? Time.deltaTime / 100 : 0);
+        waterLevel += (waterLevel <= 1 ? Time.deltaTime / 100 : 0);
 
         lookdir = this.transform.Find("Mover").transform.forward;
         pos = this.transform.Find("Mover").transform.position;
@@ -74,6 +74,7 @@ public class _buttonControls : MonoBehaviour {
         {
             //Water
             waterLevel -= Time.deltaTime/20;
+            //https://forum.unity.com/threads/water-gun-water-stream.194098/
         }
 
 
@@ -115,9 +116,9 @@ public class _buttonControls : MonoBehaviour {
 
     private void rotateTool(Transform arm, float toAngle, int speed)
     {
-        Vector3 direction = new Vector3(arm.rotation.eulerAngles.x + toAngle, arm.rotation.eulerAngles.y, arm.rotation.eulerAngles.z);
+        Vector3 direction = new Vector3(toAngle, arm.transform.localEulerAngles.y, arm.transform.localEulerAngles.z);
         Quaternion targetRotation = Quaternion.Euler(direction);
-        arm.rotation = Quaternion.Lerp(arm.rotation, targetRotation, Time.deltaTime * speed);
+        arm.transform.localRotation = Quaternion.Lerp(arm.transform.localRotation, targetRotation, Time.deltaTime * speed);
     }
 
     public float getWaterLevel()

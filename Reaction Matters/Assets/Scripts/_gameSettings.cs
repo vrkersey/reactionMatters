@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class _gameSettings : MonoBehaviour {
 
     [Space(10)]
     [Header("Level things")]
+    public GameObject pauseMenu;
     public float startTimeInMinutes = 5f;
     [Space(10)]
     [Header("Player things")]
@@ -17,18 +19,19 @@ public class _gameSettings : MonoBehaviour {
 
     private float timeRemaining;
     private Text timeDisplay;
-    private GameObject pauseMenu;
     private _movementControls MC;
+    private Transform resumeButton;
+    private Transform quitButton;
 
 	// Use this for initialization
 	void Start () {
         timeRemaining = startTimeInMinutes * 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
 
-        pauseMenu = GameObject.Find("Pause Menu");
-        MC = GameObject.Find("Main Character").GetComponentInChildren<_movementControls>();
-        TogglePauseMenu();
-	}
+        MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
+        resumeButton = pauseMenu.transform.Find("Menu").Find("Resume");
+        quitButton = pauseMenu.transform.Find("Menu").Find("Quit");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,19 +48,29 @@ public class _gameSettings : MonoBehaviour {
         if (pauseMenu.activeInHierarchy)
         {
             pauseMenu.SetActive(false);
+            quitButton.GetComponent<Button>().Select();
             Time.timeScale = 1f;
-            MC.LockMovement = false;
         }
         else
         {
             pauseMenu.SetActive(true);
+            resumeButton.GetComponent<Button>().Select();
             Time.timeScale = 0f;
-            MC.LockMovement = true;
         }
     }
 
     public void ReallyDoNothing()
     {
 
+    }
+
+    public void Reset()
+    {
+        //reset button
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

@@ -13,8 +13,6 @@ public class _movementControls : MonoBehaviour {
     private float sensitivityX;
     private float sensitivityY;
 
-    private bool lockMovement = true;
-
     private float minimumX = -360F;
     private float maximumX = 360F;
 
@@ -29,9 +27,9 @@ public class _movementControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        movementSpeed = GameObject.Find("EventSystem").GetComponent<_gameSettings>().movementSpeed;
-        sensitivityX = GameObject.Find("EventSystem").GetComponent<_gameSettings>().sensitivity;
-        sensitivityY = GameObject.Find("EventSystem").GetComponent<_gameSettings>().sensitivity;
+        movementSpeed = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().movementSpeed;
+        sensitivityX = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
+        sensitivityY = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
 
 
         player = this.transform.parent.gameObject;
@@ -46,16 +44,14 @@ public class _movementControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if (Time.timeScale == 0f)
+            return;
         Mouse_Input();
         Keyboard_Input();
     }
 
     private void Mouse_Input()
     {
-        if (lockMovement)
-            return;
-
         float rControllerX = Math.Abs(Input.GetAxis("RightJoystickHorizontal")) > 0.05 ? Input.GetAxis("RightJoystickHorizontal") : 0;
         float rControllerY = Math.Abs(Input.GetAxis("RightJoystickVertical")) > 0.05 ? Input.GetAxis("RightJoystickVertical") : 0;
 
@@ -130,6 +126,4 @@ public class _movementControls : MonoBehaviour {
             rb.AddForce(lookDir * movementSpeed * Input.GetAxis("LeftJoystickHorizontal"), ForceMode.Impulse);
         }
     }
-
-    public bool LockMovement { set { lockMovement = value; } }
 }
