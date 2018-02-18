@@ -219,7 +219,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\_player.cs" />
+    <Compile Include="Assets\Scripts\_buttonControls.cs" />
+    <Compile Include="Assets\Scripts\_gameSettings.cs" />
+    <Compile Include="Assets\Scripts\_itemScript.cs" />
+    <Compile Include="Assets\Scripts\_movementControls.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
