@@ -16,12 +16,16 @@ public class _buttonControls : MonoBehaviour {
     private float fireLevel = 1f;
     private GameObject waterTool;
     private GameObject fireTool;
+    private Rigidbody rb;
+    private bool grounded;
 
     // Use this for initialization
     void Start () {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
+
+        rb = this.GetComponent<Rigidbody>();
 
         //initialize inventory
         inventory = new Dictionary<string, List<GameObject> >();
@@ -34,13 +38,21 @@ public class _buttonControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        fireLevel += (fireLevel <= 1 ? Time.deltaTime / 100 : 0);
-        waterLevel += (waterLevel <= 1 ? Time.deltaTime / 100 : 0);
+        fireLevel += (fireLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
+        waterLevel += (waterLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
 
         lookdir = this.transform.Find("Mover").transform.forward;
         pos = this.transform.Find("Mover").transform.position;
 
-        if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("AButton"))
+        // jump
+        if (grounded && (Input.GetKey(KeyCode.Space) || Input.GetButtonDown("AButton")))
+        {
+            Vector3 upDir = new Vector3(0, 1, 0);
+            rb.AddForce(upDir * GM.jumpHeight, ForceMode.VelocityChange);
+            grounded = false;
+        }
+
+        if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("BButton"))
         {
             //Looking at an interactable object?
             RaycastHit hit;
@@ -65,20 +77,7 @@ public class _buttonControls : MonoBehaviour {
             GM.TogglePauseMenu();
         }
 
-        if (Input.GetAxis("RightTrigger") > .8)
-        {
-            //Fire
-            fireLevel -= Time.deltaTime/20;
-        }
-        if (Input.GetAxis("LeftTrigger") > .8)
-        {
-            //Water
-            waterLevel -= Time.deltaTime/20;
-            //https://forum.unity.com/threads/water-gun-water-stream.194098/
-        }
-
-
-        if (Input.GetAxis("RightTrigger") > .2)
+        if (Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1))
         {
             //raise Fire
             rotateTool(fireTool.transform, -20, 5);
@@ -89,7 +88,7 @@ public class _buttonControls : MonoBehaviour {
             rotateTool(fireTool.transform, 0, 3);
         }
 
-        if (Input.GetAxis("LeftTrigger") > .2)
+        if (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0))
         {
             //raise Water
             rotateTool(waterTool.transform, -20, 5);
@@ -100,7 +99,25 @@ public class _buttonControls : MonoBehaviour {
             rotateTool(waterTool.transform, 0, 3);
         }
 
+        // find if we should spray/fire or not
+        float angle = 360 - waterTool.transform.localEulerAngles.x;
+        bool spray = angle > 10 && angle < 25;
+        angle = 360 - fireTool.transform.localEulerAngles.x;
+        bool fire = angle > 10 && angle < 25;
 
+        if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
+        {
+            //Fire
+            fireLevel -= Time.deltaTime / GM.toolUseTime;
+        }
+        if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
+        {
+            //Water
+            waterLevel -= Time.deltaTime / GM.toolUseTime;
+            //https://forum.unity.com/threads/water-gun-water-stream.194098/
+        }
+
+        //update UI on tool
         GameObject.Find("fire level").transform.localScale = new Vector3(fireLevel, 1, 1);
         GameObject.Find("fire percentage").GetComponent<Text>().text = ((int)(fireLevel * 100)).ToString() + "%";
         GameObject.Find("water level").transform.localScale = new Vector3(waterLevel, 1, 1);
@@ -128,5 +145,13 @@ public class _buttonControls : MonoBehaviour {
     public float getFireLevel()
     {
         return fireLevel;
+    }
+
+    void OnCollisionStay(Collision c)
+    {
+        if (c.gameObject.CompareTag("Floor"))
+        {
+            grounded = true;
+        }
     }
 }
