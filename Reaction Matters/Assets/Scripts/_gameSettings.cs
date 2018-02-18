@@ -10,11 +10,15 @@ public class _gameSettings : MonoBehaviour {
     [Header("Level things")]
     public GameObject pauseMenu;
     public float startTimeInMinutes = 5f;
+    [Tooltip("Time in Seconds to Fill Tool from 0 to 100")]
+    public float toolRespawnTime = 100f;
+    [Tooltip("Time in Seconds to Use Tool from 100 to 0")]
+    public float toolUseTime = 20f;
     [Space(10)]
     [Header("Player things")]
     public float movementSpeed = 15f;
     public float sensitivity = 15f;
-
+    public float jumpHeight = 2.5f;
     
 
     private float timeRemaining;
