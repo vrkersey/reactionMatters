@@ -61,7 +61,7 @@ public class _itemScript : MonoBehaviour {
         }
     }
 
-    public string[] getItemNames()
+    public static string[] getItemNames()
     {
         return Enum.GetNames(typeof(items));
     }

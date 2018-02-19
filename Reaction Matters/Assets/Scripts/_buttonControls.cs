@@ -29,8 +29,7 @@ public class _buttonControls : MonoBehaviour {
 
         //initialize inventory
         inventory = new Dictionary<string, List<GameObject> >();
-        GameObject pickup = GameObject.FindGameObjectWithTag("Pickup");
-        foreach (string item in pickup.GetComponent<_itemScript>().getItemNames())
+        foreach (string item in _itemScript.getItemNames())
         {
             inventory.Add(item, new List<GameObject>());
         }
