@@ -58,6 +58,7 @@ public class _buttonControls : MonoBehaviour {
             if (Physics.Raycast(pos, lookdir, out hit, 3f))
             {
                 GameObject other = hit.collider.gameObject;
+                Debug.Log(other.name);
                 if (other.tag == "Door")
                 {
                     StartCoroutine(openDoor(other));
