@@ -9,7 +9,8 @@ public class _buttonControls : MonoBehaviour {
     Vector3 pos;
 
     public Dictionary<string, List<GameObject> > inventory;
-
+    public GameObject bulletPrefab;
+    public Transform bulletPosition;
 
     private _gameSettings GM;
     private float waterLevel = 1f;
@@ -114,6 +115,7 @@ public class _buttonControls : MonoBehaviour {
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
+            sprayTool();
             //https://forum.unity.com/threads/water-gun-water-stream.194098/
         }
 
@@ -153,5 +155,13 @@ public class _buttonControls : MonoBehaviour {
         {
             grounded = true;
         }
+    }
+
+    void sprayTool(){
+        GameObject bullet = Instantiate(bulletPrefab, bulletPosition.position, bulletPosition.rotation);
+
+        bullet.GetComponent<Rigidbody>().AddForce(lookdir * .1f, ForceMode.Impulse);
+
+        Destroy(bullet, 2.0f);
     }
 }
