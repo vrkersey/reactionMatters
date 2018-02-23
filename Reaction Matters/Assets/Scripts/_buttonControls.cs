@@ -19,6 +19,7 @@ public class _buttonControls : MonoBehaviour {
     private GameObject fireTool;
     private Rigidbody rb;
     private bool grounded;
+    private GameObject previousBullet;
 
     // Use this for initialization
     void Start () {
@@ -34,10 +35,11 @@ public class _buttonControls : MonoBehaviour {
         {
             inventory.Add(item, new List<GameObject>());
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         fireLevel += (fireLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
         waterLevel += (waterLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
 
@@ -115,7 +117,8 @@ public class _buttonControls : MonoBehaviour {
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
-            sprayTool();
+            if (waterLevel > .01f)
+                sprayTool();
             //https://forum.unity.com/threads/water-gun-water-stream.194098/
         }
 
@@ -159,9 +162,14 @@ public class _buttonControls : MonoBehaviour {
 
     void sprayTool(){
         GameObject bullet = Instantiate(bulletPrefab, bulletPosition.position, bulletPosition.rotation);
+        if (previousBullet != null && Vector3.Distance(previousBullet.transform.position, bullet.transform.position) < .5f)
+        {
+            //draw line
+            previousBullet.GetComponent<_bullet>().DrawLineTo(bullet);
+        }
 
-        bullet.GetComponent<Rigidbody>().AddForce(lookdir * .1f, ForceMode.Impulse);
-
+        bullet.GetComponent<Rigidbody>().AddForce(lookdir * 5f);
         Destroy(bullet, 2.0f);
+        previousBullet = bullet;
     }
 }
