@@ -82,27 +82,27 @@ public class LevelEditor : MonoBehaviour {
                 //EditorGrid[x, z] = box;
 
                 Cell cell = new Cell();
-                GameObject temp = Instantiate(WallPrefab);
+                GameObject temp = PrefabUtility.InstantiatePrefab(WallPrefab) as GameObject;
                 temp.name = "Wall:" + x + "," + z + " X-";
                 temp.transform.position = new Vector3(x * 2, 0, z * 2);
                 temp.transform.parent = Level.transform;
                 cell.WallXMinus = temp;
 
-                temp = Instantiate(WallPrefab);
+                temp = PrefabUtility.InstantiatePrefab(WallPrefab) as GameObject;
                 temp.name = "Wall:" + x + "," + z + " Z+";
                 temp.transform.position = new Vector3(x * 2, 0, z * 2);
                 temp.transform.Rotate(new Vector3(0,90,  0));
                 temp.transform.parent = Level.transform;
                 cell.WallZPlus = temp;
 
-                temp = Instantiate(WallPrefab);
+                temp = PrefabUtility.InstantiatePrefab(WallPrefab) as GameObject;
                 temp.name = "Wall:" + x + "," + z + " X+";
                 temp.transform.position = new Vector3(x * 2, 0, z * 2);
                 temp.transform.Rotate(new Vector3(0,180, 0));
                 temp.transform.parent = Level.transform;
                 cell.WallXPlus = temp;
 
-                temp = Instantiate(WallPrefab);
+                temp = PrefabUtility.InstantiatePrefab(WallPrefab) as GameObject;
                 temp.name = "Wall:" + x + "," + z + " Z-";
                 temp.transform.position = new Vector3(x * 2, 0, z * 2);
                 temp.transform.Rotate(new Vector3(0,-90, 0));
