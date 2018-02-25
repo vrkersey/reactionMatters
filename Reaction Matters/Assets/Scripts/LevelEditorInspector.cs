@@ -19,12 +19,15 @@ public class LevelEditorInspector : Editor
         {
             build.BuildGrid();
         }
-        if (GUILayout.Button("Clear Selection"))
+        if (GUILayout.Button("Undo"))
         {
-            build.ClearSelectedCells();
+            build.Undo();
+        }
+        if (GUILayout.Button("Finish"))
+        {
+            build.Finish();
         }
         gui.MakeWall = EditorGUILayout.Toggle("Build Walls", gui.MakeWall);
-        gui.EditLevel = EditorGUILayout.Toggle("Show Level Editor", gui.EditLevel);
 
         EditorGUILayout.PrefixLabel(" ");
         gui.ShowInputs = EditorGUILayout.Toggle("Show Default Inputs", gui.ShowInputs);

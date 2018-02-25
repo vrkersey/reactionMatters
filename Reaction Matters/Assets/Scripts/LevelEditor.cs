@@ -14,24 +14,16 @@ public class LevelEditor : MonoBehaviour {
         public GameObject WallZMinus;
     }
     public GameObject WallPrefab;
-    public GameObject BoxPrefab;
-    public Material NotSelected;
-    public Material Selected;
     public int SizeX = 5, SizeZ = 5;
    
 
     public bool MakeWall=false;
-    public bool EditLevel = true;
    
     public bool ShowInputs;
-
-
-    private GameObject[,] EditorGrid;
+    
     private Cell[,] CellGrid;
-    private GameObject BoxHolder;
     private GameObject Level;
-
-    private int LastX, LastZ, CurrentX, CurrentZ;
+    private GameObject selectedObj;
     // Use this for initialization
     void Start () {
       
@@ -42,13 +34,16 @@ public class LevelEditor : MonoBehaviour {
 	void Update () {
         try
         {
-
-           GameObject selectedObj= Selection.activeGameObject.transform.parent.gameObject;
-            Debug.Log(selectedObj.name);
-            if(selectedObj.name.Contains("Wall"))
+            if(selectedObj != Selection.activeGameObject.transform.parent.gameObject)
             {
-                selectedObj.SetActive(MakeWall);
+                selectedObj = Selection.activeGameObject.transform.parent.gameObject;
+                Debug.Log(selectedObj.name);
+                if (selectedObj.name.Contains("Wall"))
+                {
+                    selectedObj.SetActive(MakeWall);
+                }
             }
+          
         }
         catch
         {
@@ -56,17 +51,25 @@ public class LevelEditor : MonoBehaviour {
         }
        
     }
+    public void Finish()
+    {
+        foreach(Transform c in Level.transform)
+        {
+            if (!c.gameObject.activeSelf) GameObject.DestroyImmediate(c.gameObject);
+        }
+        DestroyImmediate(gameObject);
+    }
+    public void Undo()
+    {
+        selectedObj.SetActive(!MakeWall);
+    }
     public void BuildGrid()
     {
-        CurrentZ = -1;
-        CurrentX = -1;
-        LastX = -1;
-        LastZ = -1;
+        
 
-        BoxHolder = transform.GetChild(0).gameObject;
+      
         Level = new GameObject();
         Level.name = "Level";
-        EditorGrid = new GameObject[SizeX, SizeZ];
         CellGrid = new Cell[SizeX, SizeZ];
         for (int x=0;x<SizeX;x++)
         {
@@ -114,59 +117,7 @@ public class LevelEditor : MonoBehaviour {
             }
         }
     }
-    public void ClearSelectedCells()
-    {
-        EditorGrid[CurrentX, CurrentZ].GetComponent<Renderer>().material = NotSelected;
-        CurrentZ = -1;
-        CurrentX = -1;
-        LastX = -1;
-        LastZ = -1;
-    }
-    public void MoveToCell(int x,int z)
-    {
-        if(x==CurrentX&&CurrentZ==z)
-        {
-            return;
-        }
-        Debug.Log("select"+x+" "+CurrentX+ " "+LastX);
-       // EditorGrid[x, z].GetComponent<Renderer>().material = Selected;
-        LastX = CurrentX;
-        LastZ = CurrentZ;
-        CurrentX = x;
-        CurrentZ = z;
-        if(LastX!=-1&&CurrentX!=-1)
-        {
-            //   EditorGrid[LastX, LastZ].GetComponent<Renderer>().material = NotSelected;
-            Debug.Log("add");
-            AddRemoveWall();
-        }
-    }
-    private void AddRemoveWall()
-    {
-        Debug.Log(MakeWall);
-        if(CurrentX+1==LastX)
-        {
-            Debug.Log("x+");
-            CellGrid[CurrentX, CurrentZ].WallXMinus.SetActive(MakeWall);
-            CellGrid[LastX, LastZ].WallXPlus.SetActive(MakeWall);
-        }
-        else if(CurrentX - 1 == LastX)
-        {
-            Debug.Log("x-");
-            CellGrid[CurrentX, CurrentZ].WallXPlus.SetActive(MakeWall);
-            CellGrid[LastX, LastZ].WallXMinus.SetActive(MakeWall);
-        }
-        else if (CurrentZ + 1 == LastZ )
-        {
-            Debug.Log("z+");
-            CellGrid[CurrentX, CurrentZ].WallZMinus.SetActive(MakeWall);
-            CellGrid[LastX, LastZ].WallZPlus.SetActive(MakeWall);
-        }
-        else if (CurrentZ - 1 == LastZ)
-        {
-            Debug.Log("z-");
-            CellGrid[CurrentX, CurrentZ].WallZMinus.SetActive(MakeWall);
-            CellGrid[LastX, LastZ].WallZPlus.SetActive(MakeWall);
-        }
-    }
+   
+   
+   
 }

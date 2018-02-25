@@ -19,7 +19,7 @@ using UnityEngine;
         }
     public void SendCoord()
     {
-        editor.MoveToCell(X, Z);
+        //editor.MoveToCell(X, Z);
     }
     }
 
