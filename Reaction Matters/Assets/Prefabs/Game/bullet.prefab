@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1326416988018754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -58,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4d14b8123deb30847a66addbb81bd87e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff932b15a8d88f4082e0c87bbb1845b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterMaterial: {fileID: 2100000, guid: 7884ef1b161b43841891803ec65ed617, type: 2}
+  fireMaterial: {fileID: 2100000, guid: 91ee92e11d4dbe340a77b1a8824e5f4b, type: 2}
 --- !u!135 &135776714586188472
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -18,7 +18,6 @@ public class _movementControls : MonoBehaviour {
     private float rotationX = 0F;
     private float rotationY = 0F;
     private Quaternion originalRotation;
-    private bool grounded;
     private GameObject player;
 
     // Use this for initialization
@@ -75,6 +74,7 @@ public class _movementControls : MonoBehaviour {
 
     private void Keyboard_Input()
     {
+
         Vector3 velocity = rb.velocity;
         velocity.x = 0;
         velocity.z = 0;

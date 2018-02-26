@@ -9,6 +9,18 @@ public class _itemScript : MonoBehaviour {
 
     public items item;
 
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.CompareTag("Water"))
+        {
+            Water();
+        }
+        else if (c.gameObject.CompareTag("Fire"))
+        {
+            Fire();
+        }
+    }
+
     public void Water()
     {
         Debug.Log("you sprayed me with water");
@@ -25,6 +37,7 @@ public class _itemScript : MonoBehaviour {
             case items.MAGNESIUM:
                 break;
             case items.CESIUM:
+                Debug.Log("EXPLOSION!!!");
                 break;
             case items.COPPER:
                 break;

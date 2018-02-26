@@ -4,29 +4,51 @@ using UnityEngine;
 
 public class _bullet : MonoBehaviour {
 
+    public Material waterMaterial;
+    public Material fireMaterial;
+
     private GameObject otherBullet;
     private LineRenderer lineRenderer;
+    private Rigidbody rb;
+    private Material material;
+    private bool water;
 
     // Use this for initialization
     void Start () {
+        rb = this.GetComponent<Rigidbody>();
+        if (this.tag == "Water")
+        {
+            material = waterMaterial;
+            water = true;
+        }
+        else if (this.tag == "Fire")
+        {
+            material = fireMaterial;
+            rb.useGravity = false;
+            water = false;
+        }
+        else
+        {
+            material = new Material(Shader.Find("Particles/Additive"));
+        }
+        this.GetComponent<MeshRenderer>().material = material;
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+        lineRenderer.material = material;
 
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = true;
 
-        lineRenderer.startColor = Color.cyan;
-        lineRenderer.endColor = Color.cyan;
         lineRenderer.startWidth = .02f;
         lineRenderer.endWidth = .02f;
+
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         lineRenderer.SetPosition(0, this.transform.position);
 
-        if (otherBullet != null && Vector3.Distance(transform.position, otherBullet.transform.position) < .25f )
+        if (otherBullet != null && Vector3.Distance(transform.position, otherBullet.transform.position) < .35f )
         {
             //update line
             float dist = Vector3.Distance(transform.position, otherBullet.transform.position);

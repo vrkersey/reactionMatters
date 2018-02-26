@@ -53,9 +53,11 @@ public class LevelEditor : MonoBehaviour {
     }
     public void Finish()
     {
-        foreach(Transform c in Level.transform)
+        GameObject level = GameObject.Find("Level");
+        foreach(Transform c in level.transform)
         {
-            if (!c.gameObject.activeSelf) GameObject.DestroyImmediate(c.gameObject);
+            if (!c.gameObject.activeSelf)
+                GameObject.DestroyImmediate(c.gameObject);
         }
         DestroyImmediate(gameObject);
     }

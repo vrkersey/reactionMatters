@@ -10,7 +10,8 @@ public class _buttonControls : MonoBehaviour {
 
     public Dictionary<string, List<GameObject> > inventory;
     public GameObject bulletPrefab;
-    public Transform bulletPosition;
+    public Transform waterStartPosition;
+    public Transform fireStartPosition;
 
     private _gameSettings GM;
     private float waterLevel = 1f;
@@ -19,7 +20,10 @@ public class _buttonControls : MonoBehaviour {
     private GameObject fireTool;
     private Rigidbody rb;
     private bool grounded;
-    private GameObject previousBullet;
+    private GameObject previousWaterBullet;
+    private GameObject previousFireBullet;
+
+    public bool Grounded { get { return grounded; } }
 
     // Use this for initialization
     void Start () {
@@ -112,13 +116,15 @@ public class _buttonControls : MonoBehaviour {
         {
             //Fire
             fireLevel -= Time.deltaTime / GM.toolUseTime;
+            if (fireLevel > .01f)
+                useTool("Fire");
         }
         if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
             if (waterLevel > .01f)
-                sprayTool();
+                useTool("Water");
             //https://forum.unity.com/threads/water-gun-water-stream.194098/
         }
 
@@ -160,16 +166,28 @@ public class _buttonControls : MonoBehaviour {
         }
     }
 
-    void sprayTool(){
-        GameObject bullet = Instantiate(bulletPrefab, bulletPosition.position, bulletPosition.rotation);
-        if (previousBullet != null && Vector3.Distance(previousBullet.transform.position, bullet.transform.position) < .5f)
+    void useTool(string tool){
+        GameObject bullet = null;
+        float time;
+        if (tool == "Water")
         {
-            //draw line
-            previousBullet.GetComponent<_bullet>().DrawLineTo(bullet);
+            bullet = Instantiate(bulletPrefab, waterStartPosition.position, waterStartPosition.rotation);
+            time = 2.0f;
+            if (previousWaterBullet != null && Vector3.Distance(previousWaterBullet.transform.position, bullet.transform.position) < .5f)
+                previousWaterBullet.GetComponent<_bullet>().DrawLineTo(bullet);
+            previousWaterBullet = bullet;
+        }
+        else
+        {
+            bullet = Instantiate(bulletPrefab, fireStartPosition.position, fireStartPosition.rotation);
+            time = .07f;
+            if (previousFireBullet != null && Vector3.Distance(previousFireBullet.transform.position, bullet.transform.position) < .5f)
+                previousFireBullet.GetComponent<_bullet>().DrawLineTo(bullet);
+            previousFireBullet = bullet;
         }
 
+        bullet.tag = tool;
         bullet.GetComponent<Rigidbody>().AddForce(lookdir * 5f);
-        Destroy(bullet, 2.0f);
-        previousBullet = bullet;
+        Destroy(bullet, time);
     }
 }
