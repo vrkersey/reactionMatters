@@ -221,6 +221,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\_bullet.cs" />
     <Compile Include="Assets\Scripts\_buttonControls.cs" />
+    <Compile Include="Assets\Scripts\_elementMenu.cs" />
     <Compile Include="Assets\Scripts\_gameSettings.cs" />
     <Compile Include="Assets\Scripts\_itemScript.cs" />
     <Compile Include="Assets\Scripts\_movementControls.cs" />
