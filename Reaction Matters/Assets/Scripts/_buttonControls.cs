@@ -14,6 +14,7 @@ public class _buttonControls : MonoBehaviour {
     public Transform fireStartPosition;
 
     private _gameSettings GM;
+    private _elementMenu SelectedItem;
     private float waterLevel = 1f;
     private float fireLevel = 1f;
     private GameObject waterTool;
@@ -30,7 +31,7 @@ public class _buttonControls : MonoBehaviour {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
-
+        SelectedItem = GameObject.Find("Selected Item").GetComponent<_elementMenu>();
         rb = this.GetComponent<Rigidbody>();
 
         //initialize inventory
@@ -58,6 +59,25 @@ public class _buttonControls : MonoBehaviour {
             grounded = false;
         }
 
+        // use item
+        if (Input.GetButtonDown("XButton"))
+        {
+            string selectedItem = SelectedItem.SelectedItem;
+            if (selectedItem != "")
+            {
+                List<GameObject> items;
+                inventory.TryGetValue(selectedItem, out items);
+                if (items.Count > 0)
+                {
+                    GameObject firstItem = items[0];
+                    items.Remove(firstItem);
+                    firstItem.GetComponent<_itemScript>().Use(pos, lookdir);
+                   
+                }
+            }
+        }
+
+        // action button
         if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("BButton"))
         {
             //Looking at an interactable object?
@@ -65,7 +85,7 @@ public class _buttonControls : MonoBehaviour {
             if (Physics.Raycast(pos, lookdir, out hit, 3f))
             {
                 GameObject other = hit.collider.gameObject;
-                Debug.Log(other.name);
+
                 if (other.tag == "Door")
                 {
                     StartCoroutine(openDoor(other));
@@ -79,6 +99,8 @@ public class _buttonControls : MonoBehaviour {
                 }
             }
         }
+
+        // Tool section
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
         {
             GM.TogglePauseMenu();

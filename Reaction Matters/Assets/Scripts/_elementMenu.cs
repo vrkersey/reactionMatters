@@ -16,6 +16,9 @@ public class _elementMenu : MonoBehaviour {
     private Text text;
     private int index = 0;
     private bool locked;
+    private string selectedItem = "";
+
+    public string SelectedItem { get { return selectedItem; } }
 
 	// Use this for initialization
 	void Start () {
@@ -59,6 +62,7 @@ public class _elementMenu : MonoBehaviour {
         if (items.Count == 0)
         {
             text.text = "Empty";
+            selectedItem = "";
         }
         else
         {
@@ -71,6 +75,7 @@ public class _elementMenu : MonoBehaviour {
                 index = index == 0 ? items.Count - 1 : index - 1;
             }
             text.text = items[index];
+            selectedItem = items[index].ToUpper();
         }      
     }
 

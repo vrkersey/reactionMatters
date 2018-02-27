@@ -69,8 +69,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalAxis: LeftJoystickHorizontal
   m_VerticalAxis: LeftJoystickVertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_SubmitButton: AButton
+  m_CancelButton: BButton
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -91,4 +91,4 @@ MonoBehaviour:
   toolUseTime: 20
   movementSpeed: 15
   sensitivity: 15
-  jumpHeight: 2.5
+  jumpHeight: 5
