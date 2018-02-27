@@ -673,21 +673,6 @@ Prefab:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 263999581}
-    - target: {fileID: 114373128160655244, guid: 8fb7086aa18d6644689d97e79fb8a763,
-        type: 2}
-      propertyPath: m_SubmitButton
-      value: AButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 114373128160655244, guid: 8fb7086aa18d6644689d97e79fb8a763,
-        type: 2}
-      propertyPath: m_CancelButton
-      value: BButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 114579096999026658, guid: 8fb7086aa18d6644689d97e79fb8a763,
-        type: 2}
-      propertyPath: jumpHeight
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fb7086aa18d6644689d97e79fb8a763, type: 2}
   m_IsPrefabParent: 0
