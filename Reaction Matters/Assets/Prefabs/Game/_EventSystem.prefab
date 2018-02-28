@@ -89,6 +89,6 @@ MonoBehaviour:
   startTimeInMinutes: 5
   toolRespawnTime: 100
   toolUseTime: 20
-  movementSpeed: 15
-  sensitivity: 15
-  jumpHeight: 5
+  movementSpeed: 5
+  sensitivity: 10
+  jumpHeight: 4
