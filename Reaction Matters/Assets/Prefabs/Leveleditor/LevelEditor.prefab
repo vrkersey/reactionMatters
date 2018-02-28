@@ -52,7 +52,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WallPrefab: {fileID: 1507828656189906, guid: e4ef3157a024bc041acb25a6de872e2f, type: 2}
-  SizeX: 5
-  SizeZ: 5
-  MakeWall: 0
+  CornerOutPrefab: {fileID: 1079097445701964, guid: a77d8675d2ac5b148ba3e6b30026aefe,
+    type: 2}
+  CornerInPrefab: {fileID: 1436033255337520, guid: e2666ceb6c3b4c84a83241209e74c5f6,
+    type: 2}
+  CornerPrefab: {fileID: 1630726175924820, guid: 302b7314eb540b049a736fbcf675848c,
+    type: 2}
+  SizeX: 17
+  SizeZ: 13
+  MakeWall: 1
   ShowInputs: 1
+  Level: {fileID: 0}

@@ -27,6 +27,22 @@ public class LevelEditorInspector : Editor
         {
             build.Finish();
         }
+        if (GUILayout.Button("Add Corners"))
+        {
+            build.Cornerfy();
+        }
+        if (GUILayout.Button("Clean Corners"))
+        {
+            build.ClearCorners();
+        }
+        if (GUILayout.Button("Show Corners"))
+        {
+            build.ActiveCorners();
+        }
+        if (GUILayout.Button("ReBuild Grid"))
+        {
+            build.Rebuild();
+        }
         gui.MakeWall = EditorGUILayout.Toggle("Build Walls", gui.MakeWall);
 
         EditorGUILayout.PrefixLabel(" ");
