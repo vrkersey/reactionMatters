@@ -44,7 +44,7 @@ public class _buttonControls : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         fireLevel += (fireLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
         waterLevel += (waterLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
 
@@ -60,7 +60,7 @@ public class _buttonControls : MonoBehaviour {
         }
 
         // use item
-        if (Input.GetButtonDown("XButton"))
+        if (Input.GetButtonDown("XButton") || Input.GetKeyDown(KeyCode.Q))
         {
             string selectedItem = SelectedItem.SelectedItem;
             if (selectedItem != "")
@@ -70,9 +70,9 @@ public class _buttonControls : MonoBehaviour {
                 if (items.Count > 0)
                 {
                     GameObject firstItem = items[0];
-                    items.Remove(firstItem);
-                    firstItem.GetComponent<_itemScript>().Use(pos, lookdir);
-                   
+                    if (firstItem.GetComponent<_itemScript>().Use(pos, lookdir))
+                        items.Remove(firstItem); //only remove if it gets used
+
                 }
             }
         }

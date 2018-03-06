@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class _itemScript : MonoBehaviour {
 
-    public enum items { IRON, ALUMINUM, MERCURY, SILVER, MAGNESIUM, CESIUM, COPPER, SULPHUR, ZINC };
+    public enum items { IRON, ALUMINUM, MERCURY, SILVER, MAGNESIUM, CESIUM, COPPER, SULPHUR, ZINC, THERMITE, BATTERY, COPPER_WIRE, LIQUID_NITROGEN};
 
     public items item;
+    public GameObject explosion;
 
     void OnCollisionEnter(Collision c)
     {
@@ -26,24 +27,9 @@ public class _itemScript : MonoBehaviour {
         Debug.Log("you sprayed me with water");
         switch (item)
         {
-            case items.IRON:
-                break;
-            case items.ALUMINUM:
-                break;
-            case items.MERCURY:
-                break;
-            case items.SILVER:
-                break;
-            case items.MAGNESIUM:
-                break;
             case items.CESIUM:
-                Debug.Log("EXPLOSION!!!");
-                break;
-            case items.COPPER:
-                break;
-            case items.SULPHUR:
-                break;
-            case items.ZINC:
+                Destroy(gameObject);
+                explosion.SetActive(true);
                 break;
         }
     }
@@ -53,74 +39,60 @@ public class _itemScript : MonoBehaviour {
         Debug.Log("you lit it on fire");
         switch (item)
         {
-            case items.IRON:
-                break;
-            case items.ALUMINUM:
-                break;
-            case items.MERCURY:
-                break;
-            case items.SILVER:
-                break;
-            case items.MAGNESIUM:
-                break;
-            case items.CESIUM:
-                break;
-            case items.COPPER:
-                break;
-            case items.SULPHUR:
-                break;
-            case items.ZINC:
+            case items.THERMITE:
                 break;
         }
     }
 
-    public void Use(Vector3 posOfUse, Vector3 lookDir)
+    public bool Use(Vector3 posOfUse, Vector3 lookDir)
     {
         Debug.Log("you used this item");
         switch (item)
         {
-            case items.IRON:
+            case items.THERMITE:
+                //place on wall/door
                 break;
-            case items.ALUMINUM:
-                break;
-            case items.MERCURY:
-                break;
-            case items.SILVER:
-                break;
-            case items.MAGNESIUM:
-                break;
-            case items.CESIUM:
-                break;
-            case items.COPPER:
-                break;
-            case items.SULPHUR:
-                break;
-            case items.ZINC:
-                break;
+            default:
+                return drop(posOfUse, lookDir);
         }
-        drop(posOfUse, lookDir); 
+
+        return false;
     }
 
-    private void drop(Vector3 posOfUse, Vector3 lookDir)
+    private bool drop(Vector3 posOfUse, Vector3 lookDir)
     {
         lookDir.y = 0;
-
-        Vector3 placeLocation = posOfUse + lookDir * 1.5f;
-
         RaycastHit hit;
-        if (Physics.Raycast(placeLocation, -Vector3.up, out hit, 3f))
+        Vector3 placeLocation = Vector3.zero;
+
+        if (Physics.Raycast(posOfUse, lookDir, out hit, 1.5f))
+        {
+            placeLocation = hit.point;
+        }
+        else
+        {
+            placeLocation = posOfUse + lookDir * 1.5f;
+        }
+
+        if (Physics.Raycast(placeLocation, -Vector3.up, out hit, 4f))
         {
             placeLocation = hit.point;
             placeLocation.y += this.GetComponent<SphereCollider>().radius;
         }
-        else if (Physics.Raycast(posOfUse, -Vector3.up, out hit, 3f))
+        else if (Physics.Raycast(posOfUse, -Vector3.up, out hit, 4f))
         {
             placeLocation = hit.point;
             placeLocation.y += this.GetComponent<SphereCollider>().radius;
+        }
+        else
+        {
+            return false;
         }
 
         transform.position = placeLocation;
         this.gameObject.SetActive(true);
+
+        return true;
     }
 
     private RaycastHit doRayCast(Vector3 pos, Vector3 dir)

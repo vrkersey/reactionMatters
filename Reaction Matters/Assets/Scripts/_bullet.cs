@@ -42,6 +42,8 @@ public class _bullet : MonoBehaviour {
         lineRenderer.startWidth = .02f;
         lineRenderer.endWidth = .02f;
 
+        lineRenderer.numCapVertices = 8;
+
     }
 	
 	// Update is called once per frame
