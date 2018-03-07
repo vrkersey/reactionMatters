@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reaction Matters", "Reaction Matters.csproj", "{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reaction Matters.Editor", "Reaction Matters.Editor.csproj", "{9C74F484-5ED7-D535-D4C6-2B430A76C4E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C74F484-5ED7-D535-D4C6-2B430A76C4E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C74F484-5ED7-D535-D4C6-2B430A76C4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C74F484-5ED7-D535-D4C6-2B430A76C4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C74F484-5ED7-D535-D4C6-2B430A76C4E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
