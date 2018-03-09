@@ -27,6 +27,8 @@ public class _buttonControls : MonoBehaviour {
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
     private ParticleSystem smokePS;
+    private AudioSource waterAudio;
+    private AudioSource fireAudio;
 
     public bool Grounded { get { return grounded; } }
 
@@ -40,6 +42,9 @@ public class _buttonControls : MonoBehaviour {
         //steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
         firePS = GameObject.Find("Fire").GetComponent<ParticleSystem>();
         smokePS = GameObject.Find("Smoke").GetComponent<ParticleSystem>();
+
+        waterAudio = GameObject.Find("Water Audio").GetComponent<AudioSource>();
+        fireAudio = GameObject.Find("Fire Audio").GetComponent<AudioSource>();
 
         SelectedItem = GameObject.Find("Selected Item").GetComponent<_elementMenu>();
         rb = this.GetComponent<Rigidbody>();
@@ -61,16 +66,16 @@ public class _buttonControls : MonoBehaviour {
         lookdir = this.transform.Find("Mover").transform.forward;
         pos = this.transform.Find("Mover").transform.position;
 
-        // jump
-        if (grounded && (Input.GetKey(KeyCode.Space) || Input.GetButtonDown("AButton")))
-        {
-            Vector3 upDir = new Vector3(0, 1, 0);
-            rb.AddForce(upDir * GM.jumpHeight, ForceMode.VelocityChange);
-            grounded = false;
-        }
+        //// jump
+        //if (grounded && (Input.GetKey(KeyCode.Space) || Input.GetButtonDown("AButton")))
+        //{
+        //    Vector3 upDir = new Vector3(0, 1, 0);
+        //    rb.AddForce(upDir * GM.jumpHeight, ForceMode.VelocityChange);
+        //    grounded = false;
+        //}
 
         // use item
-        if (Input.GetButtonDown("XButton") || Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("BButton") || Input.GetKeyDown(KeyCode.Q))
         {
             string selectedItem = SelectedItem.SelectedItem;
             if (selectedItem != "")
@@ -88,7 +93,7 @@ public class _buttonControls : MonoBehaviour {
         }
 
         // action button
-        if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("BButton"))
+        if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("AButton"))
         {
             //Looking at an interactable object?
             RaycastHit hit;
@@ -150,6 +155,7 @@ public class _buttonControls : MonoBehaviour {
             fireLevel -= Time.deltaTime / GM.toolUseTime;
             if (fireLevel > .01f && !firePS.isPlaying)
             {
+                fireAudio.Play();
                 firePS.Play();
                 //smokePS.Play();
             }
@@ -157,6 +163,7 @@ public class _buttonControls : MonoBehaviour {
         else
         {
             firePS.Stop();
+            fireAudio.Stop();
             //smokePS.Stop();
         }
         if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
@@ -165,12 +172,14 @@ public class _buttonControls : MonoBehaviour {
             waterLevel -= Time.deltaTime / GM.toolUseTime;
             if (waterLevel > .01f && !waterPS.isPlaying)
             {
+                waterAudio.Play();
                 waterPS.Play();
             }
         }
         else
         {
             waterPS.Stop();
+            waterAudio.Stop();
         }
 
         //update UI on tool

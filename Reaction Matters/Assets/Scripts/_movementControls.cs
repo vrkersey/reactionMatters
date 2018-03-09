@@ -19,6 +19,8 @@ public class _movementControls : MonoBehaviour {
     private float rotationY = 0F;
     private Quaternion originalRotation;
     private GameObject player;
+    private AudioSource walkAudio;
+    private bool audioStopped;
 
     // Use this for initialization
     void Start () {
@@ -26,6 +28,7 @@ public class _movementControls : MonoBehaviour {
         sensitivityX = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
         sensitivityY = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
         jumpMultiplier = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().jumpHeight;
+        walkAudio = GameObject.Find("Walk Audio").GetComponent<AudioSource>();
 
         player = this.transform.parent.gameObject;
 
@@ -74,6 +77,7 @@ public class _movementControls : MonoBehaviour {
 
     private void Keyboard_Input()
     {
+        bool moving = false;
 
         Vector3 velocity = rb.velocity;
         velocity.x = 0;
@@ -83,24 +87,28 @@ public class _movementControls : MonoBehaviour {
         //movements Keyboard
         if (Input.GetKey(KeyCode.W))
         {
+            moving = true;
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
             rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.S))
         {
+            moving = true;
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
             rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.A))
         {
+            moving = true;
             Vector3 lookDir = this.transform.right;
             lookDir.y = 0;
             rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.D))
         {
+            moving = true;
             Vector3 lookDir = this.transform.right;
             lookDir.y = 0;
             rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
@@ -110,6 +118,7 @@ public class _movementControls : MonoBehaviour {
         // left joystick movement
         if (Math.Abs(Input.GetAxis("LeftJoystickVertical")) > 0)
         {
+            moving = true;
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
             rb.AddForce(lookDir * movementSpeed * (-Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
@@ -117,9 +126,38 @@ public class _movementControls : MonoBehaviour {
 
         if (Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0)
         {
+            moving = true;
             Vector3 lookDir = this.transform.right;
             lookDir.y = 0;
             rb.AddForce(lookDir * movementSpeed * Input.GetAxis("LeftJoystickHorizontal"), ForceMode.Impulse);
         }
+
+        if (moving && !walkAudio.isPlaying)
+        {
+            audioStopped = false;
+            walkAudio.Play();
+            Debug.Log("moving");
+        }
+        else if (!moving && !audioStopped)
+        {
+            audioStopped = true;
+            StartCoroutine(FadeOut(walkAudio, .3f));
+            Debug.Log("not moving");
+        }
+    }
+
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
     }
 }

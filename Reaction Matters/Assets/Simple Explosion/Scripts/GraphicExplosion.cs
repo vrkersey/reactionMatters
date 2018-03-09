@@ -5,10 +5,10 @@ using System.Collections;
 public class GraphicExplosion : MonoBehaviour {
     public float loopduration;
     private float ramptime=0;
-    private float alphatime=1;	
-
+    private float alphatime=1;
+    private bool first = true;
 	void Update () {
-		Destroy(gameObject, 7);
+		Destroy(gameObject, 10);
         ramptime+=Time.deltaTime*2;
         alphatime-=Time.deltaTime;		
         float r = Mathf.Sin((Time.time / loopduration) * (2 * Mathf.PI)) * 0.5f + 0.25f;
@@ -18,10 +18,18 @@ public class GraphicExplosion : MonoBehaviour {
         r *= correction;
         g *= correction;
         b *= correction;
-        GetComponent<Renderer>().material.SetVector("_ChannelFactor", new Vector4(r,g,b,0));
-        GetComponent<Renderer>().material.SetVector("_Range", new Vector4(ramptime,0,0,0));
-        GetComponent<Renderer>().material.SetFloat("_ClipRange", alphatime);
+        MeshRenderer meshR = GetComponent<MeshRenderer>();
+        if (meshR != null)
+        {
+            GetComponent<Renderer>().material.SetVector("_ChannelFactor", new Vector4(r, g, b, 0));
+            GetComponent<Renderer>().material.SetVector("_Range", new Vector4(ramptime, 0, 0, 0));
+            GetComponent<Renderer>().material.SetFloat("_ClipRange", alphatime);
+        }
+        if (first)
+        {
+            first = false;
+            Destroy(meshR, .3f);
+        }
 
-
-	}
+    }
 }

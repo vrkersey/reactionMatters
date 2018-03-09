@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class _itemScript : MonoBehaviour {
@@ -9,6 +10,7 @@ public class _itemScript : MonoBehaviour {
 
     public items item;
     public GameObject explosion;
+    public int delay = 20;
 
     void OnCollisionEnter(Collision c)
     {
@@ -40,8 +42,12 @@ public class _itemScript : MonoBehaviour {
         switch (item)
         {
             case items.CESIUM:
-                Destroy(gameObject);
-                explosion.SetActive(true);
+                if (delay-- <= 0)
+                {
+                    GameObject temp = PrefabUtility.InstantiatePrefab(explosion) as GameObject;
+                    temp.transform.position = transform.position;
+                    Destroy(gameObject);
+                }
                 break;
         }
     }
