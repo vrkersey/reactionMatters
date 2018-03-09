@@ -22,6 +22,18 @@ public class _itemScript : MonoBehaviour {
         }
     }
 
+    void OnParticleCollision(GameObject other)
+    {
+        if (other.name == "Fire")
+        {
+            Fire();
+        }
+        else if (other.name == "Water")
+        {
+            Water();
+        }
+    }
+
     public void Water()
     {
         Debug.Log("you sprayed me with water");

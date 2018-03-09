@@ -23,6 +23,10 @@ public class _buttonControls : MonoBehaviour {
     private bool grounded;
     private GameObject previousWaterBullet;
     private GameObject previousFireBullet;
+    private ParticleSystem waterPS;
+    private ParticleSystem steamPS;
+    private ParticleSystem firePS;
+    private ParticleSystem smokePS;
 
     public bool Grounded { get { return grounded; } }
 
@@ -31,6 +35,12 @@ public class _buttonControls : MonoBehaviour {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
+
+        waterPS = GameObject.Find("Water").GetComponent<ParticleSystem>();
+        //steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
+        firePS = GameObject.Find("Fire").GetComponent<ParticleSystem>();
+        smokePS = GameObject.Find("Smoke").GetComponent<ParticleSystem>();
+
         SelectedItem = GameObject.Find("Selected Item").GetComponent<_elementMenu>();
         rb = this.GetComponent<Rigidbody>();
 
@@ -138,16 +148,29 @@ public class _buttonControls : MonoBehaviour {
         {
             //Fire
             fireLevel -= Time.deltaTime / GM.toolUseTime;
-            if (fireLevel > .01f)
-                useTool("Fire");
+            if (fireLevel > .01f && !firePS.isPlaying)
+            {
+                firePS.Play();
+                //smokePS.Play();
+            }
+        }
+        else
+        {
+            firePS.Stop();
+            //smokePS.Stop();
         }
         if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
-            if (waterLevel > .01f)
-                useTool("Water");
-            //https://forum.unity.com/threads/water-gun-water-stream.194098/
+            if (waterLevel > .01f && !waterPS.isPlaying)
+            {
+                waterPS.Play();
+            }
+        }
+        else
+        {
+            waterPS.Stop();
         }
 
         //update UI on tool
@@ -186,30 +209,5 @@ public class _buttonControls : MonoBehaviour {
         {
             grounded = true;
         }
-    }
-
-    void useTool(string tool){
-        GameObject bullet = null;
-        float time;
-        if (tool == "Water")
-        {
-            bullet = Instantiate(bulletPrefab, waterStartPosition.position, waterStartPosition.rotation);
-            time = 2.0f;
-            if (previousWaterBullet != null && Vector3.Distance(previousWaterBullet.transform.position, bullet.transform.position) < .5f)
-                previousWaterBullet.GetComponent<_bullet>().DrawLineTo(bullet);
-            previousWaterBullet = bullet;
-        }
-        else
-        {
-            bullet = Instantiate(bulletPrefab, fireStartPosition.position, fireStartPosition.rotation);
-            time = .07f;
-            if (previousFireBullet != null && Vector3.Distance(previousFireBullet.transform.position, bullet.transform.position) < .5f)
-                previousFireBullet.GetComponent<_bullet>().DrawLineTo(bullet);
-            previousFireBullet = bullet;
-        }
-
-        bullet.tag = tool;
-        bullet.GetComponent<Rigidbody>().AddForce(lookdir * 5f);
-        Destroy(bullet, time);
     }
 }
