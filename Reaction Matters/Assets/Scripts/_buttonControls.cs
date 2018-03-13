@@ -39,7 +39,7 @@ public class _buttonControls : MonoBehaviour {
         fireTool = GameObject.Find("Fire Arm");
 
         waterPS = GameObject.Find("Water").GetComponent<ParticleSystem>();
-        //steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
+        steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
         firePS = GameObject.Find("Fire").GetComponent<ParticleSystem>();
         smokePS = GameObject.Find("Smoke").GetComponent<ParticleSystem>();
 
@@ -115,78 +115,23 @@ public class _buttonControls : MonoBehaviour {
             }
         }
 
-        // Tool section
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
         {
             GM.TogglePauseMenu();
         }
 
-        if (Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1))
+        // Tool section
+
+        if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)) && (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0)))
         {
-            //raise Fire
-            rotateTool(fireTool.transform, -20, 5);
+            toolAction(true);
         }
         else
         {
-            //lower Fire
-            rotateTool(fireTool.transform, 0, 3);
+            toolAction(false);
         }
 
-        if (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0))
-        {
-            //raise Water
-            rotateTool(waterTool.transform, -20, 5);
-        }
-        else
-        {
-            //lower Water
-            rotateTool(waterTool.transform, 0, 3);
-        }
-
-        // find if we should spray/fire or not
-        float angle = 360 - waterTool.transform.localEulerAngles.x;
-        bool spray = angle > 10 && angle < 25;
-        angle = 360 - fireTool.transform.localEulerAngles.x;
-        bool fire = angle > 10 && angle < 25;
-
-        if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
-        {
-            //Fire
-            fireLevel -= Time.deltaTime / GM.toolUseTime;
-            if (fireLevel > .01f && !firePS.isPlaying)
-            {
-                fireAudio.Play();
-                firePS.Play();
-                //smokePS.Play();
-            }
-        }
-        else
-        {
-            firePS.Stop();
-            fireAudio.Stop();
-            //smokePS.Stop();
-        }
-        if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
-        {
-            //Water
-            waterLevel -= Time.deltaTime / GM.toolUseTime;
-            if (waterLevel > .01f && !waterPS.isPlaying)
-            {
-                waterAudio.Play();
-                waterPS.Play();
-            }
-        }
-        else
-        {
-            waterPS.Stop();
-            waterAudio.Stop();
-        }
-
-        //update UI on tool
-        GameObject.Find("fire level").transform.localScale = new Vector3(fireLevel, 1, 1);
-        GameObject.Find("fire percentage").GetComponent<Text>().text = ((int)(fireLevel * 100)).ToString() + "%";
-        GameObject.Find("water level").transform.localScale = new Vector3(waterLevel, 1, 1);
-        GameObject.Find("water percentage").GetComponent<Text>().text = ((int)(waterLevel * 100)).ToString() + "%";
+        
     }
 
     IEnumerator openDoor(GameObject obj)
@@ -218,5 +163,91 @@ public class _buttonControls : MonoBehaviour {
         {
             grounded = true;
         }
+    }
+
+    private void toolAction(bool both)
+    {
+        int fireDirection = both ? -1 : 1;
+
+        if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)) && !both)
+        {
+            //raise Fire
+            rotateTool(fireTool.transform, -20, 5);
+        }
+        else
+        {
+            //lower Fire
+            rotateTool(fireTool.transform, 0, 3);
+        }
+
+        if (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0))
+        {
+            //raise Water
+            rotateTool(waterTool.transform, -20, 5);
+        }
+        else
+        {
+            //lower Water
+            rotateTool(waterTool.transform, 0, 3);
+        }
+
+        // find if we should spray/fire or not
+        float angle = 360 - waterTool.transform.localEulerAngles.x;
+        bool spray = angle > 10 && angle < 25;
+        angle = 360 - fireTool.transform.localEulerAngles.x;
+        bool fire = angle > 10 && angle < 25;
+
+        if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
+        {
+            //Water
+            waterLevel -= Time.deltaTime / GM.toolUseTime;
+            
+
+            if (waterLevel > .01f && !waterPS.isEmitting)
+            {
+                waterAudio.Play();
+                waterPS.Play();
+            }
+        }
+        else
+        {
+            waterPS.Stop();
+            waterAudio.Stop();
+        }
+
+
+        if (both)
+        {
+            fireLevel -= Time.deltaTime / GM.toolUseTime;
+            firePS.Stop();
+            if (!steamPS.isEmitting)
+                steamPS.Play();
+            if (!fireAudio.isPlaying)
+                fireAudio.Play();
+        }
+        else if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
+        {
+            //Fire
+            fireLevel -= Time.deltaTime / GM.toolUseTime;
+            if (fireLevel > .01f && !firePS.isEmitting)
+            {
+                fireAudio.Play();
+                firePS.Play();
+                //smokePS.Play();
+            }
+        }
+        else
+        {
+            firePS.Stop();
+            fireAudio.Stop();
+            if (steamPS.isPlaying)
+                steamPS.Stop();
+        }
+
+        //update UI on tool
+        GameObject.Find("fire level").transform.localScale = new Vector3(fireLevel, 1, 1);
+        GameObject.Find("fire percentage").GetComponent<Text>().text = ((int)(fireLevel * 100)).ToString() + "%";
+        GameObject.Find("water level").transform.localScale = new Vector3(waterLevel, 1, 1);
+        GameObject.Find("water percentage").GetComponent<Text>().text = ((int)(waterLevel * 100)).ToString() + "%";
     }
 }
