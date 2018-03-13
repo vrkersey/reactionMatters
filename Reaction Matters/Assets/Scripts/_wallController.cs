@@ -17,8 +17,7 @@ public class _wallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        heat = heat - tempDispersion > 0 ? heat - tempDispersion : heat;
-        Debug.Log(heat);
+        heat = heat - tempDispersion > 0 ? heat - tempDispersion : 0;
         if (meltTime < heat)
             this.gameObject.SetActive(false);
 	}

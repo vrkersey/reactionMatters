@@ -12,6 +12,25 @@ public class _itemScript : MonoBehaviour {
     public GameObject explosion;
     public int delay = 20;
 
+    private List<items> useable;
+    private List<items> materials;
+    private Material outlineGlow;
+
+    public bool Useable { get { return useable.Contains(item); } }
+    public bool Material { get { return materials.Contains(item); } }
+
+    void Start()
+    {
+        useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
+        materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
+        outlineGlow = this.gameObject.GetComponent<MeshRenderer>().materials[1];
+    }
+
+    void Update()
+    {
+        outlineGlow.SetFloat("_Outline", Mathf.PingPong(Time.time/5, 0.2f));
+    }
+
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.CompareTag("Water"))
@@ -38,7 +57,6 @@ public class _itemScript : MonoBehaviour {
 
     public void Water()
     {
-        Debug.Log("you sprayed me with water");
         switch (item)
         {
             case items.CESIUM:
@@ -54,7 +72,6 @@ public class _itemScript : MonoBehaviour {
 
     public void Fire()
     {
-        Debug.Log("you lit it on fire");
         switch (item)
         {
             case items.THERMITE:
@@ -64,7 +81,6 @@ public class _itemScript : MonoBehaviour {
 
     public bool Use(Vector3 posOfUse, Vector3 lookDir)
     {
-        Debug.Log("you used this item");
         switch (item)
         {
             case items.THERMITE:
