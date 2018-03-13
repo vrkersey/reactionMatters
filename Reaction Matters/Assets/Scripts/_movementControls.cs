@@ -136,13 +136,11 @@ public class _movementControls : MonoBehaviour {
         {
             audioStopped = false;
             walkAudio.Play();
-            Debug.Log("moving");
         }
         else if (!moving && !audioStopped)
         {
             audioStopped = true;
             StartCoroutine(FadeOut(walkAudio, .3f));
-            Debug.Log("not moving");
         }
     }
 
