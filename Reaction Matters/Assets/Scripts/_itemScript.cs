@@ -23,12 +23,14 @@ public class _itemScript : MonoBehaviour {
     {
         useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
         materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
-        outlineGlow = this.gameObject.GetComponent<MeshRenderer>().materials[1];
+        MeshRenderer mr = this.gameObject.GetComponent<MeshRenderer>();
+        //outlineGlow = this.gameObject.GetComponent<MeshRenderer>().materials[1];
     }
 
     void Update()
     {
-        outlineGlow.SetFloat("_Outline", Mathf.PingPong(Time.time/5, 0.2f));
+        if (outlineGlow != null)
+            outlineGlow.SetFloat("_itemScriptOutline", Mathf.PingPong(Time.time/5, 0.2f));
     }
 
     void OnCollisionEnter(Collision c)
