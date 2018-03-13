@@ -267,20 +267,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Reaction Matters.Plugins.csproj">
-      <Project>{E18CDE39-BB04-83DF-6032-96159FF833CB}</Project>
-      <Name>Reaction Matters.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="Reaction Matters.csproj">
       <Project>{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}</Project>
       <Name>Reaction Matters</Name>
+    </ProjectReference>
+    <ProjectReference Include="Reaction Matters.Plugins.csproj">
+      <Project>{E18CDE39-BB04-83DF-6032-96159FF833CB}</Project>
+      <Name>Reaction Matters.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Materials\AdditiveTintable.shader" />
+    <None Include="Assets\Shaders\AdditiveTintable.shader" />
+    <None Include="Assets\Shaders\Outline.shader" />
     <None Include="Assets\Simple Explosion\Shader\Exposion.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />

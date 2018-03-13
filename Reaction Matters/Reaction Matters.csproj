@@ -225,12 +225,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\_bullet.cs" />
     <Compile Include="Assets\Scripts\_buttonControls.cs" />
     <Compile Include="Assets\Scripts\_elementMenu.cs" />
     <Compile Include="Assets\Scripts\_gameSettings.cs" />
     <Compile Include="Assets\Scripts\_itemScript.cs" />
     <Compile Include="Assets\Scripts\_movementControls.cs" />
+    <Compile Include="Assets\Scripts\_wallController.cs" />
     <Compile Include="Assets\Scripts\CornerButonInspector.cs" />
     <Compile Include="Assets\Scripts\CornerButton.cs" />
     <Compile Include="Assets\Scripts\LevelEditor.cs" />
@@ -242,7 +242,8 @@
     <Compile Include="Assets\Simple Explosion\Scripts\PhysicalExplosion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Materials\AdditiveTintable.shader" />
+    <None Include="Assets\Shaders\AdditiveTintable.shader" />
+    <None Include="Assets\Shaders\Outline.shader" />
     <None Include="Assets\Simple Explosion\Shader\Exposion.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
