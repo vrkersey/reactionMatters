@@ -267,13 +267,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Reaction Matters.csproj">
-      <Project>{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}</Project>
-      <Name>Reaction Matters</Name>
-    </ProjectReference>
     <ProjectReference Include="Reaction Matters.Plugins.csproj">
       <Project>{E18CDE39-BB04-83DF-6032-96159FF833CB}</Project>
       <Name>Reaction Matters.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="Reaction Matters.csproj">
+      <Project>{DD64B564-50A6-64D8-FB8C-E5668F3DDB2C}</Project>
+      <Name>Reaction Matters</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
