@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DF7847EE-4DAE-E17E-4BCE-AB3D3EAC45B3}</ProjectGuid>
+    <ProjectGuid>{4586CCE1-CC22-B031-43EF-55FB8A858501}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -51,66 +51,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\BloomComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\DitheringComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\FogComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\FxaaComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\GrainComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\TaaComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\UserLutComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Components\VignetteComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\BloomModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\DitheringModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\FogModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\GrainModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\UserLutModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Models\VignetteModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\PostProcessingComponent.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\PostProcessingContext.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\PostProcessingModel.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\PostProcessingProfile.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
-     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
-     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-     <Compile Include="Assets\Scripts\_buttonControls.cs" />
-     <Compile Include="Assets\Scripts\_elementMenu.cs" />
-     <Compile Include="Assets\Scripts\_gameSettings.cs" />
-     <Compile Include="Assets\Scripts\_itemScript.cs" />
-     <Compile Include="Assets\Scripts\_movementControls.cs" />
-     <Compile Include="Assets\Scripts\_wallController.cs" />
-     <Compile Include="Assets\Scripts\CornerButonInspector.cs" />
-     <Compile Include="Assets\Scripts\CornerButton.cs" />
-     <Compile Include="Assets\Scripts\LevelEditor.cs" />
-     <Compile Include="Assets\Scripts\LevelEditorBox.cs" />
-     <Compile Include="Assets\Scripts\LevelEditorInspector.cs" />
-     <Compile Include="Assets\Simple Explosion\Demo\Script (for Demo)\ExplosionControl.cs" />
-     <Compile Include="Assets\Simple Explosion\Scripts\GraphicExplosion.cs" />
-     <Compile Include="Assets\Simple Explosion\Scripts\light_control.cs" />
-     <Compile Include="Assets\Simple Explosion\Scripts\PhysicalExplosion.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\AfterburnerPhysicsForce.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionPhysicsForce.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Explosive.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\FireLight.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\Hose.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AlphaButtonClickMask.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMobileShaderSwitch.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\AutoMoveAndRotate.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CameraRefocus.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\CurveControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DragRigidbody.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\DynamicShadowSettings.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\EventSystemChecker.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FollowTarget.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ForcedReset.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FOVKick.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\FPSCounter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\LerpControlledBob.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ObjectResetter.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\PlatformSpecificContent.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleActivatorMenu.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SimpleMouseRotator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\SmoothFollow.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectActivator.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\TimedObjectDestructor.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointCircuit.cs" />
+     <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
      <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Fog.shader" />
@@ -193,10 +178,6 @@
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/Users/SightBlind3r/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{4586CCE1-CC22-B031-43EF-55FB8A858501}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
