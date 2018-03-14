@@ -115,11 +115,6 @@ public class _buttonControls : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
-        {
-            GM.TogglePauseMenu();
-        }
-
         // Tool section
 
         if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)) && (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0)))

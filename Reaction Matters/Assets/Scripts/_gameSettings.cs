@@ -26,6 +26,7 @@ public class _gameSettings : MonoBehaviour {
     private _movementControls MC;
     private Transform resumeButton;
     private Transform quitButton;
+    private bool paused = false;
 
 	// Use this for initialization
 	void Start () {
@@ -39,12 +40,28 @@ public class _gameSettings : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float guiTime = timeRemaining - Time.fixedTime;
+        float guiTime = timeRemaining > 0 ? timeRemaining - Time.fixedTime : 0;
         int minutes = (int)guiTime / 60;
         int seconds = (int)guiTime % 60;
 
         string textTime = string.Format("{0:00}:{1:00}", minutes, seconds);
         timeDisplay.text = textTime;
+
+        if (guiTime == 0)
+        {
+            Reset();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
+        {
+            TogglePauseMenu();
+        }
+
+        if (paused)
+        {
+            if (Input.GetButtonDown("BButton"))
+                TogglePauseMenu();
+        }
     }
 
     public void TogglePauseMenu()
@@ -54,18 +71,20 @@ public class _gameSettings : MonoBehaviour {
             pauseMenu.SetActive(false);
             quitButton.GetComponent<Button>().Select();
             Time.timeScale = 1f;
+            paused = false;
         }
         else
         {
             pauseMenu.SetActive(true);
             resumeButton.GetComponent<Button>().Select();
             Time.timeScale = 0f;
+            paused = true;
         }
     }
 
-    public void ReallyDoNothing()
+    public void Controls()
     {
-
+        //Control menu
     }
 
     public void Reset()
