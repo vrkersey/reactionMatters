@@ -99,7 +99,12 @@ public class _buttonControls : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(pos, lookdir, out hit, 3f))
             {
-                GameObject other = hit.collider.gameObject;
+                GameObject other = hit.collider.gameObject.transform.parent.gameObject;
+
+                if (other == null)
+                {
+                    other = hit.collider.gameObject;
+                }
 
                 if (other.tag == "Door")
                 {

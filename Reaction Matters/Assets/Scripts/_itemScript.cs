@@ -23,14 +23,13 @@ public class _itemScript : MonoBehaviour {
     {
         useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
         materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
-        MeshRenderer mr = this.gameObject.GetComponent<MeshRenderer>();
-        outlineGlow = this.gameObject.GetComponent<MeshRenderer>().materials[1];
+        //outlineGlow = this.gameObject.GetComponent<MeshRenderer>().material;
     }
 
     void Update()
     {
         if (outlineGlow != null)
-            outlineGlow.SetFloat("_Outline", Mathf.PingPong(Time.time/5, 0.2f));
+            outlineGlow.SetFloat("_OutlineWidth", Mathf.PingPong(Time.time/10, 0.05f)+1);
     }
 
     void OnCollisionEnter(Collision c)
@@ -53,6 +52,7 @@ public class _itemScript : MonoBehaviour {
         }
         else if (other.name == "Water")
         {
+            Debug.Log("Water");
             Water();
         }
     }
@@ -113,12 +113,10 @@ public class _itemScript : MonoBehaviour {
         if (Physics.Raycast(placeLocation, -Vector3.up, out hit, 4f))
         {
             placeLocation = hit.point;
-            placeLocation.y += this.GetComponent<SphereCollider>().radius;
         }
         else if (Physics.Raycast(posOfUse, -Vector3.up, out hit, 4f))
         {
             placeLocation = hit.point;
-            placeLocation.y += this.GetComponent<SphereCollider>().radius;
         }
         else
         {
