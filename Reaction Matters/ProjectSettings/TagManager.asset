@@ -9,6 +9,8 @@ TagManager:
   - Floor
   - Water
   - Fire
+  - CanDestroy
+  - Crafting Table
   layers:
   - Default
   - TransparentFX

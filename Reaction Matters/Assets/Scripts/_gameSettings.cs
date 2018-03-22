@@ -9,6 +9,8 @@ public class _gameSettings : MonoBehaviour {
     [Space(10)]
     [Header("Level things")]
     public GameObject pauseMenu;
+    public GameObject craftingMenu;
+
     public float startTimeInMinutes = 5f;
     [Tooltip("Time in Seconds to Fill Tool from 0 to 100")]
     public float toolRespawnTime = 100f;
@@ -27,9 +29,12 @@ public class _gameSettings : MonoBehaviour {
     private Transform resumeButton;
     private Transform quitButton;
     private bool paused = false;
+    private bool crafting = false;
+    private List<string> itemsDiscovered = new List<string>();
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         timeRemaining = startTimeInMinutes * 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
 
@@ -52,18 +57,53 @@ public class _gameSettings : MonoBehaviour {
             Reset();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
-        {
-            TogglePauseMenu();
-        }
-
         if (paused)
         {
             if (Input.GetButtonDown("BButton"))
                 TogglePauseMenu();
         }
+        if (crafting)
+        {
+            if (Input.GetButtonDown("BButton"))
+            {
+                ToggleCraftingMenu();
+            }
+        }
     }
 
+    public void Craft(Dictionary<string, List<GameObject>> inventory)
+    {
+        ToggleCraftingMenu();
+        Transform materials = craftingMenu.transform.Find("Materials");
+        
+        foreach (Transform child in materials)
+        {
+            List<GameObject> list;
+            if (inventory.TryGetValue(child.name.ToUpper(), out list))
+            {
+                if (list.Count > 0 && !itemsDiscovered.Contains(child.name))
+                {
+                    itemsDiscovered.Add(child.name);
+                    child.gameObject.SetActive(true);
+                }
+                child.Find("Count").GetComponent<Text>().text = list.Count.ToString();
+            }
+        }
+    }
+
+    private void ToggleCraftingMenu()
+    {
+        if (craftingMenu.activeInHierarchy)
+        {
+            craftingMenu.SetActive(false);
+            crafting = false;
+        }
+        else
+        {
+            craftingMenu.SetActive(true);
+            crafting = true;
+        }
+    }
     public void TogglePauseMenu()
     {
         if (pauseMenu.activeInHierarchy)
@@ -81,6 +121,9 @@ public class _gameSettings : MonoBehaviour {
             paused = true;
         }
     }
+
+    public bool isPaused { get { return paused; } }
+    public bool isCrafting { get { return crafting; } }
 
     public void Controls()
     {

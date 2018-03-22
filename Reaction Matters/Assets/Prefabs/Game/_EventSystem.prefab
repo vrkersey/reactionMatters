@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114263849381128508}
   - component: {fileID: 114373128160655244}
   - component: {fileID: 114579096999026658}
+  - component: {fileID: 114009422328444058}
   m_Layer: 0
   m_Name: _EventSystem
   m_TagString: Untagged
@@ -42,6 +43,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114009422328444058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163741542444820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc97320e9050504da38eab258195271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114263849381128508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  craftingMenu: {fileID: 0}
   startTimeInMinutes: 5
   toolRespawnTime: 100
   toolUseTime: 20

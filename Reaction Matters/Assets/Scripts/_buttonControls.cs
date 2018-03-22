@@ -15,6 +15,7 @@ public class _buttonControls : MonoBehaviour
     public Transform fireStartPosition;
 
     private _gameSettings GM;
+    private _audioController AM;
     private _elementMenu SelectedItem;
     private float waterLevel = 1f;
     private float fireLevel = 1f;
@@ -28,8 +29,6 @@ public class _buttonControls : MonoBehaviour
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
     private ParticleSystem smokePS;
-    private AudioSource waterAudio;
-    private AudioSource fireAudio;
 
     public bool Grounded { get { return grounded; } }
 
@@ -37,6 +36,7 @@ public class _buttonControls : MonoBehaviour
     void Start()
     {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
+        AM = GameObject.Find("_EventSystem").GetComponent<_audioController>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
 
@@ -44,9 +44,6 @@ public class _buttonControls : MonoBehaviour
         steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
         firePS = GameObject.Find("Fire").GetComponent<ParticleSystem>();
         smokePS = GameObject.Find("Smoke").GetComponent<ParticleSystem>();
-
-        waterAudio = GameObject.Find("Water Audio").GetComponent<AudioSource>();
-        fireAudio = GameObject.Find("Fire Audio").GetComponent<AudioSource>();
 
         SelectedItem = GameObject.Find("Selected Item").GetComponent<_elementMenu>();
         rb = this.GetComponent<Rigidbody>();
@@ -63,6 +60,9 @@ public class _buttonControls : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (GM.isPaused || GM.isCrafting)
+            return;
+
         fireLevel += (fireLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
         waterLevel += (waterLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
 
@@ -95,6 +95,11 @@ public class _buttonControls : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("StartButton"))
+        {
+            GM.TogglePauseMenu();
+        }
+
         // action button
         if (Input.GetKey(KeyCode.E) || Input.GetButtonDown("AButton"))
         {
@@ -118,6 +123,11 @@ public class _buttonControls : MonoBehaviour
                         items.Add(other.gameObject);
                         other.gameObject.SetActive(false);
                         keepLooking = false;
+                    }
+                    if (other.tag == "Crafting Table")
+                    {
+                        GM.Craft(inventory);
+                        AM.WalkAudio = false;
                     }
                     other = other.transform.parent;
                 }
@@ -209,14 +219,14 @@ public class _buttonControls : MonoBehaviour
 
             if (waterLevel > .01f && !waterPS.isEmitting)
             {
-                waterAudio.Play();
+                AM.WaterAudio = true;
                 waterPS.Play();
             }
         }
         else
         {
             waterPS.Stop();
-            waterAudio.Stop();
+            AM.WaterAudio = false;
         }
 
 
@@ -226,8 +236,7 @@ public class _buttonControls : MonoBehaviour
             firePS.Stop();
             if (!steamPS.isEmitting)
                 steamPS.Play();
-            if (!fireAudio.isPlaying)
-                fireAudio.Play();
+            AM.FireAudio = true;
         }
         else if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
         {
@@ -235,7 +244,7 @@ public class _buttonControls : MonoBehaviour
             fireLevel -= Time.deltaTime / GM.toolUseTime;
             if (fireLevel > .01f && !firePS.isEmitting)
             {
-                fireAudio.Play();
+                AM.FireAudio = true;
                 firePS.Play();
                 //smokePS.Play();
             }
@@ -243,7 +252,7 @@ public class _buttonControls : MonoBehaviour
         else
         {
             firePS.Stop();
-            fireAudio.Stop();
+            AM.FireAudio = false;
             if (steamPS.isPlaying)
                 steamPS.Stop();
         }
