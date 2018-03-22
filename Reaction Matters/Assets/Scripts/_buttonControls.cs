@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class _buttonControls : MonoBehaviour {
+public class _buttonControls : MonoBehaviour
+{
 
     Vector3 lookdir;
     Vector3 pos;
 
-    public Dictionary<string, List<GameObject> > inventory;
+    public Dictionary<string, List<GameObject>> inventory;
     public GameObject bulletPrefab;
     public Transform waterStartPosition;
     public Transform fireStartPosition;
@@ -33,7 +34,8 @@ public class _buttonControls : MonoBehaviour {
     public bool Grounded { get { return grounded; } }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
@@ -50,7 +52,7 @@ public class _buttonControls : MonoBehaviour {
         rb = this.GetComponent<Rigidbody>();
 
         //initialize inventory
-        inventory = new Dictionary<string, List<GameObject> >();
+        inventory = new Dictionary<string, List<GameObject>>();
         foreach (string item in _itemScript.getItemNames())
         {
             inventory.Add(item, new List<GameObject>());
@@ -59,7 +61,8 @@ public class _buttonControls : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         fireLevel += (fireLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
         waterLevel += (waterLevel <= 1 ? Time.deltaTime / GM.toolRespawnTime : 0);
 
@@ -99,23 +102,24 @@ public class _buttonControls : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(pos, lookdir, out hit, 3f))
             {
-                GameObject other = hit.collider.gameObject.transform.parent.gameObject;
-
-                if (other == null)
+                Transform other = hit.collider.transform;
+                bool keepLooking = true;
+                while (other != null && keepLooking)
                 {
-                    other = hit.collider.gameObject;
-                }
-
-                if (other.tag == "Door")
-                {
-                    StartCoroutine(openDoor(other));
-                }
-                if (other.tag == "Pickup")
-                {
-                    List<GameObject> items;
-                    inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
-                    items.Add(other);
-                    other.SetActive(false);
+                    if (other.tag == "Door")
+                    {
+                        StartCoroutine(openDoor(other.gameObject));
+                        keepLooking = false;
+                    }
+                    if (other.tag == "Pickup")
+                    {
+                        List<GameObject> items;
+                        inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
+                        items.Add(other.gameObject);
+                        other.gameObject.SetActive(false);
+                        keepLooking = false;
+                    }
+                    other = other.transform.parent;
                 }
             }
         }
@@ -131,7 +135,7 @@ public class _buttonControls : MonoBehaviour {
             toolAction(false);
         }
 
-        
+
     }
 
     IEnumerator openDoor(GameObject obj)
@@ -201,7 +205,7 @@ public class _buttonControls : MonoBehaviour {
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
-            
+
 
             if (waterLevel > .01f && !waterPS.isEmitting)
             {
