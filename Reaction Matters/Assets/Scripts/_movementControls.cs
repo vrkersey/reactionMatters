@@ -32,7 +32,7 @@ public class _movementControls : MonoBehaviour {
         
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         AM = GameObject.Find("_EventSystem").GetComponent<_audioController>();
-
+        
         player = this.transform.parent.gameObject;
 
         originalRotation = transform.localRotation;

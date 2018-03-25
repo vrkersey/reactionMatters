@@ -52,7 +52,6 @@ public class _itemScript : MonoBehaviour {
         }
         else if (other.name == "Water")
         {
-            Debug.Log("Water");
             Water();
         }
     }
@@ -100,6 +99,7 @@ public class _itemScript : MonoBehaviour {
         lookDir.y = 0;
         RaycastHit hit;
         Vector3 placeLocation = Vector3.zero;
+        Bounds bounds = gameObject.GetComponent<MeshRenderer>().bounds;
 
         if (Physics.Raycast(posOfUse, lookDir, out hit, 1.5f))
         {
@@ -123,6 +123,7 @@ public class _itemScript : MonoBehaviour {
             return false;
         }
 
+        placeLocation.y += bounds.max.y/2;
         transform.position = placeLocation;
         this.gameObject.SetActive(true);
 

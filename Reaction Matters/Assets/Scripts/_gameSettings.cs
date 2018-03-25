@@ -28,6 +28,9 @@ public class _gameSettings : MonoBehaviour {
     private float timeRemaining;
     private Text timeDisplay;
     private _movementControls MC;
+    private _elementMenu EM;
+    private _buttonControls BM;
+
     private Transform resumeButton;
     private Transform quitButton;
     private bool paused = false;
@@ -41,6 +44,9 @@ public class _gameSettings : MonoBehaviour {
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
+        BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
+        EM = pauseMenu.transform.Find("Elements").GetComponentInChildren<_elementMenu>();
+
         resumeButton = pauseMenu.transform.Find("Menu").Find("Resume");
         quitButton = pauseMenu.transform.Find("Menu").Find("Quit");
     }
@@ -75,8 +81,27 @@ public class _gameSettings : MonoBehaviour {
 
     public void Craft(Dictionary<string, List<GameObject>> inventory)
     {
+        setupCraftingUI(inventory);
         ToggleCraftingMenu();
+    }
 
+    private void ToggleCraftingMenu()
+    {
+        if (craftingMenu.activeInHierarchy)
+        {
+            craftingMenu.SetActive(false);
+            crafting = false;
+            first = true;
+        }
+        else
+        {
+            craftingMenu.SetActive(true);
+            crafting = true;
+        }
+    }
+
+    private void setupCraftingUI(Dictionary<string, List<GameObject>> inventory)
+    {
         Transform materials = craftingMenu.transform.Find("Materials");
 
         bool first = true;
@@ -85,7 +110,7 @@ public class _gameSettings : MonoBehaviour {
             List<GameObject> list;
             if (inventory.TryGetValue(child.name.ToUpper(), out list))
             {
-                if (list.Count > 0 && !itemsDiscovered.Contains(child.name))
+                if (list.Count > 0)
                 {
                     if (first)
                     {
@@ -93,8 +118,11 @@ public class _gameSettings : MonoBehaviour {
                         craftingSelected = child;
                         child.gameObject.GetComponent<Button>().Select();
                     }
-                    itemsDiscovered.Add(child.name);
-                    child.gameObject.SetActive(true);
+                    if (!itemsDiscovered.Contains(child.name))
+                    {
+                        itemsDiscovered.Add(child.name);
+                        child.gameObject.SetActive(true);
+                    }
                 }
                 child.Find("Count").GetComponent<Text>().text = list.Count.ToString();
             }
@@ -148,20 +176,6 @@ public class _gameSettings : MonoBehaviour {
             }
         }
     }
-
-    private void ToggleCraftingMenu()
-    {
-        if (craftingMenu.activeInHierarchy)
-        {
-            craftingMenu.SetActive(false);
-            crafting = false;
-        }
-        else
-        {
-            craftingMenu.SetActive(true);
-            crafting = true;
-        }
-    }
     public void TogglePauseMenu()
     {
         if (pauseMenu.activeInHierarchy)
@@ -182,6 +196,69 @@ public class _gameSettings : MonoBehaviour {
 
     public bool isPaused { get { return paused; } }
     public bool isCrafting { get { return crafting; } }
+
+    public void CraftableClick()
+    {
+        String clickName = EventSystem.current.currentSelectedGameObject.name;
+        Dictionary<string, List<GameObject>> inventory = BM.inventory;
+        List<GameObject> list;
+        GameObject firstItem;
+
+        switch (clickName)
+        {
+            case "Thermite":
+                inventory.TryGetValue("IRON", out list);
+                firstItem = list[0];
+                Destroy(firstItem);
+                list.Remove(firstItem);
+
+                inventory.TryGetValue("ALUMINUM", out list);
+                firstItem = list[0];
+                Destroy(firstItem);
+                list.Remove(firstItem);
+
+                //TODO Add Thermite
+                break;
+            case "Battery":
+                inventory.TryGetValue("SULPHUR", out list);
+                firstItem = list[0];
+                Destroy(firstItem);
+                list.Remove(firstItem);
+
+                inventory.TryGetValue("ZINC", out list);
+                firstItem = list[0];
+                Destroy(firstItem);
+                list.Remove(firstItem);
+                //TODO Add Battery
+
+                break;
+            case "Copper Wire":
+                inventory.TryGetValue("COPPER", out list);
+                firstItem = list[0];
+                Destroy(firstItem);
+                list.Remove(firstItem);
+                //TODO Add Copper Wire
+
+                break;
+        }
+        BM.inventory = inventory;
+    }
+
+    bool first = true;
+    public void MaterialsClick()
+    {
+        if (first)
+        {
+            first = false;
+        }
+        else
+        {
+            String clickName = EventSystem.current.currentSelectedGameObject.name;
+            EM.switchIndex(clickName);
+            ToggleCraftingMenu();
+            TogglePauseMenu();
+        }
+    }
 
     public void Controls()
     {

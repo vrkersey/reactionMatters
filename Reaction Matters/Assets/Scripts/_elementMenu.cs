@@ -115,4 +115,16 @@ public class _elementMenu : MonoBehaviour {
         yield return new WaitForSecondsRealtime(.25f);
         locked = false;
     }
+
+    public void switchIndex(string elementName)
+    {
+        for (int c = 0; c < elements.Length; c++)
+        {
+            if (elements[c].name.ToLower().Contains(elementName.ToLower()))
+            {
+                index = c;
+                return;
+            }
+        }
+    }
 }
