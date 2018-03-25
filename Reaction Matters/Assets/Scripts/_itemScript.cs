@@ -23,7 +23,7 @@ public class _itemScript : MonoBehaviour {
     {
         useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
         materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
-        outlineGlow = transform.Find("Mesh").gameObject.GetComponent<MeshRenderer>().material;
+        outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
     }
 
     void Update()

@@ -111,7 +111,12 @@ public class _gameSettings : MonoBehaviour {
                     inventory.TryGetValue("ALUMINUM", out aluminum);
                     if (iron.Count > 0 && aluminum.Count > 0)
                     {
+                        child.gameObject.GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        child.gameObject.GetComponent<Button>().interactable = false;
                     }
                     break;
                 case "Battery":
@@ -119,14 +124,25 @@ public class _gameSettings : MonoBehaviour {
                     inventory.TryGetValue("ZINC", out zinc);
                     if (sulpher.Count > 0 && zinc.Count > 0)
                     {
+                        child.gameObject.GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
+
+                    }
+                    else
+                    {
+                        child.gameObject.GetComponent<Button>().interactable = false;
                     }
                     break;
                 case "Copper Wire":
                     inventory.TryGetValue("COPPER", out copper);
                     if (copper.Count > 0)
                     {
+                        child.gameObject.GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        child.gameObject.GetComponent<Button>().interactable = false;
                     }
                     break;
             }
