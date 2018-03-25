@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class _gameSettings : MonoBehaviour {
@@ -31,7 +33,7 @@ public class _gameSettings : MonoBehaviour {
     private bool paused = false;
     private bool crafting = false;
     private List<string> itemsDiscovered = new List<string>();
-
+    private Transform craftingSelected;
 
     // Use this for initialization
     void Start () {
@@ -74,8 +76,10 @@ public class _gameSettings : MonoBehaviour {
     public void Craft(Dictionary<string, List<GameObject>> inventory)
     {
         ToggleCraftingMenu();
+
         Transform materials = craftingMenu.transform.Find("Materials");
-        
+
+        bool first = true;
         foreach (Transform child in materials)
         {
             List<GameObject> list;
@@ -83,10 +87,48 @@ public class _gameSettings : MonoBehaviour {
             {
                 if (list.Count > 0 && !itemsDiscovered.Contains(child.name))
                 {
+                    if (first)
+                    {
+                        first = false;
+                        craftingSelected = child;
+                        child.gameObject.GetComponent<Button>().Select();
+                    }
                     itemsDiscovered.Add(child.name);
                     child.gameObject.SetActive(true);
                 }
                 child.Find("Count").GetComponent<Text>().text = list.Count.ToString();
+            }
+        }
+
+        Transform craftables = craftingMenu.transform.Find("Craftables");
+        List<GameObject> iron, aluminum, mercury, silver, magnesium, cesium, copper, sulpher, zinc;
+        foreach (Transform child in craftables)
+        {
+            switch (child.name)
+            {
+                case "Thermite":
+                    inventory.TryGetValue("IRON", out iron);
+                    inventory.TryGetValue("ALUMINUM", out aluminum);
+                    if (iron.Count > 0 && aluminum.Count > 0)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                    break;
+                case "Battery":
+                    inventory.TryGetValue("SULPHUR", out sulpher);
+                    inventory.TryGetValue("ZINC", out zinc);
+                    if (sulpher.Count > 0 && zinc.Count > 0)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                    break;
+                case "Copper Wire":
+                    inventory.TryGetValue("COPPER", out copper);
+                    if (copper.Count > 0)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                    break;
             }
         }
     }
@@ -132,7 +174,8 @@ public class _gameSettings : MonoBehaviour {
 
     public void Reset()
     {
-        //reset button
+        TogglePauseMenu();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Quit()

@@ -117,7 +117,7 @@ public class _movementControls : MonoBehaviour {
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
-            rb.AddForce(lookDir * movementSpeed * (-Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
+            rb.AddForce(lookDir * movementSpeed * (Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
         }
 
         if (Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0)
