@@ -105,3 +105,7 @@ MonoBehaviour:
   movementSpeed: 5
   sensitivity: 10
   jumpHeight: 4
+  Thermite: {fileID: 1149083571687460, guid: 025a87e331037304fbdc0a5a115b5579, type: 2}
+  Battery: {fileID: 1009665309323724, guid: 2bed26c2ebefbf64d94d532d57354314, type: 2}
+  Copper_Wire: {fileID: 1011837334978506, guid: 914b5cd269b222942901165c711cb139,
+    type: 2}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,11 @@ public class _gameSettings : MonoBehaviour {
     public float movementSpeed = 15f;
     public float sensitivity = 15f;
     public float jumpHeight = 2.5f;
-    
+    [Space(10)]
+    [Header("Craftable Items")]
+    public GameObject Thermite;
+    public GameObject Battery;
+    public GameObject Copper_Wire;
 
     private float timeRemaining;
     private Text timeDisplay;
@@ -203,10 +208,12 @@ public class _gameSettings : MonoBehaviour {
         Dictionary<string, List<GameObject>> inventory = BM.inventory;
         List<GameObject> list;
         GameObject firstItem;
+        GameObject newObject;
 
         switch (clickName)
         {
             case "Thermite":
+                // Remove items
                 inventory.TryGetValue("IRON", out list);
                 firstItem = list[0];
                 Destroy(firstItem);
@@ -217,9 +224,14 @@ public class _gameSettings : MonoBehaviour {
                 Destroy(firstItem);
                 list.Remove(firstItem);
 
-                //TODO Add Thermite
+                // Add Thermite
+                newObject = (GameObject)GameObject.Instantiate(Thermite, Vector3.zero, Quaternion.identity);
+                inventory.TryGetValue("THERMITE", out list);
+                list.Add(newObject);
+                
                 break;
             case "Battery":
+                // Remove items
                 inventory.TryGetValue("SULPHUR", out list);
                 firstItem = list[0];
                 Destroy(firstItem);
@@ -229,19 +241,29 @@ public class _gameSettings : MonoBehaviour {
                 firstItem = list[0];
                 Destroy(firstItem);
                 list.Remove(firstItem);
-                //TODO Add Battery
+
+                // Add Battery
+                newObject = (GameObject)GameObject.Instantiate(Battery, Vector3.zero, Quaternion.identity);
+                inventory.TryGetValue("BATTERY", out list);
+                list.Add(newObject);
 
                 break;
             case "Copper Wire":
+                // Remove items
                 inventory.TryGetValue("COPPER", out list);
                 firstItem = list[0];
                 Destroy(firstItem);
                 list.Remove(firstItem);
-                //TODO Add Copper Wire
+
+                // Add Copper Wire
+                newObject = (GameObject)GameObject.Instantiate(Copper_Wire, Vector3.zero, Quaternion.identity);
+                inventory.TryGetValue("COPPER_WIRE", out list);
+                list.Add(newObject);
 
                 break;
         }
         BM.inventory = inventory;
+        setupCraftingUI(inventory);
     }
 
     bool first = true;
