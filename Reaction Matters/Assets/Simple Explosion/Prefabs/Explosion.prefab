@@ -579,4 +579,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 2
-  Force: 50
+  Force: 100
