@@ -50,8 +50,8 @@ public class _wallController : MonoBehaviour {
             changingColor.r = changingColor.r >= startColor.r ? changingColor.r - (redSpeed * tempDispersion) : startColor.r;
             heat = heat - tempDispersion > 0 ? heat - tempDispersion : 0;
         }
-
-        material.color = changingColor;
+        if (material != null)
+            material.color = changingColor;
         if (meltTime < heat)
             this.gameObject.SetActive(false);
 	}
