@@ -9,10 +9,14 @@ ModelImporter:
     100002: pasted__group
     100004: pasted__pasted__group2
     100006: pasted__pasted__polySurface3
+    100008: group
+    100010: group3
     400000: //RootNode
     400002: pasted__group
     400004: pasted__pasted__group2
     400006: pasted__pasted__polySurface3
+    400008: group
+    400010: group3
     2300000: pasted__pasted__polySurface3
     3300000: pasted__pasted__polySurface3
     4300000: pasted__pasted__polySurface3
