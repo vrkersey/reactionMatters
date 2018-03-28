@@ -11,7 +11,7 @@ public class _wallController : MonoBehaviour {
     private float heat = 0;
     private float tempDispersion = .25f;
     private float heating;
-    private Material material;
+    private Material material = null;
     private Color startColor;
     private Color changingColor;
 
@@ -26,7 +26,7 @@ public class _wallController : MonoBehaviour {
     void Start () {
         meltTime *= 45;
         heating = -.5f;
-        material = GetComponent<MeshRenderer>().material;
+        //material = GetComponent<MeshRenderer>().material;
         startColor = material.color;
         changingColor = new Color();
         changingColor.r = startColor.r;
