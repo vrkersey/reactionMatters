@@ -27,7 +27,7 @@ public class _wallController : MonoBehaviour {
         meltTime *= 45;
         heating = -.5f;
         //material = GetComponent<MeshRenderer>().material;
-        startColor = material.color;
+        //startColor = material.color;
         changingColor = new Color();
         changingColor.r = startColor.r;
         changingColor.g = startColor.g;
