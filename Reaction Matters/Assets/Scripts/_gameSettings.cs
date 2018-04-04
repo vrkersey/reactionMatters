@@ -15,6 +15,8 @@ public class _gameSettings : MonoBehaviour {
     public GameObject craftingMenu;
 
     public float startTimeInMinutes = 5f;
+    public float itemRespawnTimeInMinutes = 3f;
+
     [Tooltip("Time in Seconds to Fill Tool from 0 to 100")]
     public float toolRespawnTime = 100f;
     [Tooltip("Time in Seconds to Use Tool from 100 to 0")]
@@ -54,6 +56,10 @@ public class _gameSettings : MonoBehaviour {
 
         resumeButton = pauseMenu.transform.Find("Menu").Find("Resume");
         quitButton = pauseMenu.transform.Find("Menu").Find("Quit");
+
+        foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")){
+            pickup.GetComponent<_itemScript>().SpawnItem = true;
+        }
     }
 	
 	// Update is called once per frame

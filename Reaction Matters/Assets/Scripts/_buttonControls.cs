@@ -29,6 +29,7 @@ public class _buttonControls : MonoBehaviour
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
     private ParticleSystem smokePS;
+    private float respawnTime;
 
     public bool Grounded { get { return grounded; } }
 
@@ -37,6 +38,8 @@ public class _buttonControls : MonoBehaviour
     {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         AM = GameObject.Find("_EventSystem").GetComponent<_audioController>();
+        respawnTime = GM.itemRespawnTimeInMinutes * 60;
+
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
 
@@ -120,8 +123,16 @@ public class _buttonControls : MonoBehaviour
                     {
                         List<GameObject> items;
                         inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
-                        items.Add(other.gameObject);
-                        other.gameObject.SetActive(false);
+                        if (other.gameObject.GetComponent<_itemScript>().SpawnItem)
+                        {
+                            items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
+                            StartCoroutine(respawn(other.gameObject));
+                        }
+                        else{
+                            items.Add(other.gameObject);
+                            other.gameObject.SetActive(false);
+                        }
+                        
                         keepLooking = false;
                     }
                     if (other.tag == "Crafting Table")
@@ -152,6 +163,13 @@ public class _buttonControls : MonoBehaviour
     {
         obj.SetActive(false);
         yield return new WaitForSeconds(5f);
+        obj.SetActive(true);
+    }
+
+    IEnumerator respawn(GameObject obj)
+    {
+        obj.SetActive(false);
+        yield return new WaitForSeconds(respawnTime);
         obj.SetActive(true);
     }
 

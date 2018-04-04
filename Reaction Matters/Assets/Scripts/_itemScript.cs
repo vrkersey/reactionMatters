@@ -15,6 +15,7 @@ public class _itemScript : MonoBehaviour {
     private List<items> useable;
     private List<items> materials;
     private Material outlineGlow;
+    private bool spawnItem = false;
 
     public bool Useable { get { return useable.Contains(item); } }
     public bool Material { get { return materials.Contains(item); } }
@@ -24,6 +25,7 @@ public class _itemScript : MonoBehaviour {
         useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
         materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
         outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
+        
     }
 
     void Update()
@@ -31,6 +33,7 @@ public class _itemScript : MonoBehaviour {
         if (outlineGlow != null)
             outlineGlow.SetFloat("_OutlineWidth", Mathf.PingPong(Time.time/10, 0.05f)+1);
     }
+    public bool SpawnItem{ get{ return spawnItem; } set{spawnItem = value;} }
 
     void OnCollisionEnter(Collision c)
     {
@@ -92,6 +95,12 @@ public class _itemScript : MonoBehaviour {
         }
 
         return false;
+    }
+    public GameObject pickup(){
+        GameObject clone = Instantiate(gameObject);
+        clone.SetActive(false);
+        
+        return clone;
     }
 
     private bool drop(Vector3 posOfUse, Vector3 lookDir)
