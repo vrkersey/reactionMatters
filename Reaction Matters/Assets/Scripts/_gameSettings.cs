@@ -68,7 +68,7 @@ public class _gameSettings : MonoBehaviour {
         int minutes = (int)guiTime / 60;
         int seconds = (int)guiTime % 60;
 
-        string textTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+        string textTime = string.Format("{0:00}   {1:00}", minutes, seconds);
         timeDisplay.text = textTime;
 
         if (guiTime == 0)
@@ -127,7 +127,7 @@ public class _gameSettings : MonoBehaviour {
                     {
                         first = false;
                         craftingSelected = child;
-                        child.gameObject.GetComponent<Button>().Select();
+                        child.Find("Button").GetComponent<Button>().Select();
                     }
                     if (!itemsDiscovered.Contains(child.name))
                     {
@@ -140,7 +140,7 @@ public class _gameSettings : MonoBehaviour {
         }
 
         Transform craftables = craftingMenu.transform.Find("Craftables");
-        List<GameObject> iron, aluminum, mercury, silver, magnesium, cesium, copper, sulpher, zinc;
+        List<GameObject> iron, aluminum, mercury, silver, magnesium, cesium, copper, lithium, manganese;
         foreach (Transform child in craftables)
         {
             switch (child.name)
@@ -150,38 +150,38 @@ public class _gameSettings : MonoBehaviour {
                     inventory.TryGetValue("ALUMINUM", out aluminum);
                     if (iron.Count > 0 && aluminum.Count > 0)
                     {
-                        child.gameObject.GetComponent<Button>().interactable = true;
+                        child.Find("Button").GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
                     }
                     else
                     {
-                        child.gameObject.GetComponent<Button>().interactable = false;
+                        child.Find("Button").GetComponent<Button>().interactable = false;
                     }
                     break;
                 case "Battery":
-                    inventory.TryGetValue("SULPHUR", out sulpher);
-                    inventory.TryGetValue("ZINC", out zinc);
-                    if (sulpher.Count > 0 && zinc.Count > 0)
+                    inventory.TryGetValue("LITHIUM", out lithium);
+                    inventory.TryGetValue("MANGANESE", out manganese);
+                    if (lithium.Count > 0 && manganese.Count > 0)
                     {
-                        child.gameObject.GetComponent<Button>().interactable = true;
+                        child.Find("Button").GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
 
                     }
                     else
                     {
-                        child.gameObject.GetComponent<Button>().interactable = false;
+                        child.Find("Button").GetComponent<Button>().interactable = false;
                     }
                     break;
                 case "Copper Wire":
                     inventory.TryGetValue("COPPER", out copper);
                     if (copper.Count > 0)
                     {
-                        child.gameObject.GetComponent<Button>().interactable = true;
+                        child.Find("Button").GetComponent<Button>().interactable = true;
                         child.gameObject.SetActive(true);
                     }
                     else
                     {
-                        child.gameObject.GetComponent<Button>().interactable = false;
+                        child.Find("Button").GetComponent<Button>().interactable = false;
                     }
                     break;
             }
@@ -210,7 +210,7 @@ public class _gameSettings : MonoBehaviour {
 
     public void CraftableClick()
     {
-        String clickName = EventSystem.current.currentSelectedGameObject.name;
+        String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
         Dictionary<string, List<GameObject>> inventory = BM.inventory;
         List<GameObject> list;
         GameObject firstItem;
@@ -238,12 +238,12 @@ public class _gameSettings : MonoBehaviour {
                 break;
             case "Battery":
                 // Remove items
-                inventory.TryGetValue("SULPHUR", out list);
+                inventory.TryGetValue("LITHIUM", out list);
                 firstItem = list[0];
                 Destroy(firstItem);
                 list.Remove(firstItem);
 
-                inventory.TryGetValue("ZINC", out list);
+                inventory.TryGetValue("MANGANESE", out list);
                 firstItem = list[0];
                 Destroy(firstItem);
                 list.Remove(firstItem);
@@ -281,7 +281,7 @@ public class _gameSettings : MonoBehaviour {
         }
         else
         {
-            String clickName = EventSystem.current.currentSelectedGameObject.name;
+            String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
             EM.switchIndex(clickName);
             ToggleCraftingMenu();
             TogglePauseMenu();

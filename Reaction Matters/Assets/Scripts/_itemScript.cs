@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class _itemScript : MonoBehaviour {
 
-    public enum items { IRON, ALUMINUM, MERCURY, SILVER, MAGNESIUM, CESIUM, COPPER, SULPHUR, ZINC, THERMITE, BATTERY, COPPER_WIRE, LIQUID_NITROGEN};
+    public enum items { IRON, ALUMINUM, MERCURY, SILVER, MAGNESIUM, CESIUM, COPPER, LITHIUM, MANGANESE, THERMITE, BATTERY, COPPER_WIRE, LIQUID_NITROGEN};
 
     public items item;
     public GameObject explosion;
@@ -23,7 +23,7 @@ public class _itemScript : MonoBehaviour {
     void Start()
     {
         useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
-        materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.SULPHUR, items.ZINC };
+        materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
         outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
         
     }
