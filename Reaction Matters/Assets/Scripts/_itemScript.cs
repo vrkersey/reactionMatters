@@ -12,8 +12,8 @@ public class _itemScript : MonoBehaviour {
     public GameObject explosion;
     public int delay = 20;
 
-    private List<items> useable;
-    private List<items> materials;
+    private List<items> useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN };
+    private List<items> materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
     private Material outlineGlow;
     private bool spawnItem = false;
 
@@ -22,8 +22,6 @@ public class _itemScript : MonoBehaviour {
 
     void Start()
     {
-        useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN};
-        materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
         outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
         
     }

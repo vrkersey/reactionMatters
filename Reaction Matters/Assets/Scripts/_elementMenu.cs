@@ -10,6 +10,7 @@ public class _elementMenu : MonoBehaviour {
     public Texture[] elements;
 
     private List<string> items;
+    private Dictionary<string, Texture> elementsDict;
     private _buttonControls bc;
 
     private RawImage element;
@@ -24,8 +25,11 @@ public class _elementMenu : MonoBehaviour {
 	void Start () {
 
         element = transform.Find("Element").gameObject.GetComponent<RawImage>();
-        if (pauseElements)
-            element.texture = elements[index];
+        element.texture = elements[index];
+        elementsDict = new Dictionary<string, Texture>();
+        foreach (Texture t in elements)
+            elementsDict.Add(t.name, t);
+
         if (!pauseElements)
         {
             text = transform.Find("Text").gameObject.GetComponent<Text>();
@@ -44,13 +48,13 @@ public class _elementMenu : MonoBehaviour {
 
     private void SelectedElement()
     {
-        string currentElement = text.text;
-
+        string currentElement = element.texture.name;
+        
         foreach (string s in bc.inventory.Keys)
         {
             List<GameObject> l;
             bc.inventory.TryGetValue(s, out l);
-            if (l.Count > 0 && !items.Contains(s))
+            if (l.Count > 0 && !items.Contains(s) && l[0].GetComponent<_itemScript>().Useable)
                 items.Add(s);
             else if (l.Count == 0 && items.Contains(s))
                 items.Remove(s);
@@ -61,11 +65,15 @@ public class _elementMenu : MonoBehaviour {
 
         if (items.Count == 0)
         {
-            text.text = "Empty";
+            element.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
+            text.text = "0";
             selectedItem = "";
         }
         else
         {
+            text.gameObject.SetActive(true);
+            element.gameObject.SetActive(true);
             if (Input.GetButtonDown("RightBumper"))
             {
                 index = (index + 1) % items.Count;
@@ -74,7 +82,12 @@ public class _elementMenu : MonoBehaviour {
             {
                 index = index == 0 ? items.Count - 1 : index - 1;
             }
-            text.text = items[index];
+            Texture t;
+            List<GameObject> l;
+            elementsDict.TryGetValue(items[index], out t);
+            bc.inventory.TryGetValue(items[index], out l);
+            element.texture = t;
+            text.text = l.Count.ToString();
             selectedItem = items[index].ToUpper();
         }      
     }

@@ -27,7 +27,7 @@ public class _gameSettings : MonoBehaviour {
     public float sensitivity = 15f;
     public float jumpHeight = 2.5f;
     [Space(10)]
-    [Header("Craftable Items")]
+    [Header("Craftable Items Prefabs")]
     public GameObject Thermite;
     public GameObject Battery;
     public GameObject Copper_Wire;
