@@ -116,7 +116,7 @@ public class _buttonControls : MonoBehaviour
                 {
                     if (other.tag == "Door")
                     {
-                        StartCoroutine(openDoor(other.gameObject));
+                        other.gameObject.SendMessage("tryOpen");
                         keepLooking = false;
                     }
                     if (other.tag == "Pickup")
@@ -140,7 +140,7 @@ public class _buttonControls : MonoBehaviour
                         GM.Craft(inventory);
                         AM.WalkAudio = false;
                     }
-                    other = other.transform.parent;
+                    other = other.parent;
                 }
             }
         }

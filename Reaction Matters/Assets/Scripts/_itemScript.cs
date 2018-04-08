@@ -85,6 +85,23 @@ public class _itemScript : MonoBehaviour {
     {
         switch (item)
         {
+            case items.BATTERY:
+            case items.COPPER_WIRE:
+                RaycastHit hit;
+                if (Physics.Raycast(posOfUse, lookDir, out hit, 3f))
+                {
+                    Transform other = hit.collider.transform;
+                    bool keepLooking = true;
+                    while (other != null && keepLooking)
+                    {
+                        if (other.tag == "Door")
+                        {
+                            return other.GetComponent<_doorController>().useItem(getName());
+                        }
+                        other = other.parent;
+                    }
+                }
+                break;
             case items.THERMITE:
                 //place on wall/door
                 break;
@@ -147,6 +164,12 @@ public class _itemScript : MonoBehaviour {
         }
         return hit;
     }
+
+    public string getName()
+    {
+        return Enum.GetName(typeof(items), item);
+    }
+
     public static string[] getItemNames()
     {
         return Enum.GetNames(typeof(items));

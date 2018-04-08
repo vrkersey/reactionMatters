@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114103642927478650}
   m_Layer: 0
   m_Name: InnerDoor
-  m_TagString: Door
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,9 +72,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4923633876296602}
+  - component: {fileID: 114186157049703186}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,8 +143,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646189292300946}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -16.271093, y: 3.3225155, z: 26.496874}
-  m_LocalScale: {x: 0.7765105, y: 0.77651, z: 0.91303045}
+  m_LocalPosition: {x: 73.66428, y: 1.03, z: 3.0130866}
+  m_LocalScale: {x: 0.6051263, y: 0.60512596, z: 0.8614729}
   m_Children:
   - {fileID: 4447437990962412}
   - {fileID: 4923988129803294}
@@ -338,3 +339,16 @@ MonoBehaviour:
   galiumWall: 1
   meltTime: 5
   redShiftWall: 1
+--- !u!114 &114186157049703186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646189292300946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843999a1110378b4da97f85701d87158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batteryDoor: 0
+  copperWireDoor: 0
