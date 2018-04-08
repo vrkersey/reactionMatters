@@ -15,11 +15,12 @@ public class _gameSettings : MonoBehaviour {
     public GameObject craftingMenu;
 
     public float startTimeInMinutes = 5f;
+    public float oxygenRefilTimeInMinutes = 3f;
     public float itemRespawnTimeInMinutes = 3f;
-
-    [Tooltip("Time in Seconds to Fill Tool from 0 to 100")]
+   
+    [Tooltip("Time in Seconds to Fill Tool from 0% to 100%")]
     public float toolRespawnTime = 100f;
-    [Tooltip("Time in Seconds to Use Tool from 100 to 0")]
+    [Tooltip("Time in Seconds to Use Tool from 100% to 0%")]
     public float toolUseTime = 20f;
     [Space(10)]
     [Header("Player things")]
@@ -44,10 +45,12 @@ public class _gameSettings : MonoBehaviour {
     private bool crafting = false;
     private List<string> itemsDiscovered = new List<string>();
     private Transform craftingSelected;
+    private bool o2cooldown;
 
     // Use this for initialization
     void Start () {
         timeRemaining = startTimeInMinutes * 60;
+        oxygenRefilTimeInMinutes *= 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
@@ -87,7 +90,18 @@ public class _gameSettings : MonoBehaviour {
             {
                 ToggleCraftingMenu();
             }
+            if (Input.GetButtonDown("YButton") && !o2cooldown)
+            {
+                timeRemaining += oxygenRefilTimeInMinutes;
+                StartCoroutine(Cooldown());
+            }
         }
+    }
+    IEnumerator Cooldown()
+    {
+        o2cooldown = true;
+        yield return new WaitForSeconds(oxygenRefilTimeInMinutes + 30);
+        o2cooldown = false;
     }
 
     public void Craft(Dictionary<string, List<GameObject>> inventory)
