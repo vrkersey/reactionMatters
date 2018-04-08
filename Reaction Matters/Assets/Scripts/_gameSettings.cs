@@ -35,6 +35,7 @@ public class _gameSettings : MonoBehaviour {
 
     private float timeRemaining;
     private Text timeDisplay;
+    private GameObject timeBar;
     private _movementControls MC;
     private _elementMenu EM;
     private _buttonControls BM;
@@ -52,6 +53,7 @@ public class _gameSettings : MonoBehaviour {
         timeRemaining = startTimeInMinutes * 60;
         oxygenRefilTimeInMinutes *= 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
+        timeBar = GameObject.Find("TimeBar");
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -73,7 +75,7 @@ public class _gameSettings : MonoBehaviour {
 
         string textTime = string.Format("{0:00}   {1:00}", minutes, seconds);
         timeDisplay.text = textTime;
-
+        timeBar.transform.localScale = new Vector3(timeRemaining/(15*60) > 1 ? 1 : timeRemaining / (15 * 60), timeBar.transform.localScale.y, timeBar.transform.localScale.z);
         if (guiTime == 0)
         {
             Reset();
