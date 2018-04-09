@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4923988129803294}
   - component: {fileID: 65225961105462790}
-  - component: {fileID: 114103642927478650}
   m_Layer: 0
   m_Name: InnerDoor
   m_TagString: Untagged
@@ -142,15 +141,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646189292300946}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 73.66428, y: 1.03, z: 3.0130866}
-  m_LocalScale: {x: 0.6051263, y: 0.60512596, z: 0.8614729}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.674688, y: 1, z: 17.194584}
+  m_LocalScale: {x: 0.5545504, y: 0.55455005, z: 0.7756612}
   m_Children:
   - {fileID: 4447437990962412}
   - {fileID: 4923988129803294}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4923988129803294
 Transform:
   m_ObjectHideFlags: 1
@@ -325,20 +324,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7021572, y: 3.8074775, z: 1.4634782}
   m_Center: {x: -0.09072752, y: 0.070976585, z: -1.7873383}
---- !u!114 &114103642927478650
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1333818507788612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca3660401434de149925892a8fd6ea4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  galiumWall: 1
-  meltTime: 5
-  redShiftWall: 1
 --- !u!114 &114186157049703186
 MonoBehaviour:
   m_ObjectHideFlags: 1
