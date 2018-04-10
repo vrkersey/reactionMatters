@@ -46,6 +46,7 @@ public class _gameSettings : MonoBehaviour {
     private List<string> itemsDiscovered = new List<string>();
     private Transform craftingSelected;
     private bool o2cooldown;
+    private Player savedPlayer;
 
     // Use this for initialization
     void Start () {
@@ -64,6 +65,7 @@ public class _gameSettings : MonoBehaviour {
         foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")){
             pickup.GetComponent<_itemScript>().SpawnItem = true;
         }
+        Save();
     }
 	
 	// Update is called once per frame
@@ -303,6 +305,33 @@ public class _gameSettings : MonoBehaviour {
         }
     }
 
+    public void Save()
+    {
+        GameObject player = GameObject.Find("_Main Character");
+
+        Player current = new Player();
+        current.position = player.transform.position;
+        current.rotation = player.transform.Find("Mover").rotation;
+        current.inventory = new Dictionary<string, List<GameObject>>();
+
+        //make a deep copy of inventory 
+        foreach (KeyValuePair<string, List<GameObject>> entry in BM.GetComponent<_buttonControls>().inventory)
+            current.inventory.Add(entry.Key, new List<GameObject>(entry.Value));
+
+        savedPlayer = current;
+    }
+
+    public void Load()
+    {
+        GameObject player = GameObject.Find("_Main Character");
+        GameObject mover = player.transform.Find("Mover").gameObject;
+
+        mover.SendMessage("resetRotation");
+        player.transform.position = savedPlayer.position;
+        mover.transform.rotation = savedPlayer.rotation;
+        BM.GetComponent<_buttonControls>().inventory = savedPlayer.inventory;
+    }
+
     public void Controls()
     {
         //Control menu
@@ -311,11 +340,19 @@ public class _gameSettings : MonoBehaviour {
     public void Reset()
     {
         TogglePauseMenu();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Load();
     }
 
     public void Quit()
     {
+        Debug.Log("Quitting");
         Application.Quit();
     }
+}
+
+public struct Player
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public Dictionary<string, List<GameObject>> inventory;
 }

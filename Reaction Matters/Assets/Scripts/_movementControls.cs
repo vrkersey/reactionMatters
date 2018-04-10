@@ -69,6 +69,12 @@ public class _movementControls : MonoBehaviour {
         transform.localRotation = originalRotation * xQuaternion * yQuaternion;
     }
 
+    public void resetRotation()
+    {
+        rotationX = 0f;
+        rotationY = 0f;
+    }
+
     public static float ClampAngle(float angle, float min, float max)
     {
         if (angle <= -360F)
