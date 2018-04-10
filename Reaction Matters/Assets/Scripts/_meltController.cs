@@ -29,7 +29,7 @@ public class _meltController : MonoBehaviour {
         }
         else
         {
-            speed = Mathf.Lerp(speed, 0, increase);
+            speed = Mathf.Lerp(speed, 0, increase * 5);
         }
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > .7f)
         {
