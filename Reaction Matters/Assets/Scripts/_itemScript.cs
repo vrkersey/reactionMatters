@@ -20,8 +20,8 @@ public class _itemScript : MonoBehaviour {
 
     void Start()
     {
-        outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
-        
+        if (gameObject.GetComponent<MeshRenderer>() != null)
+            outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
     }
 
     void Update()
