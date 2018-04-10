@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 2edff7c31043960419810c9f2ef5ed95
+timeCreated: 1523369109
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: LPWires:pTorus1
+    100004: LPWires:pTorus10
+    100006: LPWires:pTorus2
+    100008: LPWires:pTorus3
+    100010: LPWires:pTorus4
+    100012: LPWires:pTorus5
+    100014: LPWires:pTorus6
+    100016: LPWires:pTorus7
+    100018: LPWires:pTorus8
+    100020: LPWires:pTorus9
+    100022: LPWireSpool:pCylinder3
+    400000: //RootNode
+    400002: LPWires:pTorus1
+    400004: LPWires:pTorus10
+    400006: LPWires:pTorus2
+    400008: LPWires:pTorus3
+    400010: LPWires:pTorus4
+    400012: LPWires:pTorus5
+    400014: LPWires:pTorus6
+    400016: LPWires:pTorus7
+    400018: LPWires:pTorus8
+    400020: LPWires:pTorus9
+    400022: LPWireSpool:pCylinder3
+    2300000: LPWires:pTorus1
+    2300002: LPWires:pTorus10
+    2300004: LPWires:pTorus2
+    2300006: LPWires:pTorus3
+    2300008: LPWires:pTorus4
+    2300010: LPWires:pTorus5
+    2300012: LPWires:pTorus6
+    2300014: LPWires:pTorus7
+    2300016: LPWires:pTorus8
+    2300018: LPWires:pTorus9
+    2300020: LPWireSpool:pCylinder3
+    3300000: LPWires:pTorus1
+    3300002: LPWires:pTorus10
+    3300004: LPWires:pTorus2
+    3300006: LPWires:pTorus3
+    3300008: LPWires:pTorus4
+    3300010: LPWires:pTorus5
+    3300012: LPWires:pTorus6
+    3300014: LPWires:pTorus7
+    3300016: LPWires:pTorus8
+    3300018: LPWires:pTorus9
+    3300020: LPWireSpool:pCylinder3
+    4300000: LPWireSpool:pCylinder3
+    4300002: LPWires:pTorus3
+    4300004: LPWires:pTorus2
+    4300006: LPWires:pTorus5
+    4300008: LPWires:pTorus1
+    4300010: LPWires:pTorus7
+    4300012: LPWires:pTorus10
+    4300014: LPWires:pTorus6
+    4300016: LPWires:pTorus4
+    4300018: LPWires:pTorus9
+    4300020: LPWires:pTorus8
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 62ff4fdbda2d2d1468fb6e9ae1c5dd4d, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
