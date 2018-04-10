@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class _itemScript : MonoBehaviour {
@@ -64,7 +62,7 @@ public class _itemScript : MonoBehaviour {
             case items.CESIUM:
                 if (delay-- <= 0)
                 {
-                    GameObject temp = PrefabUtility.InstantiatePrefab(explosion) as GameObject;
+                    GameObject temp = Instantiate(explosion) as GameObject;
                     temp.transform.position = transform.position;
                     Destroy(gameObject);
                 }

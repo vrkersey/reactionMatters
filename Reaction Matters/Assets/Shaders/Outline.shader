@@ -20,7 +20,7 @@
 	struct v2f
 	{
 		float4 pos : POSITION;
-		float3 normal : NROMAL;
+		float3 normal : NORMAL;
 	};
 
 	float _OutlineWidth;
@@ -31,6 +31,7 @@
 		v.vertex.xyz *= _OutlineWidth;
 
 		v2f o;
+		UNITY_INITIALIZE_OUTPUT(v2f, o);
 		o.pos = UnityObjectToClipPos(v.vertex);
 		return o;
 	}

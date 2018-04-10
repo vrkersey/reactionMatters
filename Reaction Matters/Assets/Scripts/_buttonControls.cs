@@ -5,14 +5,10 @@ using UnityEngine.UI;
 
 public class _buttonControls : MonoBehaviour
 {
-
     Vector3 lookdir;
     Vector3 pos;
 
     public Dictionary<string, List<GameObject>> inventory;
-    public GameObject bulletPrefab;
-    public Transform waterStartPosition;
-    public Transform fireStartPosition;
 
     private _gameSettings GM;
     private _audioController AM;
@@ -22,9 +18,6 @@ public class _buttonControls : MonoBehaviour
     private GameObject waterTool;
     private GameObject fireTool;
     private Rigidbody rb;
-    private bool grounded;
-    private GameObject previousWaterBullet;
-    private GameObject previousFireBullet;
     private ParticleSystem waterPS;
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
@@ -35,8 +28,6 @@ public class _buttonControls : MonoBehaviour
     private Quaternion fireFinalRotation;
     private Vector3 waterFinalPosition;
     private Quaternion waterFinalRotation;
-    
-    public bool Grounded { get { return grounded; } }
 
     // Use this for initialization
     void Start()
@@ -80,14 +71,6 @@ public class _buttonControls : MonoBehaviour
 
         lookdir = this.transform.Find("Mover").transform.forward;
         pos = this.transform.Find("Mover").transform.position;
-
-        //// jump
-        //if (grounded && (Input.GetKey(KeyCode.Space) || Input.GetButtonDown("AButton")))
-        //{
-        //    Vector3 upDir = new Vector3(0, 1, 0);
-        //    rb.AddForce(upDir * GM.jumpHeight, ForceMode.VelocityChange);
-        //    grounded = false;
-        //}
 
         // use item
         if (Input.GetButtonDown("BButton") || Input.GetKeyDown(KeyCode.Q))
@@ -168,35 +151,11 @@ public class _buttonControls : MonoBehaviour
 
     }
 
-    IEnumerator openDoor(GameObject obj)
-    {
-        obj.SetActive(false);
-        yield return new WaitForSeconds(5f);
-        obj.SetActive(true);
-    }
-
     IEnumerator respawn(GameObject obj)
     {
         obj.SetActive(false);
         yield return new WaitForSeconds(respawnTime);
         obj.SetActive(true);
-    }
-
-    public float getWaterLevel()
-    {
-        return waterLevel;
-    }
-    public float getFireLevel()
-    {
-        return fireLevel;
-    }
-
-    void OnCollisionStay(Collision c)
-    {
-        if (c.gameObject.CompareTag("Floor"))
-        {
-            grounded = true;
-        }
     }
 
     private void toolAction(bool both)
@@ -207,7 +166,6 @@ public class _buttonControls : MonoBehaviour
         {
             //raise Fire
             fireTool.transform.localRotation = Quaternion.Lerp(fireTool.transform.localRotation, fireFinalRotation, .1f);
-            //fireTool.transform.localPosition = Vector3.Lerp(fireTool.transform.localPosition, fireFinalPosition, 5);
         }
         else
         {
