@@ -888,8 +888,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1268110366818770}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.78, y: 0.97, z: 10.08}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 74.36, y: 0.97, z: 6.4}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4350976941341928}
@@ -997,7 +997,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8ecf7d60593399d4fb720af1aa3de456, type: 2}
+  - {fileID: 2100000, guid: facc0e52fdedca042b0fb206bb836c78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1031,7 +1031,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0afef1544a026f748a83c91b9f0a06e2, type: 2}
+  - {fileID: 2100000, guid: c04b8dc303d510140b0cfcbfa4d4735d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1065,7 +1065,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ae639ba349519aa46bc1eca93f244c21, type: 2}
+  - {fileID: 2100000, guid: facc0e52fdedca042b0fb206bb836c78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1099,7 +1099,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b4a1f4ec101a4534c921f7bf385239e6, type: 2}
+  - {fileID: 2100000, guid: facc0e52fdedca042b0fb206bb836c78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1133,7 +1133,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 377ba23287191da46b3cf00999bfebd9, type: 2}
+  - {fileID: 2100000, guid: facc0e52fdedca042b0fb206bb836c78, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1651,10 +1651,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7342b3f43c10b449825755488c33d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1326416988018754, guid: e066b5ee94871499b89708a713ab1de2,
-    type: 2}
-  waterStartPosition: {fileID: 4153052937852928}
-  fireStartPosition: {fileID: 4533032208739318}
 --- !u!114 &114348986214719804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1902,7 +1898,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1810365808
+  randomSeed: -250255093
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -18160,7 +18156,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -159232947
+  randomSeed: -1170245285
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21441,7 +21437,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -908330605
+  randomSeed: -642982611
   InitialModule:
     serializedVersion: 3
     enabled: 1
