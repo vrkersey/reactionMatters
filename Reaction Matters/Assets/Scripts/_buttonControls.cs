@@ -31,6 +31,11 @@ public class _buttonControls : MonoBehaviour
     private ParticleSystem smokePS;
     private float respawnTime;
 
+    private Vector3 fireFinalPosition;
+    private Quaternion fireFinalRotation;
+    private Vector3 waterFinalPosition;
+    private Quaternion waterFinalRotation;
+    
     public bool Grounded { get { return grounded; } }
 
     // Use this for initialization
@@ -58,6 +63,10 @@ public class _buttonControls : MonoBehaviour
             inventory.Add(item, new List<GameObject>());
         }
 
+        fireFinalPosition = new Vector3(-.6f, 0, 0);
+        waterFinalPosition = new Vector3(.6f, 0, 0);
+        fireFinalRotation = Quaternion.Euler(new Vector3(-20,0,0));
+        waterFinalRotation = Quaternion.Euler(new Vector3(-20,0,0));
     }
 
     // Update is called once per frame
@@ -173,13 +182,6 @@ public class _buttonControls : MonoBehaviour
         obj.SetActive(true);
     }
 
-    private void rotateTool(Transform arm, float toAngle, int speed)
-    {
-        Vector3 direction = new Vector3(toAngle, arm.transform.localEulerAngles.y, arm.transform.localEulerAngles.z);
-        Quaternion targetRotation = Quaternion.Euler(direction);
-        arm.transform.localRotation = Quaternion.Lerp(arm.transform.localRotation, targetRotation, Time.deltaTime * speed);
-    }
-
     public float getWaterLevel()
     {
         return waterLevel;
@@ -201,26 +203,38 @@ public class _buttonControls : MonoBehaviour
     {
         int fireDirection = both ? -1 : 1;
 
-        if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)) && !both)
+        if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)))
         {
             //raise Fire
-            rotateTool(fireTool.transform, -20, 5);
+            fireTool.transform.localRotation = Quaternion.Lerp(fireTool.transform.localRotation, fireFinalRotation, .1f);
+            //fireTool.transform.localPosition = Vector3.Lerp(fireTool.transform.localPosition, fireFinalPosition, 5);
         }
         else
         {
             //lower Fire
-            rotateTool(fireTool.transform, 0, 3);
+            fireTool.transform.localRotation = Quaternion.Lerp(fireTool.transform.localRotation, Quaternion.Euler(Vector3.zero), .05f);
         }
 
         if (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0))
         {
             //raise Water
-            rotateTool(waterTool.transform, -20, 5);
+            waterTool.transform.localRotation = Quaternion.Lerp(waterTool.transform.localRotation, waterFinalRotation, .1f);
         }
         else
         {
             //lower Water
-            rotateTool(waterTool.transform, 0, 3);
+            waterTool.transform.localRotation = Quaternion.Lerp(waterTool.transform.localRotation, Quaternion.Euler(Vector3.zero), .05f);
+        }
+
+        if (both)
+        {
+            fireTool.transform.localPosition = Vector3.Lerp(fireTool.transform.localPosition, fireFinalPosition, .1f);
+            waterTool.transform.localPosition = Vector3.Lerp(waterTool.transform.localPosition, waterFinalPosition, .1f);
+        }
+        else
+        {
+            fireTool.transform.localPosition = Vector3.Lerp(fireTool.transform.localPosition, Vector3.zero, .1f);
+            waterTool.transform.localPosition = Vector3.Lerp(waterTool.transform.localPosition, Vector3.zero, .1f);
         }
 
         // find if we should spray/fire or not
