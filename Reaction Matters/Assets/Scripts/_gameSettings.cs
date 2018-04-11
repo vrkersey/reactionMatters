@@ -228,6 +228,7 @@ public class _gameSettings : MonoBehaviour {
     public void CraftableClick()
     {
         String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
+        Debug.Log(clickName);
         Dictionary<string, List<GameObject>> inventory = BM.inventory;
         List<GameObject> list;
         GameObject firstItem;
