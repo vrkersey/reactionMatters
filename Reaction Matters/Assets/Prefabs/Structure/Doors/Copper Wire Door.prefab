@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4338700459719846}
   - component: {fileID: 95717861518076832}
+  - component: {fileID: 114316536058858444}
   m_Layer: 0
   m_Name: Copper Wire Door
   m_TagString: Untagged
@@ -201,3 +202,16 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114316536058858444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622724640849524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843999a1110378b4da97f85701d87158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  batteryDoor: 0
+  copperWireDoor: 1
