@@ -24,7 +24,7 @@ public class _doorController : MonoBehaviour {
     {
         if (locked)
             return false;
-        StartCoroutine(openDoor(transform.Find("InnerDoor").gameObject));
+        StartCoroutine(openDoor(transform.Find("DoorIn:polySurface1").gameObject));
         return true;
     }
 
