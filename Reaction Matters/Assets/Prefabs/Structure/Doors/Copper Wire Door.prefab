@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4804693348229196}
   - component: {fileID: 33952680632604894}
   - component: {fileID: 23153249979336498}
+  - component: {fileID: 65427709003031480}
   m_Layer: 0
   m_Name: DoorIn:polySurface1
   m_TagString: Untagged
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 114316536058858444}
   m_Layer: 0
   m_Name: Copper Wire Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,6 +56,8 @@ GameObject:
   - component: {fileID: 4944180288724354}
   - component: {fileID: 33540995998475058}
   - component: {fileID: 23056774890837262}
+  - component: {fileID: 65871977841555582}
+  - component: {fileID: 65225606520781184}
   m_Layer: 0
   m_Name: DoorOut:polySurface1
   m_TagString: Untagged
@@ -69,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1622724640849524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.6793346, y: 0.00000074033915, z: 21.382998}
+  m_LocalPosition: {x: -7.75, y: 0.00000034900393, z: 17.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4804693348229196}
@@ -185,6 +188,42 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1409717707518926}
   m_Mesh: {fileID: 4300002, guid: 3816bfb944a1417468e79d5d783c2609, type: 3}
+--- !u!65 &65225606520781184
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998369475761562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23231709, y: 2, z: 1.014225}
+  m_Center: {x: -0.8865815, y: 1, z: 1.4928875}
+--- !u!65 &65427709003031480
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409717707518926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.021834016, y: 2.0158412, z: 1.9734044}
+  m_Center: {x: -0.8848944, y: 1.0079206, z: 0.0052798986}
+--- !u!65 &65871977841555582
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1998369475761562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23231709, y: 2, z: 1.0198612}
+  m_Center: {x: -0.8865815, y: 1, z: -1.4900694}
 --- !u!95 &95717861518076832
 Animator:
   serializedVersion: 3
