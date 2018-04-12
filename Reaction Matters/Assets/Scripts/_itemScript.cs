@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,17 +76,34 @@ public class _itemScript : MonoBehaviour {
         switch (item)
         {
             case items.THERMITE:
+                if (this.name == "Wall Thermite")
+                {
+                    Transform parentWall = this.transform.parent.parent.parent;
+                    GameObject solidWall = parentWall.Find("Solid Wall").gameObject;
+                    GameObject holedWall = parentWall.Find("Holed Wall").gameObject;
+                    ParticleSystem sparks = parentWall.Find("Sparks").GetComponent<ParticleSystem>();
+                    ParticleSystem light = parentWall.Find("Light").GetComponent<ParticleSystem>();
+                    sparks.Play();
+                    light.Play();
+                    StartCoroutine(respawn(holedWall, true, 3));
+                    StartCoroutine(respawn(solidWall, false, 3));
+                }
+                else
+                {
+                    //regular thermite
+                }
                 break;
         }
     }
 
     public bool Use(Vector3 posOfUse, Vector3 lookDir)
     {
+        RaycastHit hit;
         switch (item)
         {
             case items.BATTERY:
             case items.COPPER_WIRE:
-                RaycastHit hit;
+                
                 if (Physics.Raycast(posOfUse, lookDir, out hit, 3f))
                 {
                     Transform other = hit.collider.transform;
@@ -99,16 +117,31 @@ public class _itemScript : MonoBehaviour {
                         other = other.parent;
                     }
                 }
-                break;
+                return drop(posOfUse, lookDir);
             case items.THERMITE:
-                //place on wall/door
-                break;
+                if (Physics.Raycast(posOfUse, lookDir, out hit, 3f) && hit.collider.tag == "Thermite Wall")
+                {
+                    hit.collider.transform.Find("Wall Thermite").gameObject.SetActive(true);
+                    Destroy(gameObject, .5f);
+                    return true;
+                }
+                else
+                {
+                    return drop(posOfUse, lookDir);
+                }
+                
             default:
                 return drop(posOfUse, lookDir);
         }
-
-        return false;
     }
+
+    IEnumerator respawn(GameObject obj, bool isActive, float time)
+    {
+        obj.SetActive(!isActive);
+        yield return new WaitForSeconds(time);
+        obj.SetActive(isActive);
+    }
+
     public GameObject pickup(){
         GameObject clone = Instantiate(gameObject);
         clone.SetActive(false);
@@ -150,17 +183,6 @@ public class _itemScript : MonoBehaviour {
         this.gameObject.SetActive(true);
 
         return true;
-    }
-
-    private RaycastHit doRayCast(Vector3 pos, Vector3 dir)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(pos, dir, out hit, 3f))
-        {
-            
-            
-        }
-        return hit;
     }
 
     public string getName()
