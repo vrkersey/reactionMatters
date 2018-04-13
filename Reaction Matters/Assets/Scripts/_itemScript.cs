@@ -154,7 +154,8 @@ public class _itemScript : MonoBehaviour {
         lookDir.y = 0;
         RaycastHit hit;
         Vector3 placeLocation = Vector3.zero;
-        Bounds bounds = gameObject.GetComponent<MeshRenderer>().bounds;
+        MeshRenderer mesh = gameObject.GetComponent<MeshRenderer>();
+        Bounds bounds = mesh != null ? mesh.bounds : new Bounds();
 
         if (Physics.Raycast(posOfUse, lookDir, out hit, 1.5f))
         {

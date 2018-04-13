@@ -73,7 +73,7 @@ public class _buttonControls : MonoBehaviour
         pos = this.transform.Find("Mover").transform.position;
 
         // use item
-        if (Input.GetButtonDown("BButton") || Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonUp("BButton") || Input.GetKeyDown(KeyCode.Q))
         {
             string selectedItem = SelectedItem.SelectedItem;
             if (selectedItem != "")
