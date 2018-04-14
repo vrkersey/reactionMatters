@@ -22,7 +22,7 @@ public class _buttonControls : MonoBehaviour
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
     private ParticleSystem smokePS;
-    private float respawnTime;
+    
 
     private Vector3 fireFinalPosition;
     private Quaternion fireFinalRotation;
@@ -34,7 +34,6 @@ public class _buttonControls : MonoBehaviour
     {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         AM = GameObject.Find("_EventSystem").GetComponent<_audioController>();
-        respawnTime = GM.itemRespawnTimeInMinutes * 60;
 
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
@@ -115,15 +114,16 @@ public class _buttonControls : MonoBehaviour
                     {
                         List<GameObject> items;
                         inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
-                        if (other.gameObject.GetComponent<_itemScript>().SpawnItem)
-                        {
-                            items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
-                            StartCoroutine(respawn(other.gameObject));
-                        }
-                        else{
-                            items.Add(other.gameObject);
-                            other.gameObject.SetActive(false);
-                        }
+                        items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
+                        //if (other.gameObject.GetComponent<_itemScript>().SpawnItem)
+                        //{
+                            
+                        //    StartCoroutine(respawn(other.gameObject));
+                        //}
+                        //else{
+                        //    items.Add(other.gameObject);
+                        //    other.gameObject.SetActive(false);
+                        //}
                         
                         keepLooking = false;
                     }
@@ -149,13 +149,6 @@ public class _buttonControls : MonoBehaviour
         }
 
 
-    }
-
-    IEnumerator respawn(GameObject obj)
-    {
-        obj.SetActive(false);
-        yield return new WaitForSeconds(respawnTime);
-        obj.SetActive(true);
     }
 
     private void toolAction(bool both)

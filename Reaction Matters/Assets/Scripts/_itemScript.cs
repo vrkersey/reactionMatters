@@ -15,6 +15,7 @@ public class _itemScript : MonoBehaviour {
     private List<items> materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
     private Material outlineGlow;
     private bool spawnItem = false;
+    private float respawnTime;
 
     public bool Useable { get { return useable.Contains(item); } }
     public bool Material { get { return materials.Contains(item); } }
@@ -23,6 +24,7 @@ public class _itemScript : MonoBehaviour {
     {
         if (gameObject.GetComponent<MeshRenderer>() != null)
             outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
+        respawnTime = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().itemRespawnTimeInMinutes * 60;
     }
 
     void Update()
@@ -121,7 +123,7 @@ public class _itemScript : MonoBehaviour {
                 }
                 return drop(posOfUse, lookDir);
             case items.THERMITE:
-                if (Physics.Raycast(posOfUse, lookDir, out hit, 3f) && hit.collider.tag == "Thermite Wall")
+                if (Physics.Raycast(posOfUse, lookDir, out hit, 5f) && hit.collider.tag == "Thermite Wall")
                 {
                     hit.collider.transform.Find("Wall Thermite").gameObject.SetActive(true);
                     Destroy(gameObject, .5f);
@@ -145,10 +147,28 @@ public class _itemScript : MonoBehaviour {
     }
 
     public GameObject pickup(){
-        GameObject clone = Instantiate(gameObject);
-        clone.SetActive(false);
-        
-        return clone;
+
+        if (gameObject.name == "Wall Thermite")
+        {
+            gameObject.SetActive(false);
+            GameObject clone = Instantiate(gameObject);
+            clone.name = "Thermite";
+            clone.transform.localScale = new Vector3(0.1102068f, 0.1102068f, 0.1102068f);
+            clone.SetActive(false);
+            return clone;
+        }
+
+        if (spawnItem) {
+            StartCoroutine(respawn(gameObject, true, respawnTime));
+            GameObject clone = Instantiate(gameObject);
+            clone.SetActive(false);
+            return clone;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            return gameObject;
+        }
     }
 
     private bool drop(Vector3 posOfUse, Vector3 lookDir)
