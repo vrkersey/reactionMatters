@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114423140150684854}
   m_Layer: 0
   m_Name: Gallium Melt Animation
-  m_TagString: Untagged
+  m_TagString: Gallium Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,9 +39,11 @@ GameObject:
   - component: {fileID: 33831428964091028}
   - component: {fileID: 23446713607430256}
   - component: {fileID: 95300088143518366}
+  - component: {fileID: 65931572687072568}
+  - component: {fileID: 65190678307331362}
   m_Layer: 0
   m_Name: thermite wall Hole (1)
-  m_TagString: Untagged
+  m_TagString: Gallium Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +75,7 @@ GameObject:
   - component: {fileID: 4362033771784438}
   m_Layer: 0
   m_Name: Gallium Door
-  m_TagString: Untagged
+  m_TagString: Gallium Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,9 +91,11 @@ GameObject:
   - component: {fileID: 33465348310527692}
   - component: {fileID: 23176337625083086}
   - component: {fileID: 95655492601035012}
+  - component: {fileID: 65399327235161584}
+  - component: {fileID: 65105331180402278}
   m_Layer: 0
   m_Name: thermite wall Hole
-  m_TagString: Untagged
+  m_TagString: Gallium Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,6 +251,42 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574485252764154}
   m_Mesh: {fileID: 4300000, guid: 2a8ec8435e79dba4d813f52b9627a055, type: 3}
+--- !u!65 &65105331180402278
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825267983957950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42625228, y: 2, z: 0.43501577}
+  m_Center: {x: -0.7896131, y: 1, z: -0.7824925}
+--- !u!65 &65190678307331362
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574485252764154}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42625228, y: 2, z: 0.43501577}
+  m_Center: {x: -0.7896131, y: 1, z: -0.7824925}
+--- !u!65 &65399327235161584
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825267983957950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42625228, y: 2, z: 0.43501577}
+  m_Center: {x: -0.7896131, y: 1, z: 0.7824925}
 --- !u!65 &65494743587442706
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -259,6 +299,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9616461, y: 4, z: 0.13937104}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65931572687072568
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574485252764154}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42625228, y: 2, z: 0.43501577}
+  m_Center: {x: -0.7896131, y: 1, z: 0.7824925}
 --- !u!95 &95300088143518366
 Animator:
   serializedVersion: 3

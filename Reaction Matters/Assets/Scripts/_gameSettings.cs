@@ -48,6 +48,8 @@ public class _gameSettings : MonoBehaviour {
     private bool o2cooldown;
     private Player savedPlayer;
     private AudioSource breathing;
+    private bool blink = false;
+    private GameObject warnings;
 
     // Use this for initialization
     void Start () {
@@ -56,6 +58,8 @@ public class _gameSettings : MonoBehaviour {
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
         timeBar = GameObject.Find("TimeBar");
         breathing = GameObject.Find("Heavy Breathing").GetComponent<AudioSource>();
+        warnings = GameObject.Find("Warnings");
+        warnings.SetActive(false);
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -94,6 +98,16 @@ public class _gameSettings : MonoBehaviour {
         {
             breathing.Stop();
         }
+        
+        if (guiTime <= 60 && !blink)
+        {
+            blink = true;
+            StartCoroutine(Blink(warnings, .5f));
+        }
+        else if (guiTime > 60)
+        {
+            blink = false;
+        }
 
         if (paused)
         {
@@ -112,6 +126,23 @@ public class _gameSettings : MonoBehaviour {
                 StartCoroutine(Cooldown());
             }
         }
+    }
+    IEnumerator Blink(GameObject image, float interval)
+    {
+        while (blink)
+        {
+            if (image.activeSelf)
+            {
+                image.SetActive(false);
+                yield return new WaitForSeconds(interval);
+            }
+            else
+            {
+                image.SetActive(true);
+                yield return new WaitForSeconds(interval);
+            }
+        }
+        image.SetActive(false);
     }
     IEnumerator Cooldown()
     {
@@ -241,7 +272,7 @@ public class _gameSettings : MonoBehaviour {
     public void CraftableClick()
     {
         String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
-        Debug.Log(clickName);
+
         Dictionary<string, List<GameObject>> inventory = BM.inventory;
         List<GameObject> list;
         GameObject firstItem;

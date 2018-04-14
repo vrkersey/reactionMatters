@@ -29,6 +29,7 @@ public class _buttonControls : MonoBehaviour
     private Vector3 waterFinalPosition;
     private Quaternion waterFinalRotation;
 
+    public string selectedItem { get { return SelectedItem.SelectedItem; } }
     // Use this for initialization
     void Start()
     {

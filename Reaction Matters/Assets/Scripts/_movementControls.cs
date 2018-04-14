@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class _movementControls : MonoBehaviour {
+
+    public Texture[] hints;
 
     private Vector3 start_position;
     private Rigidbody rb;
@@ -22,6 +25,11 @@ public class _movementControls : MonoBehaviour {
     private bool audioStopped;
     private _gameSettings GM;
     private _audioController AM;
+    private _buttonControls BM;
+    private RawImage hint;
+    private Text hintText;
+    private Color showColor;
+    private Color hideColor;
 
     // Use this for initialization
     void Start () {
@@ -29,10 +37,15 @@ public class _movementControls : MonoBehaviour {
         sensitivityX = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
         sensitivityY = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().sensitivity;
         jumpMultiplier = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().jumpHeight;
-        
+        hint = GameObject.Find("Hint").GetComponent<RawImage>();
+        hintText = GameObject.Find("HintText").GetComponent<Text>();
+        showColor = new Color(255, 255, 255, 255);
+        hideColor = new Color(255, 255, 255, 0);
+
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
         AM = GameObject.Find("_EventSystem").GetComponent<_audioController>();
-        
+        BM = transform.parent.GetComponent<_buttonControls>();
+
         player = this.transform.parent.gameObject;
 
         originalRotation = transform.localRotation;
@@ -47,6 +60,92 @@ public class _movementControls : MonoBehaviour {
             return;
         Mouse_Input();
         Keyboard_Input();
+        look();
+    }
+
+    private void look()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 4f))
+        {
+            Transform other = hit.collider.transform;
+            if (other.tag == "Pickup")
+            {
+                hintText.text = other.GetComponent<_itemScript>().item.ToString();
+                hint.texture = hints[2];
+                hint.color = showColor;
+            }
+            else if(other.tag == "Gallium Wall")
+            {
+                hintText.text = "GALLIUM";
+                hint.color = hideColor;
+            }
+            else if (other.tag == "Thermite Wall")
+            {
+                hintText.text = "Wall with Shelf";
+                if (BM.selectedItem == "THERMITE")
+                {
+                    hint.texture = hints[0];
+                    hint.color = showColor;
+                }
+                else
+                {
+                    hint.color = hideColor;
+                }
+            }
+            else if (other.tag == "Inner Door")
+            {
+                _doorController dc = other.parent.GetComponent<_doorController>();
+                if (!dc.Locked)
+                {
+                    hintText.text = "";
+                    hint.texture = hints[1];
+                    hint.color = showColor;
+                }
+                else if (dc.batteryDoor)
+                {
+                    hintText.text = "No Power";
+                    if (BM.selectedItem == "BATTERY")
+                    {
+                        hint.texture = hints[0];
+                        hint.color = showColor;
+                    }
+                    else
+                    {
+                        hint.color = hideColor;
+                    }
+                }
+                else if (dc.copperWireDoor)
+                {
+                    hintText.text = "Damaged Wiring";
+                    if (BM.selectedItem == "COPPER_WIRE")
+                    {
+                        hint.texture = hints[0];
+                        hint.color = showColor;
+                    }
+                    else
+                    {
+                        hint.color = hideColor;
+                    }
+                }
+            }
+            else if(other.tag == "Crafting Table")
+            {
+                hintText.text = "Crafting Table";
+                hint.texture = hints[1];
+                hint.color = showColor;
+            }
+            else
+            {
+                hintText.text = "";
+                hint.color = hideColor;
+            }
+        }
+        else
+        {
+            hintText.text = "";
+            hint.color = hideColor;
+        }
     }
 
     private void Mouse_Input()
