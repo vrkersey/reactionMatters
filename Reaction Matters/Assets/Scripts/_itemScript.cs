@@ -83,8 +83,10 @@ public class _itemScript : MonoBehaviour {
                     GameObject holedWall = parentWall.Find("Holed Wall").gameObject;
                     ParticleSystem sparks = parentWall.Find("Sparks").GetComponent<ParticleSystem>();
                     ParticleSystem light = parentWall.Find("Light").GetComponent<ParticleSystem>();
+                    AudioSource audio = parentWall.Find("Audio Source").GetComponent<AudioSource>();
                     sparks.Play();
                     light.Play();
+                    audio.PlayDelayed(.8f);
                     StartCoroutine(respawn(holedWall, true, 3));
                     StartCoroutine(respawn(solidWall, false, 3));
                 }
