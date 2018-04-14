@@ -47,6 +47,7 @@ public class _gameSettings : MonoBehaviour {
     private Transform craftingSelected;
     private bool o2cooldown;
     private Player savedPlayer;
+    private AudioSource breathing;
 
     // Use this for initialization
     void Start () {
@@ -54,6 +55,7 @@ public class _gameSettings : MonoBehaviour {
         oxygenRefilTimeInMinutes *= 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
         timeBar = GameObject.Find("TimeBar");
+        breathing = GameObject.Find("Heavy Breathing").GetComponent<AudioSource>();
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -79,7 +81,18 @@ public class _gameSettings : MonoBehaviour {
         timeBar.transform.localScale = new Vector3(timeRemaining/(15*60) > 1 ? 1 : timeRemaining / (15 * 60), timeBar.transform.localScale.y, timeBar.transform.localScale.z);
         if (guiTime == 0)
         {
+            timeRemaining += startTimeInMinutes * 60;
             Reset();
+        }
+        else if (guiTime <= 20)
+        {
+            if (!breathing.isPlaying)
+                breathing.Play();
+            breathing.volume = (20 - guiTime) / 20;
+        }
+        else if (guiTime >= 20 && breathing.isPlaying)
+        {
+            breathing.Stop();
         }
 
         if (paused)
