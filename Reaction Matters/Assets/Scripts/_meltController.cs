@@ -49,6 +49,12 @@ public class _meltController : MonoBehaviour {
         if (other.name == "Steam")
         {
             heating = Time.time;
+            increase = 0.01f;
+        }
+        if (other.name == "Fire" && Time.time - heating > .5f)
+        {
+            heating = Time.time;
+            increase = 0.001f;
         }
     }
 }

@@ -99,7 +99,7 @@ public class _movementControls : MonoBehaviour {
                 if (!dc.Locked)
                 {
                     hintText.text = "";
-                    hint.texture = hints[1];
+                    hint.texture = hints[3];
                     hint.color = showColor;
                 }
                 else if (dc.batteryDoor)

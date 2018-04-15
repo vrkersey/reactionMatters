@@ -116,15 +116,6 @@ public class _buttonControls : MonoBehaviour
                         List<GameObject> items;
                         inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
                         items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
-                        //if (other.gameObject.GetComponent<_itemScript>().SpawnItem)
-                        //{
-                            
-                        //    StartCoroutine(respawn(other.gameObject));
-                        //}
-                        //else{
-                        //    items.Add(other.gameObject);
-                        //    other.gameObject.SetActive(false);
-                        //}
                         
                         keepLooking = false;
                     }
@@ -214,15 +205,12 @@ public class _buttonControls : MonoBehaviour
         }
 
 
-        if (both)
+        if (both && fireLevel > 0 && waterLevel > 0)
         {
-            fireLevel -= Time.deltaTime / GM.toolUseTime;
-            firePS.Stop();
             if (!steamPS.isEmitting)
                 steamPS.Play();
-            AM.FireAudio = true;
         }
-        else if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
+        if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
         {
             //Fire
             fireLevel -= Time.deltaTime / GM.toolUseTime;
