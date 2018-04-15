@@ -31,6 +31,15 @@ public class _buttonControls : MonoBehaviour
 
     public string selectedItem { get { return SelectedItem.SelectedItem; } }
     // Use this for initialization
+    void Awake()
+    {
+        //initialize inventory
+        inventory = new Dictionary<string, List<GameObject>>();
+        foreach (string item in _itemScript.getItemNames())
+        {
+            inventory.Add(item, new List<GameObject>());
+        }
+    }
     void Start()
     {
         GM = GameObject.Find("_EventSystem").GetComponent<_gameSettings>();
@@ -46,13 +55,6 @@ public class _buttonControls : MonoBehaviour
 
         SelectedItem = GameObject.Find("Selected Item").GetComponent<_elementMenu>();
         rb = this.GetComponent<Rigidbody>();
-
-        //initialize inventory
-        inventory = new Dictionary<string, List<GameObject>>();
-        foreach (string item in _itemScript.getItemNames())
-        {
-            inventory.Add(item, new List<GameObject>());
-        }
 
         fireFinalPosition = new Vector3(-.6f, 0, 0);
         waterFinalPosition = new Vector3(.6f, 0, 0);
@@ -234,5 +236,9 @@ public class _buttonControls : MonoBehaviour
         GameObject.Find("fire percentage").GetComponent<Text>().text = ((int)(fireLevel * 100)).ToString() + "%";
         GameObject.Find("water level").transform.localScale = new Vector3(waterLevel, 1, 1);
         GameObject.Find("water percentage").GetComponent<Text>().text = ((int)(waterLevel * 100)).ToString() + "%";
+    }
+    void OnTriggerEnter(Collider c)
+    {
+        GM.Save();
     }
 }
