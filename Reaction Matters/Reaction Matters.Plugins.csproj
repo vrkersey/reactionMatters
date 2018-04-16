@@ -308,6 +308,7 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\PyroParticles\Readme.txt" />
     <None Include="Assets\Shaders\AdditiveTintable.shader" />
     <None Include="Assets\Shaders\ItemGlow.shader" />
     <None Include="Assets\Shaders\Outline.shader" />
