@@ -239,6 +239,10 @@ public class _buttonControls : MonoBehaviour
     }
     void OnTriggerEnter(Collider c)
     {
-        GM.Save();
+        if (c.gameObject.name == "Save Zone")
+        {
+            new WaitForSeconds(1f);
+            GM.Save();
+        }
     }
 }
