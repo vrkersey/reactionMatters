@@ -13,7 +13,7 @@ public class _itemScript : MonoBehaviour {
 
     private List<items> useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN };
     private List<items> materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
-    private Material outlineGlow;
+    private List<Material> outlineGlow;
     private bool spawnItem = false;
     private float respawnTime;
 
@@ -22,15 +22,17 @@ public class _itemScript : MonoBehaviour {
 
     void Start()
     {
-        if (gameObject.GetComponent<MeshRenderer>() != null)
-            outlineGlow = gameObject.GetComponent<MeshRenderer>().material;
+        outlineGlow = new List<Material>();
+        foreach (MeshRenderer mr in gameObject.GetComponentsInChildren<MeshRenderer>())
+            outlineGlow.Add(mr.material);
+
         respawnTime = GameObject.Find("_EventSystem").GetComponent<_gameSettings>().itemRespawnTimeInMinutes * 60;
     }
 
     void Update()
     {
-        if (outlineGlow != null)
-            outlineGlow.SetFloat("_OutlineWidth", Mathf.PingPong(Time.time/10, 0.05f)+1);
+        foreach (Material m in outlineGlow)
+            m .SetFloat("_OutlineWidth", Mathf.PingPong(Time.time / 10, 0.05f) + 1);
     }
     public bool SpawnItem{ get{ return spawnItem; } set{spawnItem = value;} }
 
@@ -67,7 +69,10 @@ public class _itemScript : MonoBehaviour {
                 {
                     GameObject temp = Instantiate(explosion) as GameObject;
                     temp.transform.position = transform.position;
-                    Destroy(gameObject);
+                    if (spawnItem)
+                        StartCoroutine(respawn(gameObject, true, respawnTime));
+                    else
+                        Destroy(gameObject);
                 }
                 break;
         }

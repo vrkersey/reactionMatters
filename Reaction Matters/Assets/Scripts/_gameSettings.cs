@@ -50,6 +50,7 @@ public class _gameSettings : MonoBehaviour {
     private AudioSource breathing;
     private bool blink = false;
     private GameObject warnings;
+    private List<GameObject> spawnItems;
 
     // Use this for initialization
     void Start () {
@@ -67,15 +68,18 @@ public class _gameSettings : MonoBehaviour {
 
         resumeButton = pauseMenu.transform.Find("Menu").Find("Resume");
         quitButton = pauseMenu.transform.Find("Menu").Find("Quit");
+        spawnItems = new List<GameObject>();
 
         foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")){
             pickup.GetComponent<_itemScript>().SpawnItem = true;
+            spawnItems.Add(pickup);
         }
         Save();
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         float guiTime = timeRemaining > 0 ? timeRemaining - Time.fixedTime : 0;
         int minutes = (int)guiTime / 60;
         int seconds = (int)guiTime % 60;
@@ -107,24 +111,6 @@ public class _gameSettings : MonoBehaviour {
         else if (guiTime > 60)
         {
             blink = false;
-        }
-
-        if (paused)
-        {
-            if (Input.GetButtonDown("BButton"))
-                TogglePauseMenu();
-        }
-        if (crafting)
-        {
-            if (Input.GetButtonDown("BButton"))
-            {
-                ToggleCraftingMenu();
-            }
-            if (Input.GetButtonDown("YButton") && !o2cooldown)
-            {
-                timeRemaining += oxygenRefilTimeInMinutes;
-                StartCoroutine(Cooldown());
-            }
         }
     }
     IEnumerator Blink(GameObject image, float interval)
@@ -357,9 +343,9 @@ public class _gameSettings : MonoBehaviour {
         Player current = new Player();
         current.position = player.transform.position;
         current.rotation = player.transform.Find("Mover").rotation;
-        current.inventory = new Dictionary<string, List<GameObject>>();
 
         //make a deep copy of inventory 
+        current.inventory = new Dictionary<string, List<GameObject>>();
         foreach (KeyValuePair<string, List<GameObject>> entry in BM.GetComponent<_buttonControls>().inventory)
             current.inventory.Add(entry.Key, new List<GameObject>(entry.Value));
 
@@ -368,13 +354,20 @@ public class _gameSettings : MonoBehaviour {
 
     public void Load()
     {
+
         GameObject player = GameObject.Find("_Main Character");
         GameObject mover = player.transform.Find("Mover").gameObject;
 
         mover.SendMessage("resetRotation");
         player.transform.position = savedPlayer.position;
         mover.transform.rotation = savedPlayer.rotation;
-        BM.GetComponent<_buttonControls>().inventory = savedPlayer.inventory;
+
+        BM.GetComponent<_buttonControls>().inventory = new Dictionary<string, List<GameObject>>();
+        foreach (KeyValuePair<string, List<GameObject>> entry in savedPlayer.inventory)
+            BM.GetComponent<_buttonControls>().inventory.Add(entry.Key, new List<GameObject>(entry.Value));
+
+        foreach (GameObject spawnItem in spawnItems)
+            spawnItem.SetActive(true);
     }
 
     public void Controls()
@@ -384,8 +377,8 @@ public class _gameSettings : MonoBehaviour {
 
     public void Reset()
     {
-        TogglePauseMenu();
         Load();
+        TogglePauseMenu();
     }
 
     public void Quit()

@@ -1,17 +1,35 @@
-﻿Shader "Custom/Silhouette Only"
+﻿// Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
+
+Shader "Custom/Outline"
 {
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white"{}
 		_OutlineColor("Outline Color", Color) = (0,0,0,1)
 		_OutlineWidth("Outline width", Range(1.0,2.0)) = 1.02
-		_Color("Main Color", Color) = (0,0,0,1)
+
+		_Color("Color", Color) = (1,1,1,1)
+		_MainTex("Albedo", 2D) = "white" {}
+
+	_GlossMapScale("Smoothness Scale", Range(0.0, 1.0)) = 1.0
+
+		_MetallicGlossMap("Metallic", 2D) = "white" {}
+
+	_BumpScale("Scale", Float) = 1.0
+		_BumpMap("Normal Map", 2D) = "bump" {}
+
+
+
+	// Blending state
+	[HideInInspector] _SrcBlend("__src", Float) = 1.0
+		[HideInInspector] _DstBlend("__dst", Float) = 0.0
+		[HideInInspector] _ZWrite("__zw", Float) = 1.0
 	}
 
-	CGINCLUDE
-	#include "UnityCG.cginc"
+		CGINCLUDE
+#define UNITY_SETUP_BRDF_INPUT MetallicSetup
+#include "UnityCG.cginc"
 
-	struct appdata
+		struct appdata
 	{
 		float4 vertex : POSITION;
 		float3 normal : NORMAL;
@@ -35,50 +53,74 @@
 		o.pos = UnityObjectToClipPos(v.vertex);
 		return o;
 	}
-
 	ENDCG
 
-	SubShader
+		SubShader
 	{
 		Tags{ "Queue" = "Transparent" }
-		
+
 		Pass // Render the Outline
-		{
-			ZWrite Off
+	{
+		ZWrite Off
 
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+		CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
 
-			half4 frag(v2f i) : COLOR
-			{
-				return _OutlineColor;
-			}
-			ENDCG
-		}
-		Pass // Normal render
-		{
-			ZWrite On
+		half4 frag(v2f i) : COLOR
+	{
+		return _OutlineColor;
+	}
+		ENDCG
+	}
+		// ------------------------------------------------------------------
+		//  Base forward pass (directional light, emission, lightmaps, ...)
+		Pass
+	{
+		Tags{ "LightMode" = "ForwardBase" }
 
-			Material
-			{
-				Diffuse[_Color]
-				Ambient[_Color]
-			}
+		Blend[_SrcBlend][_DstBlend]
 
-			Lighting On
+		CGPROGRAM
+#pragma target 3.0
 
-			SetTexture[_MainTex]
-			{
-				ConstantColor[_Color]
-			}
+		// -------------------------------------
 
-			SetTexture[_MainTex]
-			{
-				Combine previous * primary DOUBLE
-			}
-		}											
+#pragma shader_feature _NORMALMAP
+#pragma shader_feature _METALLICGLOSSMAP
+
+#pragma vertex vertBase
+#pragma fragment fragBase
+#include "UnityStandardCoreForward.cginc"
+
+		ENDCG
 	}
 
-	Fallback "Diffuse"
+		// ------------------------------------------------------------------
+		//  Additive forward pass (one light per pass)
+		Pass
+	{
+		Tags{ "LightMode" = "ForwardAdd" }
+		Blend[_SrcBlend] One
+		ZWrite Off
+
+		CGPROGRAM
+#pragma target 3.0
+
+		// -------------------------------------
+
+
+#pragma shader_feature _NORMALMAP
+#pragma shader_feature _METALLICGLOSSMAP
+
+#pragma multi_compile_fwdadd_fullshadows
+
+#pragma vertex vertAdd
+#pragma fragment fragAdd
+#include "UnityStandardCoreForward.cginc"
+
+		ENDCG
+	}
+	}
+		FallBack "VertexLit"
 }
