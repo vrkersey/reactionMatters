@@ -318,6 +318,7 @@
     <Compile Include="Assets\PyroParticles\Prefab\Editor\PyroParticlesEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Dynamic Flickering Light\readme.txt" />
     <None Include="Assets\Models\Stairs\TexMaps\topogun_log.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />

@@ -225,6 +225,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Dynamic Flickering Light\FlickeringLight.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Assets\Scripts\_elementMenu.cs" />
     <Compile Include="Assets\Scripts\_gameSettings.cs" />
     <Compile Include="Assets\Scripts\_itemScript.cs" />
+    <Compile Include="Assets\Scripts\_mainMenuController.cs" />
     <Compile Include="Assets\Scripts\_meltController.cs" />
     <Compile Include="Assets\Scripts\_movementControls.cs" />
     <Compile Include="Assets\Scripts\CornerButonInspector.cs" />
@@ -298,6 +300,7 @@
     <Compile Include="Assets\Simple Explosion\Scripts\PhysicalExplosion.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Dynamic Flickering Light\readme.txt" />
     <None Include="Assets\Models\Stairs\TexMaps\topogun_log.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
