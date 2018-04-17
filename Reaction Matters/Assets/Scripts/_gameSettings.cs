@@ -112,6 +112,24 @@ public class _gameSettings : MonoBehaviour {
         {
             blink = false;
         }
+
+        if (paused)
+        {
+            if (Input.GetButtonDown("BButton"))
+                TogglePauseMenu();
+        }
+        if (crafting)
+        {
+            if (Input.GetButtonDown("BButton"))
+            {
+                ToggleCraftingMenu();
+            }
+            if (Input.GetButtonDown("YButton") && !o2cooldown)
+            {
+                timeRemaining += oxygenRefilTimeInMinutes;
+                StartCoroutine(Cooldown());
+            }
+        }
     }
     IEnumerator Blink(GameObject image, float interval)
     {
