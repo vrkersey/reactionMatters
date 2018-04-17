@@ -4415,6 +4415,11 @@ Prefab:
       propertyPath: m_Name
       value: Wall:10,0 Z-
       objectReference: {fileID: 0}
+    - target: {fileID: 23108957291516926, guid: e4ef3157a024bc041acb25a6de872e2f,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d707af3ea2cd6d74384ae6aa292d9bec, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4ef3157a024bc041acb25a6de872e2f, type: 2}
   m_IsPrefabParent: 0
