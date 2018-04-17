@@ -129,6 +129,17 @@ public class _movementControls : MonoBehaviour {
                     }
                 }
             }
+            else if(other.tag == "CanDestroy"){
+                hintText.text = "Damaged Wall";
+                if (BM.selectedItem == "CESIUM"){
+                    hint.texture = hints[0];
+                    hint.color = showColor;
+                }
+                else
+                {
+                    hint.color = hideColor;
+                }
+            }
             else if(other.tag == "Crafting Table")
             {
                 hintText.text = "Crafting Table";
