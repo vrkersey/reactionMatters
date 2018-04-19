@@ -67,12 +67,12 @@ public class _itemScript : MonoBehaviour {
             case items.CESIUM:
                 if (delay-- <= 0)
                 {
-                    GameObject temp = Instantiate(explosion) as GameObject;
-                    temp.transform.position = transform.position;
                     if (spawnItem)
                         StartCoroutine(respawn(gameObject, true, respawnTime));
                     else
                         Destroy(gameObject);
+                    GameObject temp = Instantiate(explosion) as GameObject;
+                    temp.transform.position = transform.position;
                 }
                 break;
         }

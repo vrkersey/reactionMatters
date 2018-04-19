@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ public class _buttonControls : MonoBehaviour
     private ParticleSystem steamPS;
     private ParticleSystem firePS;
     private ParticleSystem smokePS;
-    
+    private bool buttonTimout = false;
 
     private Vector3 fireFinalPosition;
     private Quaternion fireFinalRotation;
@@ -65,7 +66,7 @@ public class _buttonControls : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (GM.isPaused || GM.isCrafting)
             return;
@@ -77,8 +78,9 @@ public class _buttonControls : MonoBehaviour
         pos = this.transform.Find("Mover").transform.position;
 
         // use item
-        if (Input.GetButtonUp("XButton") || Input.GetKeyDown(KeyCode.Q))
+        if ((Input.GetButton("XButton") || Input.GetKeyDown(KeyCode.Q)) && !buttonTimout)
         {
+            StartCoroutine(timout());
             string selectedItem = SelectedItem.SelectedItem;
             if (selectedItem != "")
             {
@@ -136,6 +138,13 @@ public class _buttonControls : MonoBehaviour
         }
 
 
+    }
+
+    private IEnumerator timout()
+    {
+        buttonTimout = true;
+        yield return new WaitForSeconds(.5f);
+        buttonTimout = false;
     }
 
     private void toolAction(bool both)
