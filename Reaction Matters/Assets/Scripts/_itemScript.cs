@@ -13,6 +13,15 @@ public class _itemScript : MonoBehaviour {
 
     private List<items> useable = new List<items> { items.CESIUM, items.THERMITE, items.BATTERY, items.COPPER_WIRE, items.LIQUID_NITROGEN };
     private List<items> materials = new List<items> { items.IRON, items.ALUMINUM, items.SILVER, items.MAGNESIUM, items.COPPER, items.LITHIUM, items.MANGANESE };
+    private Dictionary<items, float> materialYs = new Dictionary<items, float>
+    {
+        {items.CESIUM, .2f},
+        {items.THERMITE, 0f },
+        {items.BATTERY, .161f },
+        {items.COPPER_WIRE, .121f },
+        {items.LIQUID_NITROGEN, 0f },
+    };
+
     private List<Material> outlineGlow;
     private bool spawnItem = false;
     private float respawnTime;
@@ -35,18 +44,6 @@ public class _itemScript : MonoBehaviour {
             m .SetFloat("_OutlineWidth", Mathf.PingPong(Time.time / 10, 0.05f) + 1);
     }
     public bool SpawnItem{ get{ return spawnItem; } set{spawnItem = value;} }
-
-    void OnCollisionEnter(Collision c)
-    {
-        if (c.gameObject.CompareTag("Water"))
-        {
-            Water();
-        }
-        else if (c.gameObject.CompareTag("Fire"))
-        {
-            Fire();
-        }
-    }
 
     void OnParticleCollision(GameObject other)
     {
@@ -181,8 +178,6 @@ public class _itemScript : MonoBehaviour {
         lookDir.y = 0;
         RaycastHit hit;
         Vector3 placeLocation = Vector3.zero;
-        MeshRenderer mesh = gameObject.GetComponent<MeshRenderer>();
-        Bounds bounds = mesh != null ? mesh.bounds : new Bounds();
 
         if (Physics.Raycast(posOfUse, lookDir, out hit, 1.5f))
         {
@@ -205,8 +200,9 @@ public class _itemScript : MonoBehaviour {
         {
             return false;
         }
-
-        placeLocation.y += bounds.max.y/2;
+        float yplacement;
+        materialYs.TryGetValue(item, out yplacement);
+        placeLocation.y += yplacement;
         transform.position = placeLocation;
         this.gameObject.SetActive(true);
 
