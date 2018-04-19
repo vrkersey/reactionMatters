@@ -6,8 +6,18 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Group57952
     400000: //RootNode
-  externalObjects: {}
+    400002: Group57952
+    2300000: Group57952
+    3300000: Group57952
+    4300000: Group57952
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Group57952Mat
+    second: {fileID: 2100000, guid: 127dd7f8269073d4788ba9565575c7ed, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
