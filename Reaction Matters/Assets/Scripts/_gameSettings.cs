@@ -112,6 +112,7 @@ public class _gameSettings : MonoBehaviour {
         {
             blink = true;
             StartCoroutine(Blink(warnings, .5f));
+            gameObject.SendMessage("playVoice", "Low_Oxygen");
         }
         else if (timeRemaining > 60)
         {
@@ -385,7 +386,7 @@ public class _gameSettings : MonoBehaviour {
 
     public void Load()
     {
-        timeRemaining = startTimeInMinutes * 60;
+        startTime += startTimeInMinutes * 60;
         GameObject player = GameObject.Find("_Main Character");
         GameObject mover = player.transform.Find("Mover").gameObject;
 
