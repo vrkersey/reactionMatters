@@ -135,6 +135,9 @@ namespace DigitalRuby.PyroParticles
 
         public virtual void Stop()
         {
+            foreach (BoxCollider bc in GetComponents<BoxCollider>())
+                Destroy(bc, 1f);
+
             if (Stopping)
             {
                 return;

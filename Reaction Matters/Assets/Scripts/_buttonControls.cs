@@ -17,6 +17,7 @@ public class _buttonControls : MonoBehaviour
     private float fireLevel = 1f;
     private GameObject waterTool;
     private GameObject fireTool;
+    private GameObject inventoryUI;
     private Rigidbody rb;
     private ParticleSystem waterPS;
     private ParticleSystem steamPS;
@@ -47,6 +48,7 @@ public class _buttonControls : MonoBehaviour
 
         waterTool = GameObject.Find("Water Arm");
         fireTool = GameObject.Find("Fire Arm");
+        inventoryUI = GameObject.Find("Inventory");
 
         waterPS = GameObject.Find("Water").GetComponent<ParticleSystem>();
         steamPS = GameObject.Find("Steam").GetComponent<ParticleSystem>();
@@ -102,37 +104,28 @@ public class _buttonControls : MonoBehaviour
         {
             //Looking at an interactable object?
             RaycastHit hit;
-            if (Physics.Raycast(pos, lookdir, out hit, 3f))
+            if (Physics.Raycast(pos, lookdir, out hit, 4f))
             {
                 Transform other = hit.collider.transform;
-                bool keepLooking = true;
-                while (other != null && keepLooking)
+                if (other.tag == "Inner Door")
                 {
-                    if (other.tag == "Door")
-                    {
-                        other.gameObject.SendMessage("tryOpen");
-                        keepLooking = false;
-                    }
-                    if (other.tag == "Pickup")
-                    {
-                        List<GameObject> items;
-                        inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
-                        items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
-                        
-                        keepLooking = false;
-                    }
-                    if (other.tag == "Crafting Table")
-                    {
-                        GM.Craft(inventory);
-                        AM.WalkAudio = false;
-                    }
-                    other = other.parent;
+                    other.parent.SendMessage("tryOpen");
+                }
+                if (other.tag == "Pickup")
+                {
+                    List<GameObject> items;
+                    inventory.TryGetValue(other.GetComponent<_itemScript>().item.ToString(), out items);
+                    items.Add(other.gameObject.GetComponent<_itemScript>().pickup());
+                    inventoryUI.SendMessage("updateInventory");
+                }
+                if (other.tag == "Crafting Table")
+                {
+                    GM.Craft(inventory);
                 }
             }
         }
 
         // Tool section
-
         if ((Input.GetAxis("RightTrigger") > .2 || Input.GetMouseButton(1)) && (Input.GetAxis("LeftTrigger") > .2 || Input.GetMouseButton(0)))
         {
             toolAction(true);

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4053289255834302}
   - component: {fileID: 108064087277272704}
-  - component: {fileID: 114995667089609344}
+  - component: {fileID: 114714913416456746}
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -51,8 +51,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1074168701275452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.359653, y: 0.93, z: 12.802994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 65.936, y: 1.2, z: 5.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4868526905691528}
@@ -108,7 +108,7 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114995667089609344
+--- !u!114 &114714913416456746
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -116,13 +116,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1074168701275452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b536e216bbd27d458fd574b3bcccea4, type: 3}
+  m_Script: {fileID: 11500000, guid: a84669ff93463b44bb8169883690a1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 50
-  speed: 5
-  MakeSourceStationary: 1
-  positionOffset: 5
+  flickeringLightStyle: 0
+  campfireMethod: 2
+  campfireIntesityStyle: 1
+  campfireRangeStyle: 1
+  CampfireIntensityBaseValue: 0
+  CampfireIntensityFlickerValue: 2
+  CampfireRangeBaseValue: 5
+  CampfireRangeFlickerValue: 2
+  CampfireSineCycleIntensitySpeed: 5
+  CampfireSineCycleRangeSpeed: 5
+  FluorescentFlickerMin: 0.4
+  FluorescentFlickerMax: 0.5
+  FluorescentFlicerPercent: 0.95
+  FluorescentFlickerPlaySound: 0
+  FluorescentFlickerAudioClip: {fileID: 0}
 --- !u!198 &198746407923562364
 ParticleSystem:
   m_ObjectHideFlags: 1

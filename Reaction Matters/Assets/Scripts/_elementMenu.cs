@@ -96,7 +96,7 @@ public class _elementMenu : MonoBehaviour {
     {
         if (Time.timeScale == 0f)
         {
-            float input = Input.GetAxis("RightJoystickHorizontal");
+            float input = Input.GetAxis("LeftJoystickHorizontal");
 
             if (Math.Abs(input) > 0.15f)
             {

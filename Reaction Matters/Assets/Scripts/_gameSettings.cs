@@ -32,6 +32,7 @@ public class _gameSettings : MonoBehaviour {
     public GameObject Battery;
     public GameObject Copper_Wire;
 
+    private float startTime;
     private float timeRemaining;
     private Text timeDisplay;
     private GameObject timeBar;
@@ -45,22 +46,25 @@ public class _gameSettings : MonoBehaviour {
     private bool crafting = false;
     private List<string> itemsDiscovered = new List<string>();
     private Transform craftingSelected;
-    private bool o2cooldown;
+    private bool o2cooldown = false;
     private Player savedPlayer;
     private AudioSource breathing;
     private bool blink = false;
     private GameObject warnings;
     private List<GameObject> spawnItems;
-
+    private RawImage hint;
+    private Text hintText;
     // Use this for initialization
     void Start () {
-        timeRemaining = startTimeInMinutes * 60;
+        startTime = startTimeInMinutes * 60;
         oxygenRefilTimeInMinutes *= 60;
         timeDisplay = GameObject.Find("Time").GetComponent<Text>();
         timeBar = GameObject.Find("TimeBar");
         breathing = GameObject.Find("Heavy Breathing").GetComponent<AudioSource>();
         warnings = GameObject.Find("Warnings");
         warnings.SetActive(false);
+        hint = GameObject.Find("Hint").GetComponent<RawImage>();
+        hintText = GameObject.Find("HintText").GetComponent<Text>();
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -75,40 +79,41 @@ public class _gameSettings : MonoBehaviour {
             spawnItems.Add(pickup);
         }
         Save();
+        Time.timeScale = 1f;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        float guiTime = timeRemaining > 0 ? timeRemaining - Time.fixedTime : 0;
-        int minutes = (int)guiTime / 60;
-        int seconds = (int)guiTime % 60;
+        timeRemaining = startTime > 0 ? startTime - Time.fixedTime : 0;
+        int minutes = (int)timeRemaining / 60;
+        int seconds = (int)timeRemaining % 60;
 
         string textTime = string.Format("{0:00}   {1:00}", minutes, seconds);
         timeDisplay.text = textTime;
-        timeBar.transform.localScale = new Vector3(timeRemaining/(15*60) > 1 ? 1 : timeRemaining / (15 * 60), timeBar.transform.localScale.y, timeBar.transform.localScale.z);
-        if (guiTime == 0)
+        timeBar.transform.localScale = new Vector3(timeRemaining / (15*60) > 1 ? 1 : timeRemaining / (15 * 60), timeBar.transform.localScale.y, timeBar.transform.localScale.z);
+
+        if (timeRemaining == 0)
         {
-            timeRemaining += startTimeInMinutes * 60;
             Reset();
         }
-        else if (guiTime <= 20)
+        else if (timeRemaining <= 20)
         {
             if (!breathing.isPlaying)
                 breathing.Play();
-            breathing.volume = (20 - guiTime) / 20;
+            breathing.volume = (20 - timeRemaining) / 20;
         }
-        else if (guiTime >= 20 && breathing.isPlaying)
+        else if (timeRemaining >= 20 && breathing.isPlaying)
         {
             breathing.Stop();
         }
         
-        if (guiTime <= 60 && !blink)
+        if (timeRemaining <= 60 && !blink)
         {
             blink = true;
             StartCoroutine(Blink(warnings, .5f));
         }
-        else if (guiTime > 60)
+        else if (timeRemaining > 60)
         {
             blink = false;
         }
@@ -126,10 +131,16 @@ public class _gameSettings : MonoBehaviour {
             }
             if (Input.GetButtonDown("YButton") && !o2cooldown)
             {
-                timeRemaining += oxygenRefilTimeInMinutes;
+                startTime += oxygenRefilTimeInMinutes;
                 StartCoroutine(Cooldown());
             }
         }
+    }
+
+    void blankHints()
+    {
+        hint.color = new Color(255, 255, 255, 0);
+        hintText.text = "";
     }
     IEnumerator Blink(GameObject image, float interval)
     {
@@ -173,6 +184,7 @@ public class _gameSettings : MonoBehaviour {
         {
             craftingMenu.SetActive(true);
             crafting = true;
+            blankHints();
         }
     }
 
@@ -267,6 +279,7 @@ public class _gameSettings : MonoBehaviour {
             resumeButton.GetComponent<Button>().Select();
             Time.timeScale = 0f;
             paused = true;
+            blankHints();
         }
     }
 
@@ -372,7 +385,7 @@ public class _gameSettings : MonoBehaviour {
 
     public void Load()
     {
-
+        timeRemaining = startTimeInMinutes * 60;
         GameObject player = GameObject.Find("_Main Character");
         GameObject mover = player.transform.Find("Mover").gameObject;
 
