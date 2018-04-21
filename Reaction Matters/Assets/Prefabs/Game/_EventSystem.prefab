@@ -54,6 +54,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc97320e9050504da38eab258195271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elements: []
+  voiceOvers: []
 --- !u!114 &114263849381128508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,9 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   craftingMenu: {fileID: 0}
-  startTimeInMinutes: 5
+  startTimeInMinutes: 8
+  oxygenRefilTimeInMinutes: 4
+  itemRespawnTimeInMinutes: 3
   toolRespawnTime: 100
-  toolUseTime: 20
+  toolUseTime: 10
   movementSpeed: 5
   sensitivity: 10
   jumpHeight: 4

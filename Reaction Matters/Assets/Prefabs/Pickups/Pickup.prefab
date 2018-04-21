@@ -64,14 +64,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1309211437123568}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.250976, y: 0.175, z: 15.856645}
+  m_LocalRotation: {x: -0, y: 0.43600345, z: -0, w: 0.8999451}
+  m_LocalPosition: {x: 24.936, y: -0.697, z: 5.495}
   m_LocalScale: {x: 0.13378423, y: 0.13378423, z: 0.13378423}
   m_Children:
   - {fileID: 4012040021863466}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 51.698, z: 0}
 --- !u!23 &23060130906430184
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: 5
-  explosion: {fileID: 0}
+  explosion: {fileID: 1000010608846784, guid: 6747b1742d70743a8aff8594e708b2f7, type: 2}
   delay: 20
 --- !u!135 &135163621782303954
 SphereCollider:
