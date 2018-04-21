@@ -225,7 +225,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Dynamic Flickering Light\FlickeringLight.cs" />
+    <Compile Include="Assets\Dynamic Flickering Light\flickeringLight1.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
@@ -272,7 +272,6 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\PyroParticles\Demo\DemoScript.cs" />
-    <Compile Include="Assets\PyroParticles\Demo\DemoScriptEditor.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireBaseScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
@@ -285,6 +284,7 @@
     <Compile Include="Assets\Scripts\_doorController.cs" />
     <Compile Include="Assets\Scripts\_elementMenu.cs" />
     <Compile Include="Assets\Scripts\_gameSettings.cs" />
+    <Compile Include="Assets\Scripts\_inventoryUI.cs" />
     <Compile Include="Assets\Scripts\_itemScript.cs" />
     <Compile Include="Assets\Scripts\_mainMenuController.cs" />
     <Compile Include="Assets\Scripts\_meltController.cs" />
