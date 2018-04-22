@@ -28,6 +28,8 @@ public class _mainMenuController : MonoBehaviour {
         {
             loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, Mathf.PingPong(Time.time, 1));
         }
+        if (Input.GetButtonDown("BButton"))
+            QuitGame();
     }
 
     public void StartGame()

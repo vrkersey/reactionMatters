@@ -15,7 +15,8 @@ public class _gameSettings : MonoBehaviour {
     public float startTimeInMinutes = 5f;
     public float oxygenRefilTimeInMinutes = 3f;
     public float itemRespawnTimeInMinutes = 3f;
-   
+    public GameObject[] levels;
+
     [Tooltip("Time in Seconds to Fill Tool from 0% to 100%")]
     public float toolRespawnTime = 100f;
     [Tooltip("Time in Seconds to Use Tool from 100% to 0%")]
@@ -161,6 +162,7 @@ public class _gameSettings : MonoBehaviour {
         hint.color = new Color(255, 255, 255, 0);
         hintText.text = "";
     }
+
     IEnumerator Blink(GameObject image, float interval)
     {
         while (blink)
@@ -395,6 +397,37 @@ public class _gameSettings : MonoBehaviour {
         }
     }
 
+    public void DestroyInstantiateLevels(string currentLevelName)
+    {
+        int currentLevel = -1;
+        if (Int32.TryParse(currentLevelName.Replace("Level ", "").Replace("(Clone)",""), out currentLevel))
+        {
+            currentLevel--;
+            int nextLevel = currentLevel == levels.Length-1 ? -1 : currentLevel + 1;
+            int previousLevel = currentLevel == 0 ? -1 : currentLevel - 1;
+
+            //Instantiate Levels
+            if (nextLevel != -1 && GameObject.Find("Level " + (nextLevel + 1) + "(Clone)") == null)
+                Instantiate(levels[nextLevel]);
+
+            if (previousLevel != -1 && GameObject.Find("Level " + (previousLevel + 1) + "(Clone)") == null)
+                Instantiate(levels[previousLevel]);
+
+            if (GameObject.Find("Level " + (currentLevel + 1) + "(Clone)") == null)
+                Instantiate(levels[currentLevel]);
+
+            //Destroy Levels
+            for (int i = 0; i < levels.Length; i++)
+            {
+                if (i != currentLevel && i != nextLevel && i != previousLevel)
+                {
+                    GameObject level = GameObject.Find("Level " + (i + 1) + "(Clone)");
+                    Destroy(level);
+                }
+            }
+        }
+    }
+
     public void Save()
     {
         GameObject player = GameObject.Find("_Main Character");
@@ -409,7 +442,11 @@ public class _gameSettings : MonoBehaviour {
 
         savedPlayer = current;
     }
-
+    public IEnumerator delayedSave()
+    {
+        yield return new WaitForSeconds(1f);
+        Save();
+    }
     public void Load()
     {
         float addTime = timeRemaining > startTimeInMinutes * 60 ? 0 : startTimeInMinutes * 60 - timeRemaining;

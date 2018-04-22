@@ -30,6 +30,7 @@ public class _buttonControls : MonoBehaviour
     private Quaternion fireFinalRotation;
     private Vector3 waterFinalPosition;
     private Quaternion waterFinalRotation;
+    private GameObject currentLevel;
 
     public string selectedItem { get { return SelectedItem.SelectedItem; } }
     // Use this for initialization
@@ -243,8 +244,23 @@ public class _buttonControls : MonoBehaviour
     {
         if (c.gameObject.name == "Save Zone")
         {
-            new WaitForSeconds(1f);
-            GM.Save();
+            StartCoroutine(GM.delayedSave());
+            c.gameObject.name = "Transition Zone";
         }
+        if (c.gameObject.name == "Transition Zone")
+        {
+            StartCoroutine(waitForTransition());
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Floor")
+            currentLevel = other.transform.root.gameObject;
+    }
+    IEnumerator waitForTransition()
+    {
+        yield return new WaitForSeconds(2f);
+        GM.DestroyInstantiateLevels(currentLevel.name);
     }
 }
