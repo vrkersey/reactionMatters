@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+#if UNITY_EDITOR
 using UnityEditor;
 [ExecuteInEditMode]
 public class LevelEditor : MonoBehaviour {
@@ -260,3 +262,4 @@ public class LevelEditor : MonoBehaviour {
    
    
 }
+#endif
