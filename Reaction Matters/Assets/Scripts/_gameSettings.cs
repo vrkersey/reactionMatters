@@ -12,7 +12,6 @@ public class _gameSettings : MonoBehaviour {
     [Header("Level things")]
     public GameObject pauseMenu;
     public GameObject craftingMenu;
-
     public float startTimeInMinutes = 5f;
     public float oxygenRefilTimeInMinutes = 3f;
     public float itemRespawnTimeInMinutes = 3f;
@@ -42,8 +41,9 @@ public class _gameSettings : MonoBehaviour {
 
     private Transform resumeButton;
     private Transform quitButton;
-    private bool paused = false;
+    private bool paused = true;
     private bool crafting = false;
+    private bool starting = true;
     private List<string> itemsDiscovered = new List<string>();
     private Transform craftingSelected;
     private bool o2cooldown = false;
@@ -55,6 +55,7 @@ public class _gameSettings : MonoBehaviour {
     private RawImage hint;
     private Text hintText;
     private GameObject inventoryUI;
+    private Image Fade;
 
     // Use this for initialization
     void Start () {
@@ -68,6 +69,8 @@ public class _gameSettings : MonoBehaviour {
         hint = GameObject.Find("Hint").GetComponent<RawImage>();
         hintText = GameObject.Find("HintText").GetComponent<Text>();
         inventoryUI = GameObject.Find("Inventory");
+        Fade = GameObject.Find("Fade").GetComponent<Image>();
+        Fade.color = new Color(Fade.color.r, Fade.color.g, Fade.color.b, 1);
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -82,11 +85,19 @@ public class _gameSettings : MonoBehaviour {
             spawnItems.Add(pickup);
         }
         Save();
-        Time.timeScale = 1f;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (Time.timeSinceLevelLoad < 3f)
+        {
+            Fade.color = new Color(Fade.color.r, Fade.color.g, Fade.color.b, 1 - Time.timeSinceLevelLoad / 2);
+            return;
+        }else if (starting)
+        {
+            starting = false;
+            paused = false;
+        }
 
         timeRemaining = startTime > 0 ? startTime - Time.fixedTime : 0;
         int minutes = (int)timeRemaining / 60;
@@ -98,15 +109,17 @@ public class _gameSettings : MonoBehaviour {
         if (timeRemaining <= 63)
             gameObject.SendMessage("playLastMinute");
 
-        if (timeRemaining == 0)
+        if (timeRemaining <= 0)
         {
             Reset();
+            breathing.Stop();
+            return;
         }
         else if (timeRemaining <= 20)
         {
             if (!breathing.isPlaying)
                 breathing.Play();
-            breathing.volume = (20 - timeRemaining) / 20;
+            breathing.volume = 1 - timeRemaining / 20;
         }
         else if (timeRemaining >= 20 && breathing.isPlaying)
         {
@@ -385,7 +398,6 @@ public class _gameSettings : MonoBehaviour {
     public void Save()
     {
         GameObject player = GameObject.Find("_Main Character");
-
         Player current = new Player();
         current.position = player.transform.position;
         current.rotation = player.transform.Find("Mover").rotation;
@@ -400,7 +412,8 @@ public class _gameSettings : MonoBehaviour {
 
     public void Load()
     {
-        startTime += startTimeInMinutes * 60;
+        float addTime = timeRemaining > startTimeInMinutes * 60 ? 0 : startTimeInMinutes * 60 - timeRemaining;
+        startTime += addTime;
         GameObject player = GameObject.Find("_Main Character");
         GameObject mover = player.transform.Find("Mover").gameObject;
 
@@ -429,8 +442,7 @@ public class _gameSettings : MonoBehaviour {
 
     public void Quit()
     {
-        Debug.Log("Quitting");
-        Application.Quit();
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
 }
 
