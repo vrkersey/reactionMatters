@@ -1,33 +1,23 @@
 fileFormatVersion: 2
-guid: 59c42ff84b9603b46aef07722a1b147d
-timeCreated: 1523678696
+guid: 744fb1d5e1abd32478b1255908814cd9
+timeCreated: 1524353892
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: pCube10
-    100002: //RootNode
-    100004: Water_Tool:polySurface1
-    400000: pCube10
-    400002: //RootNode
-    400004: Water_Tool:polySurface1
-    2300000: pCube10
-    2300002: Water_Tool:polySurface1
-    3300000: pCube10
-    3300002: Water_Tool:polySurface1
-    4300000: pCube10
-    4300002: Water_Tool:polySurface1
+    100000: //RootNode
+    100002: Water_Tool:polySurface1
+    400000: //RootNode
+    400002: Water_Tool:polySurface1
+    2300000: Water_Tool:polySurface1
+    3300000: Water_Tool:polySurface1
+    4300000: Water_Tool:polySurface1
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: initialShadingGroup
     second: {fileID: 2100000, guid: 2e53f1fbc9d112948a90ffb67b3e240a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCube10Mat
-    second: {fileID: 2100000, guid: a86f58ddaa7329244af0637dfb762ba9, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

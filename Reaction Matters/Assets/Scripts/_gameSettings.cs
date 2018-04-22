@@ -54,6 +54,8 @@ public class _gameSettings : MonoBehaviour {
     private List<GameObject> spawnItems;
     private RawImage hint;
     private Text hintText;
+    private GameObject inventoryUI;
+
     // Use this for initialization
     void Start () {
         startTime = startTimeInMinutes * 60;
@@ -65,6 +67,7 @@ public class _gameSettings : MonoBehaviour {
         warnings.SetActive(false);
         hint = GameObject.Find("Hint").GetComponent<RawImage>();
         hintText = GameObject.Find("HintText").GetComponent<Text>();
+        inventoryUI = GameObject.Find("Inventory");
 
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -92,6 +95,8 @@ public class _gameSettings : MonoBehaviour {
         string textTime = string.Format("{0:00}   {1:00}", minutes, seconds);
         timeDisplay.text = textTime;
         timeBar.transform.localScale = new Vector3(timeRemaining / (15*60) > 1 ? 1 : timeRemaining / (15 * 60), timeBar.transform.localScale.y, timeBar.transform.localScale.z);
+        if (timeRemaining <= 63)
+            gameObject.SendMessage("playLastMinute");
 
         if (timeRemaining == 0)
         {
@@ -180,18 +185,28 @@ public class _gameSettings : MonoBehaviour {
             craftingMenu.SetActive(false);
             crafting = false;
             first = true;
+            inventoryUI.SetActive(true);
+            inventoryUI.SendMessage("updateInventory");
         }
         else
         {
             craftingMenu.SetActive(true);
             crafting = true;
             blankHints();
+            inventoryUI.SetActive(false);
         }
+    }
+    IEnumerator SelectContinueButtonLater(GameObject button)
+    {
+        yield return null;
+        gameObject.GetComponent<EventSystem>().SetSelectedGameObject(null);
+        gameObject.GetComponent<EventSystem>().SetSelectedGameObject(button);
     }
 
     private void setupCraftingUI(Dictionary<string, List<GameObject>> inventory)
     {
         Transform materials = craftingMenu.transform.Find("Materials");
+        StartCoroutine(SelectContinueButtonLater(materials.Find("Aluminum").Find("Button").gameObject));
 
         bool first = true;
         foreach (Transform child in materials)
@@ -205,7 +220,6 @@ public class _gameSettings : MonoBehaviour {
                     {
                         first = false;
                         craftingSelected = child;
-                        child.Find("Button").GetComponent<Button>().Select();
                     }
                     if (!itemsDiscovered.Contains(child.name))
                     {

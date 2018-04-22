@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114373128160655244}
   - component: {fileID: 114579096999026658}
   - component: {fileID: 114009422328444058}
+  - component: {fileID: 82844005215069746}
   m_Layer: 0
   m_Name: _EventSystem
   m_TagString: Untagged
@@ -43,6 +44,86 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82844005215069746
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163741542444820}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114009422328444058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,8 +135,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc97320e9050504da38eab258195271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elements: []
-  voiceOvers: []
+  elements:
+  - {fileID: 8300000, guid: c401e8ed8c8700847a121adf5e629122, type: 3}
+  - {fileID: 8300000, guid: fce3b14c4ba7b6344a4f8f56a9c9714d, type: 3}
+  - {fileID: 8300000, guid: 6e660608f551d6649888dff0d1981565, type: 3}
+  - {fileID: 8300000, guid: 0c785275139169a4587d3364ca6a6e21, type: 3}
+  - {fileID: 8300000, guid: d1af49d18e67ad841a82268d29b45d96, type: 3}
+  - {fileID: 8300000, guid: 518b08492dd45e241ba795db7592a14e, type: 3}
+  - {fileID: 8300000, guid: f9557a1d05aa64c478127f3ee341d868, type: 3}
+  - {fileID: 8300000, guid: f0ec0fb99220fc04b801c1597e8eb99e, type: 3}
+  - {fileID: 8300000, guid: a1b438b70eb461448a09d772d4e62a4f, type: 3}
+  - {fileID: 8300000, guid: 29301149cd887ea43a0406469101a81f, type: 3}
+  - {fileID: 8300000, guid: 7b2d693eb6b62254c8168f2b776727b2, type: 3}
+  - {fileID: 8300000, guid: 28f7bc860e3ee2046863faa2510b70cf, type: 3}
+  - {fileID: 8300000, guid: b593ffe6c8bb64a4facb9f4f91ebaf1b, type: 3}
+  voiceOvers:
+  - {fileID: 8300000, guid: d2b1dcbce00495542917aec0ccaffaf4, type: 3}
+  - {fileID: 8300000, guid: e21cb9223e1687a45b023d29796854ca, type: 3}
+  - {fileID: 8300000, guid: 0bd44220546232f48a4447f46f32974c, type: 3}
+  - {fileID: 8300000, guid: da3a69e0899410c49a1f65fbdbadb909, type: 3}
+  - {fileID: 8300000, guid: 3c28653336f676247800ee9d1dc2e809, type: 3}
+  - {fileID: 8300000, guid: 98008593ec9b42944a0100a825466a68, type: 3}
+  - {fileID: 8300000, guid: a4f9e5cdaf3e838469cbd00916d3a89c, type: 3}
+  levelMusic:
+  - {fileID: 8300000, guid: 6808f01672a3fe244bcb529065ad1f84, type: 3}
+  - {fileID: 8300000, guid: ee18e416d5356a04194e18dae0073b98, type: 3}
+  - {fileID: 8300000, guid: 1beb991631d888146842d1bdddc85529, type: 3}
+  - {fileID: 8300000, guid: b42233b02f658a346b8cbca53f4160b6, type: 3}
+  lastMinuteMusic: {fileID: 8300000, guid: 848a908b2cef01f40980a606292eb61b, type: 3}
+  creditMusic: {fileID: 8300000, guid: 3ac99ab80cb89c64f9d087acf38dd697, type: 3}
 --- !u!114 &114263849381128508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,8 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   craftingMenu: {fileID: 0}
-  startTimeInMinutes: 8
-  oxygenRefilTimeInMinutes: 4
+  startTimeInMinutes: 10
+  oxygenRefilTimeInMinutes: 6
   itemRespawnTimeInMinutes: 3
   toolRespawnTime: 100
   toolUseTime: 10
