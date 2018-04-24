@@ -226,6 +226,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Dynamic Flickering Light\flickeringLight1.cs" />
+    <Compile Include="Assets\Models\SwapMat\SwapMAt.cs" />
+    <Compile Include="Assets\Models\SwapMat\SwapMatEditor.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
