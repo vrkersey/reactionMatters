@@ -476,7 +476,7 @@ public class _gameSettings : MonoBehaviour {
                 if (i != currentLevel && i != nextLevel && i != previousLevel)
                 {
                     GameObject level = GameObject.Find("Level " + (i + 1) + "(Clone)");
-                    Destroy(level);
+                    //Destroy(level);
                 }
             }
         }
