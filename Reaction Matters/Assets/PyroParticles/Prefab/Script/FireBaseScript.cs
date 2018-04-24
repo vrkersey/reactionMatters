@@ -157,7 +157,7 @@ namespace DigitalRuby.PyroParticles
         {
             if (other.gameObject.tag == "Player")
             {
-                GameObject.Find("_EventSystem").GetComponent<_gameSettings>().Load();
+                GameObject.Find("_EventSystem").GetComponent<_gameSettings>().ToggleDeath();
             }
         }
 

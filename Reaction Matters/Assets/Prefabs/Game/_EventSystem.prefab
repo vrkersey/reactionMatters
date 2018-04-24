@@ -55,7 +55,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -209,9 +209,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   craftingMenu: {fileID: 0}
+  controls: {fileID: 0}
   startTimeInMinutes: 10
   oxygenRefilTimeInMinutes: 6
   itemRespawnTimeInMinutes: 3
+  levels:
+  - {fileID: 1846564386363106, guid: cb37ba05d937f1142964b115300042f3, type: 2}
+  - {fileID: 1567591708198384, guid: 2985ddd297ad314418666680d9e3fb70, type: 2}
+  - {fileID: 1042571511918078, guid: a46b3aec330f1cc4eb5e72e8247aad1b, type: 2}
+  - {fileID: 1597322428119210, guid: fdcbf8891ab3fc042a75d0258a6db740, type: 2}
+  - {fileID: 1127020653602408, guid: 03bb0bfe11740f9438945b43df335950, type: 2}
+  - {fileID: 1419921675849420, guid: f0e9dfbfa49e720469a0d630dd13bb3d, type: 2}
   toolRespawnTime: 100
   toolUseTime: 10
   movementSpeed: 5

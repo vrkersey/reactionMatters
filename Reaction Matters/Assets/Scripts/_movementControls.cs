@@ -244,14 +244,9 @@ public class _movementControls : MonoBehaviour {
         }
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.W) ||
-            Math.Abs(Input.GetAxis("LeftJoystickVertical")) > 0 || Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0)
+            Math.Abs(Input.GetAxis("LeftJoystickVertical")) > 0.2f || Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0.2f)
         {
             AM.WalkAudio = true;
-        }
-        else
-        {
-            AM.WalkAudio = false;
-            //StartCoroutine(FadeOut(walkAudio, .3f));
         }
     }
 

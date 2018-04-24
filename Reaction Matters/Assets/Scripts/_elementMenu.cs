@@ -36,17 +36,22 @@ public class _elementMenu : MonoBehaviour {
         }
         items = new List<string>();
         bc = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
-	}
+        if(!pauseElements)
+            SelectedElement();
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (pauseElements)
             PauseMenuAction();
         else
-            SelectedElement();
+        {
+           // if (Input.GetButtonDown("RightBumper") || Input.GetButtonDown("LeftBumper"))
+                SelectedElement();
+        }
 	}
 
-    private void SelectedElement()
+    public void SelectedElement()
     {
         string currentElement = element.texture.name;
         

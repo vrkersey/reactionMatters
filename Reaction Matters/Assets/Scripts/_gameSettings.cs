@@ -13,6 +13,7 @@ public class _gameSettings : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject craftingMenu;
     public GameObject controls;
+    public GameObject death;
 
     public float startTimeInMinutes = 5f;
     public float oxygenRefilTimeInMinutes = 3f;
@@ -60,6 +61,7 @@ public class _gameSettings : MonoBehaviour {
     private GameObject inventoryUI;
     private Image Fade;
 
+    public bool Death { get; set; }
     // Use this for initialization
     void Start () {
         startTime = startTimeInMinutes * 60;
@@ -74,7 +76,7 @@ public class _gameSettings : MonoBehaviour {
         inventoryUI = GameObject.Find("Inventory");
         Fade = GameObject.Find("Fade").GetComponent<Image>();
         Fade.color = new Color(Fade.color.r, Fade.color.g, Fade.color.b, 1);
-
+   
         MC = GameObject.Find("_Main Character").GetComponentInChildren<_movementControls>();
         BM = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
         EM = pauseMenu.transform.Find("Elements").GetComponentInChildren<_elementMenu>();
@@ -114,8 +116,8 @@ public class _gameSettings : MonoBehaviour {
 
         if (timeRemaining <= 0)
         {
-            Reset();
             breathing.Stop();
+            ToggleDeath();
             return;
         }
         else if (timeRemaining <= 20)
@@ -140,7 +142,20 @@ public class _gameSettings : MonoBehaviour {
             blink = false;
         }
 
-        if (paused)
+        if (Death)
+        {
+            if (Input.GetButtonDown("BButton"))
+            {
+                ToggleDeath();
+                Quit();
+            }
+            if (Input.GetButtonDown("YButton"))
+            {
+                ToggleDeath();
+                Load();
+            }
+        }
+        else if (paused)
         {
             if (Input.GetButtonDown("BButton"))
             {
@@ -156,7 +171,7 @@ public class _gameSettings : MonoBehaviour {
 
             }
         }
-        if (crafting)
+        else if (crafting)
         {
             if (Input.GetButtonDown("BButton"))
             {
@@ -206,24 +221,6 @@ public class _gameSettings : MonoBehaviour {
         ToggleCraftingMenu();
     }
 
-    private void ToggleCraftingMenu()
-    {
-        if (craftingMenu.activeInHierarchy)
-        {
-            craftingMenu.SetActive(false);
-            crafting = false;
-            first = true;
-            inventoryUI.SetActive(true);
-            inventoryUI.SendMessage("updateInventory");
-        }
-        else
-        {
-            craftingMenu.SetActive(true);
-            crafting = true;
-            blankHints();
-            inventoryUI.SetActive(false);
-        }
-    }
     IEnumerator SelectContinueButtonLater(GameObject button)
     {
         yield return null;
@@ -260,7 +257,7 @@ public class _gameSettings : MonoBehaviour {
         }
 
         Transform craftables = craftingMenu.transform.Find("Craftables");
-        List<GameObject> iron, aluminum, mercury, silver, magnesium, cesium, copper, lithium, manganese;
+        List<GameObject> iron, aluminum, copper, lithium, manganese;
         foreach (Transform child in craftables)
         {
             switch (child.name)
@@ -322,10 +319,51 @@ public class _gameSettings : MonoBehaviour {
             resumeButton.GetComponent<Button>().Select();
             Time.timeScale = 0f;
             paused = true;
+            GetComponent<_audioController>().WalkAudio = false;
             blankHints();
         }
     }
 
+    private void ToggleCraftingMenu()
+    {
+        if (craftingMenu.activeInHierarchy)
+        {
+            craftingMenu.SetActive(false);
+            crafting = false;
+            first = true;
+            inventoryUI.SetActive(true);
+            inventoryUI.SendMessage("updateInventory");
+        }
+        else
+        {
+            craftingMenu.SetActive(true);
+            crafting = true;
+            blankHints();
+            inventoryUI.SetActive(false);
+            GetComponent<_audioController>().WalkAudio = false;
+        }
+    }
+
+    public void ToggleDeath()
+    {
+        if (death.activeInHierarchy)
+        {
+            death.SetActive(false);
+            Time.timeScale = 1f;
+            paused = false;
+            Death = false;
+        }
+        else
+        {
+            death.SetActive(true);
+            Time.timeScale = 0f;
+            paused = true;
+            Death = true;
+            GetComponent<_audioController>().WalkAudio = false;
+            GetComponent<_audioController>().playVoice("Critical_Error");
+            blankHints();
+        }
+    }
     public bool isPaused { get { return paused; } }
     public bool isCrafting { get { return crafting; } }
 
