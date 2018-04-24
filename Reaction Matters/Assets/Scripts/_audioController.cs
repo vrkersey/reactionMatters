@@ -102,7 +102,7 @@ public class _audioController : MonoBehaviour {
         //Wait Until Sound has finished playing
         while (narator.isPlaying)
         {
-            yield return new WaitForSeconds(2f);
+            yield return null;
         }
 
         narator.clip = clip;
