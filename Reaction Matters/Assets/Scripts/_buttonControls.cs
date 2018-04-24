@@ -251,6 +251,10 @@ public class _buttonControls : MonoBehaviour
         {
             StartCoroutine(waitForTransition());
         }
+        if (c.gameObject.name == "Win Zone")
+        {
+            GM.activateCredits();
+        }
     }
 
     void OnCollisionEnter(Collision other)

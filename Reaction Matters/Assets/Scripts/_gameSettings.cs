@@ -14,6 +14,7 @@ public class _gameSettings : MonoBehaviour {
     public GameObject craftingMenu;
     public GameObject controls;
     public GameObject death;
+    public GameObject credits;
 
     public float startTimeInMinutes = 5f;
     public float oxygenRefilTimeInMinutes = 3f;
@@ -61,7 +62,8 @@ public class _gameSettings : MonoBehaviour {
     private GameObject inventoryUI;
     private Image Fade;
 
-    public bool Death { get; set; }
+    public bool Death { get; private set; }
+    public bool Ending { get; private set; }
     // Use this for initialization
     void Start () {
         startTime = startTimeInMinutes * 60;
@@ -153,6 +155,13 @@ public class _gameSettings : MonoBehaviour {
             {
                 ToggleDeath();
                 Load();
+            }
+        }
+        else if (Ending)
+        {
+            if (Input.GetButton("AButton") || Input.GetButton("BButton") || Input.GetButton("AButton"))
+            {
+                Quit();
             }
         }
         else if (paused)
@@ -342,6 +351,11 @@ public class _gameSettings : MonoBehaviour {
             inventoryUI.SetActive(false);
             GetComponent<_audioController>().WalkAudio = false;
         }
+    }
+    public void activateCredits()
+    {
+        credits.SetActive(true);
+        paused = true;
     }
 
     public void ToggleDeath()
