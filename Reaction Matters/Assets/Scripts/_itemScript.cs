@@ -118,6 +118,7 @@ public class _itemScript : MonoBehaviour {
                     {
                         if (other.tag == "Door")
                         {
+                            Destroy(gameObject, .5f);
                             return other.GetComponent<_doorController>().useItem(getName());
                         }
                         other = other.parent;

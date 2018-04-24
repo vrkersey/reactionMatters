@@ -392,6 +392,7 @@ public class _gameSettings : MonoBehaviour {
 
                 // Add Thermite
                 newObject = (GameObject)GameObject.Instantiate(Thermite, Vector3.zero, Quaternion.identity);
+                newObject.SetActive(false);
                 inventory.TryGetValue("THERMITE", out list);
                 list.Add(newObject);
                 
@@ -410,6 +411,7 @@ public class _gameSettings : MonoBehaviour {
 
                 // Add Battery
                 newObject = (GameObject)GameObject.Instantiate(Battery, Vector3.zero, Quaternion.identity);
+                newObject.SetActive(false);
                 inventory.TryGetValue("BATTERY", out list);
                 list.Add(newObject);
 
@@ -423,6 +425,7 @@ public class _gameSettings : MonoBehaviour {
 
                 // Add Copper Wire
                 newObject = (GameObject)GameObject.Instantiate(Copper_Wire, Vector3.zero, Quaternion.identity);
+                newObject.SetActive(false);
                 inventory.TryGetValue("COPPER_WIRE", out list);
                 list.Add(newObject);
 
