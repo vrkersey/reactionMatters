@@ -354,6 +354,7 @@ public class _gameSettings : MonoBehaviour {
     }
     public void activateCredits()
     {
+        GetComponent<_audioController>().playCredits();
         credits.SetActive(true);
         paused = true;
     }

@@ -62,7 +62,7 @@ public class _audioController : MonoBehaviour {
 
     public void playCredits()
     {
-
+        StartCoroutine(fadePlay(creditMusic));
     }
 
     public void playElement(string name)
