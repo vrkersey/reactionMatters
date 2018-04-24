@@ -12,6 +12,8 @@ public class _gameSettings : MonoBehaviour {
     [Header("Level things")]
     public GameObject pauseMenu;
     public GameObject craftingMenu;
+    public GameObject controls;
+
     public float startTimeInMinutes = 5f;
     public float oxygenRefilTimeInMinutes = 3f;
     public float itemRespawnTimeInMinutes = 3f;
@@ -141,7 +143,18 @@ public class _gameSettings : MonoBehaviour {
         if (paused)
         {
             if (Input.GetButtonDown("BButton"))
-                TogglePauseMenu();
+            {
+                if (controls != null && controls.activeSelf)
+                {
+                    controls.SetActive(false);
+                    pauseMenu.SetActive(true);
+                }
+                else
+                {
+                    TogglePauseMenu();
+                }
+
+            }
         }
         if (crafting)
         {
@@ -469,6 +482,11 @@ public class _gameSettings : MonoBehaviour {
     public void Controls()
     {
         //Control menu
+        if (controls != null)
+        {
+            pauseMenu.SetActive(false);
+            controls.SetActive(true);
+        }
     }
 
     public void Reset()
