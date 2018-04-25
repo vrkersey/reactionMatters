@@ -118,8 +118,12 @@ public class _gameSettings : MonoBehaviour {
 
         if (timeRemaining <= 0)
         {
-            breathing.Stop();
-            ToggleDeath();
+
+            if (!Death)
+            {
+                ToggleDeath();
+                breathing.Stop();
+            }
             return;
         }
         else if (timeRemaining <= 20)
