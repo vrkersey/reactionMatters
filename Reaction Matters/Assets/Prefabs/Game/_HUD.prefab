@@ -2255,7 +2255,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TEXTURE
+  m_Text: TECH ART
 --- !u!114 &114059094791210130
 MonoBehaviour:
   m_ObjectHideFlags: 1
