@@ -15,6 +15,7 @@ public class _elementMenu : MonoBehaviour {
 
     private RawImage element;
     private Text text;
+    private GameObject bumperIcon;
     private int index = 0;
     private bool locked;
     private string selectedItem = "";
@@ -33,6 +34,7 @@ public class _elementMenu : MonoBehaviour {
         if (!pauseElements)
         {
             text = transform.Find("Text").gameObject.GetComponent<Text>();
+            bumperIcon = GameObject.Find("Bumper Icon");
         }
         items = new List<string>();
         bc = GameObject.Find("_Main Character").GetComponent<_buttonControls>();
@@ -72,6 +74,7 @@ public class _elementMenu : MonoBehaviour {
         {
             element.gameObject.SetActive(false);
             text.gameObject.SetActive(false);
+            bumperIcon.SetActive(false);
             text.text = "0";
             selectedItem = "";
         }
@@ -79,6 +82,7 @@ public class _elementMenu : MonoBehaviour {
         {
             text.gameObject.SetActive(true);
             element.gameObject.SetActive(true);
+            bumperIcon.SetActive(true);
             if (Input.GetButtonDown("RightBumper"))
             {
                 index = (index + 1) % items.Count;
@@ -103,7 +107,7 @@ public class _elementMenu : MonoBehaviour {
         {
             float input = Input.GetAxis("LeftJoystickHorizontal");
 
-            if (Math.Abs(input) > 0.15f)
+            if (Math.Abs(input) > 0.50f)
             {
                 IncrementIndex(input);
             }

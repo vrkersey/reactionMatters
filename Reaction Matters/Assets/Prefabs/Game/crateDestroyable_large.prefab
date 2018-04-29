@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33986974747619748}
   - component: {fileID: 23725857021381530}
   - component: {fileID: 95176405746017708}
+  - component: {fileID: 65016537923166780}
   m_Layer: 0
   m_Name: crateDestroyable_large
   m_TagString: CanDestroy
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171838921982016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 74.01, y: 0.386, z: 11.793}
+  m_LocalPosition: {x: -23.12, y: 0.3927083, z: 12.83}
   m_LocalScale: {x: 78.54172, y: 78.54172, z: 78.54172}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +84,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171838921982016}
   m_Mesh: {fileID: 4300000, guid: ecfdbf2dee4adb042a208d0cf4762e71, type: 3}
+--- !u!65 &65016537923166780
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171838921982016}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95176405746017708
 Animator:
   serializedVersion: 3

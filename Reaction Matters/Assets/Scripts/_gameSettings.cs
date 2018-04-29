@@ -176,6 +176,7 @@ public class _gameSettings : MonoBehaviour {
                 {
                     controls.SetActive(false);
                     pauseMenu.SetActive(true);
+                    StartCoroutine(SelectContinueButtonLater(gameObject.GetComponent<EventSystem>().currentSelectedGameObject));
                 }
                 else
                 {

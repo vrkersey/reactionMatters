@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 33603415991903770}
   - component: {fileID: 23558167713540808}
   - component: {fileID: 95595562791226294}
+  - component: {fileID: 65500354047287392}
   m_Layer: 0
   m_Name: crateDestroyable (2)
   m_TagString: CanDestroy
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 33353242040525394}
   - component: {fileID: 23184366245345842}
   - component: {fileID: 95301406608923660}
+  - component: {fileID: 65384999921091400}
   m_Layer: 0
   m_Name: crateDestroyable
   m_TagString: CanDestroy
@@ -73,6 +75,7 @@ GameObject:
   - component: {fileID: 33057271727951984}
   - component: {fileID: 23188707196934004}
   - component: {fileID: 95630960171858552}
+  - component: {fileID: 65109298884906378}
   m_Layer: 0
   m_Name: crateDestroyable (1)
   m_TagString: CanDestroy
@@ -113,7 +116,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336962446762670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 147.08977, y: 0.6603343, z: 25.179163}
+  m_LocalPosition: {x: -25.707317, y: 0.65204114, z: 10.331228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4184540018539576}
@@ -258,6 +261,42 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1405101394098388}
   m_Mesh: {fileID: 4300000, guid: ecfdbf2dee4adb042a208d0cf4762e71, type: 3}
+--- !u!65 &65109298884906378
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951510567400268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
+  m_Center: {x: 0, y: 4.656613e-10, z: 0}
+--- !u!65 &65384999921091400
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616763240501988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.009999999}
+  m_Center: {x: 0, y: 4.656613e-10, z: -9.313226e-10}
+--- !u!65 &65500354047287392
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405101394098388}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.01, z: 0.009999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95301406608923660
 Animator:
   serializedVersion: 3
