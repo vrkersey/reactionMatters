@@ -210,6 +210,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   craftingMenu: {fileID: 0}
   controls: {fileID: 0}
+  death: {fileID: 0}
+  credits: {fileID: 0}
   startTimeInMinutes: 10
   oxygenRefilTimeInMinutes: 6
   itemRespawnTimeInMinutes: 3
@@ -229,3 +231,4 @@ MonoBehaviour:
   Battery: {fileID: 1009665309323724, guid: 2bed26c2ebefbf64d94d532d57354314, type: 2}
   Copper_Wire: {fileID: 1011837334978506, guid: 914b5cd269b222942901165c711cb139,
     type: 2}
+  Cesium: {fileID: 1309211437123568, guid: d77930dfc612f8545858840799105fcf, type: 2}

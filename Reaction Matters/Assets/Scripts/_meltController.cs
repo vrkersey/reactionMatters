@@ -7,6 +7,7 @@ public class _meltController : MonoBehaviour {
     private BoxCollider theCollider;
     private Animator animator;
     private float speed = 0f;
+    private float maxSpeed = 1;
     private float increase = 0.01f;
     private float heating = -.5f;
     private Vector3 colliderSize;
@@ -25,7 +26,7 @@ public class _meltController : MonoBehaviour {
 	void FixedUpdate () {
         if (Time.time - heating < .5f)
         {
-            speed = Mathf.Lerp(speed, 1, increase);
+            speed = Mathf.Lerp(speed, maxSpeed, increase);
         }
         else
         {
@@ -46,15 +47,15 @@ public class _meltController : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
+        if (other.name == "Fire")
+        {
+            heating = Time.time;
+            maxSpeed = .5f;
+        }
         if (other.name == "Steam")
         {
             heating = Time.time;
-            increase = 0.01f;
-        }
-        if (other.name == "Fire" && Time.time - heating > .5f)
-        {
-            heating = Time.time;
-            increase = 0.001f;
+            maxSpeed = 1;
         }
     }
 }

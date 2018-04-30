@@ -190,13 +190,26 @@ public class _buttonControls : MonoBehaviour
         bool spray = angle > 10 && angle < 25;
         angle = 360 - fireTool.transform.localEulerAngles.x;
         bool fire = angle > 10 && angle < 25;
-
+        //spray both
+        if (both && fireLevel > 0 && waterLevel > 0)
+        {
+            if (!steamPS.isEmitting)
+                steamPS.Play();
+            firePS.name = "both";
+            waterPS.name = "both";
+        }
+        else
+        {
+            if (steamPS.isEmitting)
+                steamPS.Stop();
+            firePS.name = "Fire";
+            waterPS.name = "Water";
+        }
+        //spray water
         if (spray && waterLevel > 0 && (Input.GetAxis("LeftTrigger") > .8 || Input.GetMouseButton(0)))
         {
             //Water
             waterLevel -= Time.deltaTime / GM.toolUseTime;
-
-
             if (waterLevel > .01f && !waterPS.isEmitting)
             {
                 AM.WaterAudio = true;
@@ -208,13 +221,7 @@ public class _buttonControls : MonoBehaviour
             waterPS.Stop();
             AM.WaterAudio = false;
         }
-
-
-        if (both && fireLevel > 0 && waterLevel > 0)
-        {
-            if (!steamPS.isEmitting)
-                steamPS.Play();
-        }
+        //spray fire
         if (fire && fireLevel > 0 && (Input.GetAxis("RightTrigger") > .8 || Input.GetMouseButton(1)))
         {
             //Fire
@@ -262,6 +269,7 @@ public class _buttonControls : MonoBehaviour
         if (other.gameObject.tag == "Floor")
             currentLevel = other.transform.root.gameObject;
     }
+
     IEnumerator waitForTransition()
     {
         yield return new WaitForSeconds(2f);
