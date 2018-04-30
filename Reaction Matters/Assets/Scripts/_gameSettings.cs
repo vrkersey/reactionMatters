@@ -51,7 +51,6 @@ public class _gameSettings : MonoBehaviour {
     private bool crafting = false;
     private bool starting = true;
     private List<string> itemsDiscovered = new List<string>();
-    private Transform craftingSelected;
     private bool o2cooldown = false;
     private Player savedPlayer;
     private AudioSource breathing;
@@ -264,7 +263,6 @@ public class _gameSettings : MonoBehaviour {
         Transform materials = craftingMenu.transform.Find("Materials");
         StartCoroutine(SelectContinueButtonLater(materials.Find("Aluminum").Find("Button").gameObject));
 
-        bool first = true;
         foreach (Transform child in materials)
         {
             List<GameObject> list;
@@ -272,11 +270,6 @@ public class _gameSettings : MonoBehaviour {
             {
                 if (list.Count > 0)
                 {
-                    if (first)
-                    {
-                        first = false;
-                        craftingSelected = child;
-                    }
                     if (!itemsDiscovered.Contains(child.name))
                     {
                         itemsDiscovered.Add(child.name);
@@ -361,7 +354,6 @@ public class _gameSettings : MonoBehaviour {
         {
             craftingMenu.SetActive(false);
             crafting = false;
-            first = true;
             inventoryUI.SetActive(true);
             inventoryUI.SendMessage("updateInventory");
         }
@@ -470,20 +462,12 @@ public class _gameSettings : MonoBehaviour {
         setupCraftingUI(inventory);
     }
 
-    bool first = true;
     public void MaterialsClick()
     {
-        if (first)
-        {
-            first = false;
-        }
-        else
-        {
-            String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
-            EM.switchIndex(clickName);
-            ToggleCraftingMenu();
-            TogglePauseMenu();
-        }
+        String clickName = EventSystem.current.currentSelectedGameObject.transform.parent.name;
+        EM.switchIndex(clickName);
+        ToggleCraftingMenu();
+        TogglePauseMenu();
     }
 
     public void DestroyInstantiateLevels(string currentLevelName)
