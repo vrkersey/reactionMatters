@@ -35,6 +35,7 @@ public class _gameSettings : MonoBehaviour {
     public GameObject Thermite;
     public GameObject Battery;
     public GameObject Copper_Wire;
+    public GameObject Cesium;
 
     private float startTime;
     private float timeRemaining;
@@ -43,7 +44,7 @@ public class _gameSettings : MonoBehaviour {
     private _movementControls MC;
     private _elementMenu EM;
     private _buttonControls BM;
-
+    
     private Transform resumeButton;
     private Transform quitButton;
     private bool paused = true;
@@ -61,6 +62,7 @@ public class _gameSettings : MonoBehaviour {
     private Text hintText;
     private GameObject inventoryUI;
     private Image Fade;
+    private string currentActiveLevel = "Level 1";
 
     public bool Death { get; private set; }
     public bool Ending { get; private set; }
@@ -88,10 +90,25 @@ public class _gameSettings : MonoBehaviour {
         spawnItems = new List<GameObject>();
 
         foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("Pickup")){
-            pickup.GetComponent<_itemScript>().SpawnItem = true;
             spawnItems.Add(pickup);
         }
-        Save();
+
+        GameObject savedGame = GameObject.Find("Saved Game");
+        if (savedGame != null)
+        {
+            savedPlayer = new Player();
+            savedPlayer.position = savedGame.GetComponent<_saveGame>().position;
+            savedPlayer.time = savedGame.GetComponent<_saveGame>().time;
+            savedPlayer.inventory = savedGame.GetComponent<_saveGame>().inventory;
+            DestroyInstantiateLevels(savedGame.GetComponent<_saveGame>().currectActiveLevel);
+            startTime = savedPlayer.time;
+            Load();
+            Destroy(savedGame);
+        }
+        else
+        {
+            Save();
+        }
     }
 	
 	// Update is called once per frame
@@ -100,13 +117,14 @@ public class _gameSettings : MonoBehaviour {
         {
             Fade.color = new Color(Fade.color.r, Fade.color.g, Fade.color.b, 1 - Time.timeSinceLevelLoad / 2);
             return;
-        }else if (starting)
+        }
+        else if (starting)
         {
             starting = false;
             paused = false;
         }
 
-        timeRemaining = startTime > 0 ? startTime - Time.fixedTime : 0;
+        timeRemaining = startTime > 0 ? startTime - Time.timeSinceLevelLoad : 0;
         int minutes = (int)timeRemaining / 60;
         int seconds = (int)timeRemaining % 60;
 
@@ -118,13 +136,11 @@ public class _gameSettings : MonoBehaviour {
 
         if (timeRemaining <= 0)
         {
-
             if (!Death)
             {
                 ToggleDeath();
                 breathing.Stop();
             }
-            return;
         }
         else if (timeRemaining <= 20)
         {
@@ -147,7 +163,7 @@ public class _gameSettings : MonoBehaviour {
         {
             blink = false;
         }
-
+        
         if (Death)
         {
             if (Input.GetButtonDown("BButton"))
@@ -158,6 +174,7 @@ public class _gameSettings : MonoBehaviour {
             if (Input.GetButtonDown("YButton"))
             {
                 ToggleDeath();
+                startTime = savedPlayer.time > 60 ? savedPlayer.time + Time.timeSinceLevelLoad : 60 + Time.timeSinceLevelLoad;
                 Load();
             }
         }
@@ -369,14 +386,12 @@ public class _gameSettings : MonoBehaviour {
         if (death.activeInHierarchy)
         {
             death.SetActive(false);
-            Time.timeScale = 1f;
             paused = false;
             Death = false;
         }
         else
         {
             death.SetActive(true);
-            Time.timeScale = 0f;
             paused = true;
             Death = true;
             GetComponent<_audioController>().WalkAudio = false;
@@ -476,6 +491,7 @@ public class _gameSettings : MonoBehaviour {
         int currentLevel = -1;
         if (Int32.TryParse(currentLevelName.Replace("Level ", "").Replace("(Clone)",""), out currentLevel))
         {
+            currentActiveLevel = currentLevelName;
             currentLevel--;
             int nextLevel = currentLevel == levels.Length-1 ? -1 : currentLevel + 1;
             int previousLevel = currentLevel == 0 ? -1 : currentLevel - 1;
@@ -500,6 +516,10 @@ public class _gameSettings : MonoBehaviour {
                 }
             }
         }
+
+        foreach (GameObject item in GameObject.FindGameObjectsWithTag("Pickup"))
+            if (item.GetComponent<_itemScript>().spawnItem && !spawnItems.Contains(item))
+                spawnItems.Add(item);
     }
 
     public void Save()
@@ -507,12 +527,14 @@ public class _gameSettings : MonoBehaviour {
         GameObject player = GameObject.Find("_Main Character");
         Player current = new Player();
         current.position = player.transform.position;
-        current.rotation = player.transform.Find("Mover").rotation;
-
+        current.time = timeRemaining;
         //make a deep copy of inventory 
-        current.inventory = new Dictionary<string, List<GameObject>>();
+        current.inventory = new Dictionary<string, int>();
+
         foreach (KeyValuePair<string, List<GameObject>> entry in BM.GetComponent<_buttonControls>().inventory)
-            current.inventory.Add(entry.Key, new List<GameObject>(entry.Value));
+        {
+            current.inventory.Add(entry.Key, entry.Value.Count);
+        }
 
         savedPlayer = current;
     }
@@ -523,18 +545,51 @@ public class _gameSettings : MonoBehaviour {
     }
     public void Load()
     {
-        float addTime = timeRemaining > startTimeInMinutes * 60 ? 0 : startTimeInMinutes * 60 - timeRemaining;
-        startTime += addTime;
         GameObject player = GameObject.Find("_Main Character");
         GameObject mover = player.transform.Find("Mover").gameObject;
-
-        mover.SendMessage("resetRotation");
+        
         player.transform.position = savedPlayer.position;
-        mover.transform.rotation = savedPlayer.rotation;
+
+        //destory any old inventory items
+        foreach (KeyValuePair<string, List<GameObject>> entry in BM.GetComponent<_buttonControls>().inventory)
+            foreach (GameObject item in entry.Value)
+                Destroy(item);
 
         BM.GetComponent<_buttonControls>().inventory = new Dictionary<string, List<GameObject>>();
-        foreach (KeyValuePair<string, List<GameObject>> entry in savedPlayer.inventory)
-            BM.GetComponent<_buttonControls>().inventory.Add(entry.Key, new List<GameObject>(entry.Value));
+        foreach (string item in _itemScript.getItemNames())
+            BM.GetComponent<_buttonControls>().inventory.Add(item, new List<GameObject>());
+       
+        //add new items to inventory
+        foreach (KeyValuePair<string, int> entry in savedPlayer.inventory)
+        {
+            List<GameObject> l;
+            BM.GetComponent<_buttonControls>().inventory.TryGetValue(entry.Key, out l);
+            for (int i = 0; i < entry.Value; i++)
+            {
+                GameObject clone = null;
+                switch (entry.Key)
+                {
+                    case "THERMITE":
+                        clone = Instantiate(Thermite);
+                        break;
+                    case "BATTERY":
+                        clone = Instantiate(Battery);
+                        break;
+                    case "COPPER_WIRE":
+                        clone = Instantiate(Copper_Wire);
+                        break;
+                    case "CESIUM":
+                        clone = Instantiate(Cesium);
+                        break;
+                    default:
+                        clone = new GameObject();
+                        clone.name = entry.Key;
+                        break;
+                }
+                l.Add(clone);
+                clone.SetActive(false);
+            }
+        }
 
         foreach (GameObject spawnItem in spawnItems)
             spawnItem.SetActive(true);
@@ -552,12 +607,27 @@ public class _gameSettings : MonoBehaviour {
 
     public void Reset()
     {
+        startTime = savedPlayer.time + Time.timeSinceLevelLoad;
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Pickup");
+        foreach (GameObject item in items)
+            if (!spawnItems.Contains(item))
+                Destroy(item);
+
         Load();
         TogglePauseMenu();
     }
 
     public void Quit()
     {
+        GameObject saved = new GameObject("Saved Game");
+        Instantiate(saved);
+        saved.AddComponent<_saveGame>();
+        saved.GetComponent<_saveGame>().position = savedPlayer.position;
+        saved.GetComponent<_saveGame>().time = savedPlayer.time;
+        saved.GetComponent<_saveGame>().inventory = savedPlayer.inventory;
+        saved.GetComponent<_saveGame>().currectActiveLevel = currentActiveLevel;
+        GameObject.DontDestroyOnLoad(saved);
+        TogglePauseMenu();
         SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
 }
@@ -565,6 +635,6 @@ public class _gameSettings : MonoBehaviour {
 public struct Player
 {
     public Vector3 position;
-    public Quaternion rotation;
-    public Dictionary<string, List<GameObject>> inventory;
+    public float time;
+    public Dictionary<string, int> inventory;
 }

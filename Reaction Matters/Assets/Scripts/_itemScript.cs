@@ -23,7 +23,7 @@ public class _itemScript : MonoBehaviour {
     };
 
     private List<Material> outlineGlow;
-    private bool spawnItem = false;
+    public bool spawnItem = false;
     private float respawnTime;
 
     public bool Useable { get { return useable.Contains(item); } }
@@ -43,7 +43,6 @@ public class _itemScript : MonoBehaviour {
         foreach (Material m in outlineGlow)
             m .SetFloat("_OutlineWidth", Mathf.PingPong(Time.time / 10, 0.05f) + 1);
     }
-    public bool SpawnItem{ get{ return spawnItem; } set{spawnItem = value;} }
 
     void OnParticleCollision(GameObject other)
     {
@@ -164,6 +163,7 @@ public class _itemScript : MonoBehaviour {
         if (spawnItem) {
             StartCoroutine(respawn(gameObject, true, respawnTime));
             GameObject clone = Instantiate(gameObject);
+            clone.GetComponent<_itemScript>().spawnItem = false;
             clone.SetActive(false);
             return clone;
         }

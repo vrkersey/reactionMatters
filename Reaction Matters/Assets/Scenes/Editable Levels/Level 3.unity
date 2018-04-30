@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1152,6 +1152,11 @@ Prefab:
     - target: {fileID: 4696857584664528, guid: d77930dfc612f8545858840799105fcf, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 74.75201
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835596811683942, guid: d77930dfc612f8545858840799105fcf,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d77930dfc612f8545858840799105fcf, type: 2}
@@ -5396,6 +5401,11 @@ Prefab:
       propertyPath: item
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114835596811683942, guid: d77930dfc612f8545858840799105fcf,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d77930dfc612f8545858840799105fcf, type: 2}
   m_IsPrefabParent: 0
@@ -6051,6 +6061,11 @@ Prefab:
     - target: {fileID: 4778080542441938, guid: 2a8e75072a605447d94877695010844e, type: 2}
       propertyPath: m_LocalScale.z
       value: 0.13922258
+      objectReference: {fileID: 0}
+    - target: {fileID: 114459653219491936, guid: 2a8e75072a605447d94877695010844e,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a8e75072a605447d94877695010844e, type: 2}
@@ -12381,6 +12396,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.13922283
       objectReference: {fileID: 0}
+    - target: {fileID: 114560101900486482, guid: f51869042d97046b5abd683420bb29d3,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f51869042d97046b5abd683420bb29d3, type: 2}
   m_IsPrefabParent: 0
@@ -15143,6 +15163,11 @@ Prefab:
       propertyPath: item
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114835596811683942, guid: d77930dfc612f8545858840799105fcf,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d77930dfc612f8545858840799105fcf, type: 2}
   m_IsPrefabParent: 0
@@ -17243,6 +17268,11 @@ Prefab:
       propertyPath: m_Name
       value: Copper (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114730656156746254, guid: ac34e656399354d4d8d6b55a4e016ab6,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac34e656399354d4d8d6b55a4e016ab6, type: 2}
   m_IsPrefabParent: 0
@@ -19175,12 +19205,12 @@ Prefab:
     - target: {fileID: 224939431313011290, guid: 71ccd3a0a4a785b4899afed8f1b2ac18,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 375
+      value: 461.5
       objectReference: {fileID: 0}
     - target: {fileID: 224939431313011290, guid: 71ccd3a0a4a785b4899afed8f1b2ac18,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 211
+      value: 259.5
       objectReference: {fileID: 0}
     - target: {fileID: 224939431313011290, guid: 71ccd3a0a4a785b4899afed8f1b2ac18,
         type: 2}
@@ -20419,6 +20449,11 @@ Prefab:
       propertyPath: m_Name
       value: Aluminum (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114560101900486482, guid: f51869042d97046b5abd683420bb29d3,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f51869042d97046b5abd683420bb29d3, type: 2}
   m_IsPrefabParent: 0
@@ -20654,6 +20689,11 @@ Prefab:
     - target: {fileID: 1329295825772062, guid: 2a8e75072a605447d94877695010844e, type: 2}
       propertyPath: m_Name
       value: Iron (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114459653219491936, guid: 2a8e75072a605447d94877695010844e,
+        type: 2}
+      propertyPath: spawnItem
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a8e75072a605447d94877695010844e, type: 2}

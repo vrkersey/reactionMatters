@@ -12,14 +12,17 @@ public class _mainMenuController : MonoBehaviour {
     private Text loadingText;
     private GameObject menu;
     private GameObject loading;
+    private GameObject savedGame;
 
     void Start()
     {
         loadingText = GameObject.Find("LoadingText").GetComponent<Text>();
         menu = GameObject.Find("Menu");
         loading = GameObject.Find("Loading");
-
+        savedGame = GameObject.Find("Saved Game");
         loading.SetActive(false);
+        if (savedGame == null)
+            GameObject.Find("Load").SetActive(false);
     }
 
     void Update()
@@ -34,11 +37,9 @@ public class _mainMenuController : MonoBehaviour {
 
     public void StartGame()
     {
-        menu.SetActive(false);
-        loading.SetActive(true);
-        loadScene = true;
-        StartCoroutine(LoadNewScene());
-        //SceneManager.LoadScene();
+        if (savedGame != null)
+            Destroy(savedGame);
+        LoadGame();
     }
 
     private IEnumerator LoadNewScene()
@@ -52,7 +53,10 @@ public class _mainMenuController : MonoBehaviour {
 
     public void LoadGame()
     {
-
+        menu.SetActive(false);
+        loading.SetActive(true);
+        loadScene = true;
+        StartCoroutine(LoadNewScene());
     }
 
     public void QuitGame()
