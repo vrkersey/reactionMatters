@@ -19,9 +19,9 @@ public class _monsterController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float rand = UnityEngine.Random.Range(0, 1000);
+        float rand = UnityEngine.Random.Range(0, 10000);
         //Debug.Log(rand);
-        if (rand <= 1f && lastSound + 60 < Time.fixedTime) {
+        if (rand <= 1f && lastSound + 120 < Time.fixedTime) {
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             transform.position = playerPos;
             StartCoroutine(playSound(monsterSounds[index]));

@@ -181,7 +181,7 @@ public class _gameSettings : MonoBehaviour {
         {
             if (Input.GetButton("AButton") || Input.GetButton("BButton") || Input.GetButton("AButton"))
             {
-                Quit();
+                SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
             }
         }
         else if (paused)
