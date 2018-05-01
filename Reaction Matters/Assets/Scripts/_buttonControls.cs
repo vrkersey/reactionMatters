@@ -123,7 +123,7 @@ public class _buttonControls : MonoBehaviour
                 }
                 if (other.tag == "Crafting Table")
                 {
-                    GM.Craft(inventory);
+                    GM.Craft(inventory, other.gameObject);
                 }
             }
         }

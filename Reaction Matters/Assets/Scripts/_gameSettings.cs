@@ -62,6 +62,7 @@ public class _gameSettings : MonoBehaviour {
     private GameObject inventoryUI;
     private Image Fade;
     private string currentActiveLevel = "Level 1";
+    private GameObject currentCraftingTable;
 
     public bool Death { get; private set; }
     public bool Ending { get; private set; }
@@ -207,10 +208,9 @@ public class _gameSettings : MonoBehaviour {
             {
                 ToggleCraftingMenu();
             }
-            if (Input.GetButtonDown("YButton") && !o2cooldown)
+            if (Input.GetButtonDown("YButton") && currentCraftingTable.GetComponent<_craftingTableController>().tryToRefill())
             {
                 startTime += oxygenRefilTimeInMinutes;
-                StartCoroutine(Cooldown());
             }
         }
     }
@@ -245,8 +245,9 @@ public class _gameSettings : MonoBehaviour {
         o2cooldown = false;
     }
 
-    public void Craft(Dictionary<string, List<GameObject>> inventory)
+    public void Craft(Dictionary<string, List<GameObject>> inventory, GameObject currentCraftingTable)
     {
+        this.currentCraftingTable = currentCraftingTable;
         setupCraftingUI(inventory);
         ToggleCraftingMenu();
     }
