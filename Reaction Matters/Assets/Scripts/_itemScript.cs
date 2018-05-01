@@ -25,7 +25,7 @@ public class _itemScript : MonoBehaviour {
     private List<Material> outlineGlow;
     public bool spawnItem = false;
     private float respawnTime;
-
+   
     public bool Useable { get { return useable.Contains(item); } }
     public bool Material { get { return materials.Contains(item); } }
 
@@ -164,7 +164,6 @@ public class _itemScript : MonoBehaviour {
             StartCoroutine(respawn(gameObject, true, respawnTime));
             GameObject clone = Instantiate(gameObject);
             clone.GetComponent<_itemScript>().spawnItem = false;
-            clone.SetActive(false);
             return clone;
         }
         else
