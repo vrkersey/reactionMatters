@@ -16,8 +16,8 @@ public class _movementControls : MonoBehaviour {
     private float jumpMultiplier;
     private float minimumX = -360F;
     private float maximumX = 360F;
-    private float minimumY = -90F;
-    private float maximumY = 60F;
+    private float minimumY = -85F;
+    private float maximumY = 85F;
     private float rotationX = 0F;
     private float rotationY = 0F;
     private Quaternion originalRotation;
@@ -129,7 +129,7 @@ public class _movementControls : MonoBehaviour {
                     }
                 }
             }
-            else if(other.tag == "CanDestroy"){
+            else if(other.tag == "CanDestroy" && other.parent.name.Contains("Brokenwall")){
                 hintText.text = "Damaged Wall";
                 if (BM.selectedItem == "CESIUM"){
                     hint.texture = hints[0];
@@ -206,13 +206,13 @@ public class _movementControls : MonoBehaviour {
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
-            rb.AddForce(lookDir * movementSpeed, ForceMode.Impulse);
+            rb.AddForce(lookDir.normalized * movementSpeed, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.S))
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
-            rb.AddForce(-lookDir * movementSpeed, ForceMode.Impulse);
+            rb.AddForce(-lookDir.normalized * movementSpeed, ForceMode.Impulse);
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -233,7 +233,7 @@ public class _movementControls : MonoBehaviour {
         {
             Vector3 lookDir = this.transform.forward;
             lookDir.y = 0;
-            rb.AddForce(lookDir * movementSpeed * (Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
+            rb.AddForce(lookDir.normalized * movementSpeed * (Input.GetAxis("LeftJoystickVertical")), ForceMode.Impulse);
         }
 
         if (Math.Abs(Input.GetAxis("LeftJoystickHorizontal")) > 0)
