@@ -10,6 +10,7 @@ public class _monsterController : MonoBehaviour {
     private AudioSource music;
     private float lastSound;
     private int index = 0;
+    private float maxRand = 10000;
 	// Use this for initialization
 	void Start () {
         audioSource = GetComponent<AudioSource>();
@@ -19,7 +20,7 @@ public class _monsterController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float rand = UnityEngine.Random.Range(0, 10000);
+        float rand = UnityEngine.Random.Range(0, maxRand);
         //Debug.Log(rand);
         if (rand <= 1f && lastSound + 120 < Time.fixedTime) {
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -28,11 +29,11 @@ public class _monsterController : MonoBehaviour {
             lastSound = Time.fixedTime;
             index = (index + 1) % monsterSounds.Length;
         }
+        
     }
 
     private IEnumerator playSound(AudioClip audioClip)
     {
-        Debug.Log("Starting monster audio");
         //fade out music
         float startVolume = music.volume;
         while(music.volume > startVolume / 4)
@@ -52,6 +53,5 @@ public class _monsterController : MonoBehaviour {
             music.volume = Mathf.Lerp(music.volume, startVolume + .1f, startVolume / 8);
             yield return new WaitForSeconds(.1f);
         }
-        Debug.Log("Ending monster audio");
     }
 }

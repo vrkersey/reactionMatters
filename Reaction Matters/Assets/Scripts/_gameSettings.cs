@@ -122,8 +122,8 @@ public class _gameSettings : MonoBehaviour {
             starting = false;
             paused = false;
         }
-
-        timeRemaining = startTime > 0 ? startTime - Time.timeSinceLevelLoad : 0;
+        if (!paused)
+            timeRemaining = startTime > 0 ? startTime - Time.timeSinceLevelLoad : 0;
         int minutes = (int)timeRemaining / 60;
         int seconds = (int)timeRemaining % 60;
 
@@ -370,7 +370,9 @@ public class _gameSettings : MonoBehaviour {
     {
         GetComponent<_audioController>().playCredits();
         credits.SetActive(true);
+        credits.transform.Find("Scroller").Find("TimeScore").GetComponent<Text>().text = ((int)(startTime - timeRemaining)).ToString() + " Sec";
         paused = true;
+        Ending = true;
     }
 
     public void ToggleDeath()
