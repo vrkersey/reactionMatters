@@ -1,0 +1,263 @@
+fileFormatVersion: 2
+guid: 943667b958500e048bec1e9a677bbc2a
+timeCreated: 1528612748
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: shard14
+    100004: shard15
+    100006: shard16
+    100008: shard17
+    100010: shard18
+    100012: shard20
+    100014: shard21
+    100016: shard22
+    100018: shard23
+    100020: shard24
+    100022: shard25
+    100024: shard26
+    100026: shard27
+    100028: shard30
+    100030: shard31
+    100032: shard32
+    100034: shard34
+    100036: shard35
+    100038: shard36
+    100040: shard37
+    100042: shard38
+    100044: shard39
+    100046: shard40
+    100048: shard41
+    100050: shard42
+    100052: shard43
+    100054: shard45
+    100056: shard46
+    100058: shard47
+    100060: shard49
+    100062: shard50
+    100064: shard53
+    100066: shard54
+    400000: //RootNode
+    400002: shard14
+    400004: shard15
+    400006: shard16
+    400008: shard17
+    400010: shard18
+    400012: shard20
+    400014: shard21
+    400016: shard22
+    400018: shard23
+    400020: shard24
+    400022: shard25
+    400024: shard26
+    400026: shard27
+    400028: shard30
+    400030: shard31
+    400032: shard32
+    400034: shard34
+    400036: shard35
+    400038: shard36
+    400040: shard37
+    400042: shard38
+    400044: shard39
+    400046: shard40
+    400048: shard41
+    400050: shard42
+    400052: shard43
+    400054: shard45
+    400056: shard46
+    400058: shard47
+    400060: shard49
+    400062: shard50
+    400064: shard53
+    400066: shard54
+    2300000: shard14
+    2300002: shard15
+    2300004: shard16
+    2300006: shard17
+    2300008: shard18
+    2300010: shard20
+    2300012: shard21
+    2300014: shard22
+    2300016: shard23
+    2300018: shard24
+    2300020: shard25
+    2300022: shard26
+    2300024: shard27
+    2300026: shard30
+    2300028: shard31
+    2300030: shard32
+    2300032: shard34
+    2300034: shard35
+    2300036: shard36
+    2300038: shard37
+    2300040: shard38
+    2300042: shard39
+    2300044: shard40
+    2300046: shard41
+    2300048: shard42
+    2300050: shard43
+    2300052: shard45
+    2300054: shard46
+    2300056: shard47
+    2300058: shard49
+    2300060: shard50
+    2300062: shard53
+    2300064: shard54
+    3300000: shard14
+    3300002: shard15
+    3300004: shard16
+    3300006: shard17
+    3300008: shard18
+    3300010: shard20
+    3300012: shard21
+    3300014: shard22
+    3300016: shard23
+    3300018: shard24
+    3300020: shard25
+    3300022: shard26
+    3300024: shard27
+    3300026: shard30
+    3300028: shard31
+    3300030: shard32
+    3300032: shard34
+    3300034: shard35
+    3300036: shard36
+    3300038: shard37
+    3300040: shard38
+    3300042: shard39
+    3300044: shard40
+    3300046: shard41
+    3300048: shard42
+    3300050: shard43
+    3300052: shard45
+    3300054: shard46
+    3300056: shard47
+    3300058: shard49
+    3300060: shard50
+    3300062: shard53
+    3300064: shard54
+    4300000: shard15
+    4300002: shard16
+    4300004: shard18
+    4300006: shard17
+    4300008: shard20
+    4300010: shard21
+    4300012: shard22
+    4300014: shard23
+    4300016: shard24
+    4300018: shard25
+    4300020: shard26
+    4300022: shard27
+    4300024: shard30
+    4300026: shard31
+    4300028: shard32
+    4300030: shard34
+    4300032: shard35
+    4300034: shard36
+    4300036: shard37
+    4300038: shard38
+    4300040: shard39
+    4300042: shard40
+    4300044: shard41
+    4300046: shard42
+    4300048: shard43
+    4300050: shard45
+    4300052: shard46
+    4300054: shard47
+    4300056: shard49
+    4300058: shard50
+    4300060: shard14
+    4300062: shard54
+    4300064: shard53
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Corner2m3m
+    second: {fileID: 2100000, guid: 5eb0d4575d6ef6340909359f2ceb26bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shatterInteriorS3
+    second: {fileID: 2100000, guid: a144c6f52d6585c438b0eb2fc77d3e6d, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
