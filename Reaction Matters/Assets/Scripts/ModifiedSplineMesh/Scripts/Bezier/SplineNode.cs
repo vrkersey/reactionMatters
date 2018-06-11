@@ -23,10 +23,13 @@ public class SplineNode {
     /// </summary>
     public Vector3 direction;
     public SplineNodeHolder snh;
-    public SplineNode(Vector3 position, Vector3 direction, bool sphere = true) {
+    public Spline spline;
+    public SplineNode(Vector3 position, Vector3 direction,Spline _spline, bool sphere = true) {
         SetPosition(position);
         SetDirection(direction);
-        if(sphere)
+        spline = _spline;
+
+        if (sphere)
         {
             CreateSphere();
         }
@@ -36,6 +39,10 @@ public class SplineNode {
     public bool UseInverseN1 = true,UseInverseN2 = true;
     public void CreateSphere()
     {
+        if(snh!=null)
+        {
+            snh.node = null;
+        }
         GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         snh = g.AddComponent<SplineNodeHolder>();
         snh.node = this;

@@ -8,7 +8,15 @@ public class SplineNodeHolder : MonoBehaviour {
     public float Dmod = 2;
     public SplineNode node;
     private void Update()
-    {
+    { 
+        if(node.snh!=this)
+        {
+            GameObject.DestroyImmediate(gameObject);
+        }
+        if(node.spline==null)
+        {
+            GameObject.DestroyImmediate(gameObject);
+        }
         if(transform.parent!=null)
         {
             if (transform.hasChanged || transform.parent.hasChanged || DistanceMod != Dmod)

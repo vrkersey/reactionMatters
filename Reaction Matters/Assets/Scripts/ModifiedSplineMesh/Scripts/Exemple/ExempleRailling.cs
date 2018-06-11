@@ -34,6 +34,7 @@ public class ExempleRailling : MonoBehaviour {
     private void OnEnable() {
         spline = GetComponent<Spline>();
         spline.NodeCountChanged.AddListener(() => toUpdate = true);
+        CreateMeshes();
     }
 
     private void OnValidate() {

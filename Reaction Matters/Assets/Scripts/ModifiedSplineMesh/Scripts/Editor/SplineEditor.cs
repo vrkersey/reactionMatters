@@ -45,7 +45,7 @@ public class SplineEditor : Editor {
 
     SplineNode AddClonedNode(SplineNode node) {
         int index = spline.nodes.IndexOf(node);
-        SplineNode res = new SplineNode(node.position, node.direction);
+        SplineNode res = new SplineNode(node.position, node.direction,spline);
         if (index == spline.nodes.Count - 1) {
             spline.AddNode(res);
         } else {

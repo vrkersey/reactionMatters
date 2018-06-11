@@ -50,8 +50,8 @@ public class Spline : MonoBehaviour {
     private void Reset() {
         nodes.Clear();
         curves.Clear();
-        AddNode(new SplineNode(new Vector3(5, 0, 0), new Vector3(5, 0, -3)));
-        AddNode(new SplineNode(new Vector3(10, 0, 0), new Vector3(10, 0, 3)));
+        AddNode(new SplineNode(new Vector3(5, 0, 0), new Vector3(5, 0, -3),this));
+        AddNode(new SplineNode(new Vector3(10, 0, 0), new Vector3(10, 0, 3),this));
         RaiseNodeCountChanged();
         UpdateAfterCurveChanged();
     }
@@ -65,6 +65,10 @@ public class Spline : MonoBehaviour {
             CubicBezierCurve curve = new CubicBezierCurve(n, next);
             curve.Changed.AddListener(() => UpdateAfterCurveChanged());
             curves.Add(curve);
+        }
+        foreach(SplineNode n in nodes)
+        {
+            n.CreateSphere();
         }
         RaiseNodeCountChanged();
         UpdateAfterCurveChanged();
