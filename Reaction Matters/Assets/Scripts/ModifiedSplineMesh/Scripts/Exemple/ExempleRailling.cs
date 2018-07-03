@@ -16,76 +16,91 @@ using UnityEngine;
 /// </summary>
 [ExecuteInEditMode]
 [SelectionBase]
-public class ExempleRailling : MonoBehaviour {
+public class ExempleRailling : MonoBehaviour
+{
 
-    public Mesh mesh;
-    public Material material;
-    public Vector3 rotation;
-    public float YOffset;
-    public float ZOffset;
-    public float scaleY = 1;
-    public float scaleZ = 1;
-    public int MeshCount=1;
+	public Mesh mesh;
+	public Material material;
+	public Vector3 rotation;
+	public float YOffset;
+	public float ZOffset;
+	public float scaleY = 1;
+	public float scaleZ = 1;
+	public int MeshCount = 1;
 
-    private Spline spline = null;
-    public List<GameObject> meshes = new List<GameObject>();
-    private bool toUpdate = true;
+	private Spline spline = null;
+	public List<GameObject> meshes = new List<GameObject>();
+	private bool toUpdate = true;
 
-    private void OnEnable() {
-        spline = GetComponent<Spline>();
-        spline.NodeCountChanged.AddListener(() => toUpdate = true);
-        CreateMeshes();
-    }
+	private void OnEnable()
+	{
+		spline = GetComponent<Spline>();
+		spline.NodeCountChanged.AddListener(() => toUpdate = true);
+		CreateMeshes();
+	}
+	private void Start()
+	{
+		
+	}
+	private void OnValidate()
+	{
+		toUpdate = true;
+	}
 
-    private void OnValidate() {
-        toUpdate = true;
-    }
+	private void Update()
+	{
+		if (toUpdate)
+		{
+			CreateMeshes();
+			toUpdate = false;
+		}
+	}
 
-    private void Update() {
-        if (toUpdate) {
-            CreateMeshes();
-            toUpdate = false;
-        }
-    }
+	public void CreateMeshes()
+	{
+		foreach (GameObject go in meshes)
+		{
+			if (gameObject != null)
+			{
+				if (Application.isPlaying)
+				{
+					Destroy(go);
+				}
+				else
+				{
+					DestroyImmediate(go);
+				}
+			}
+		}
+		meshes.Clear();
 
-    public void CreateMeshes() {
-        foreach (GameObject go in meshes) {
-            if (gameObject != null) {
-                if (Application.isPlaying) {
-                    Destroy(go);
-                } else {
-                    DestroyImmediate(go);
-                }
-            }
-        }
-        meshes.Clear();
+		int i = 0;
+		foreach (CubicBezierCurve curve in spline.GetCurves())
+		{
+			for (int j = 0; j < MeshCount; j++)
+			{
+				GameObject go = new GameObject("SplineMesh" + i++, typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshBender), typeof(MeshCollider));
+				go.transform.parent = transform;
+				go.transform.localRotation = Quaternion.identity;
+				go.transform.localPosition = Vector3.zero;
+				go.transform.localScale = Vector3.one;
+				//go.hideFlags = HideFlags.NotEditable;
 
-        int i = 0;
-        foreach (CubicBezierCurve curve in spline.GetCurves()) {
-            for(int j =0;j<MeshCount;j++)
-            {
-                GameObject go = new GameObject("SplineMesh" + i++, typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshBender), typeof(MeshCollider));
-                go.transform.parent = transform;
-                go.transform.localRotation = Quaternion.identity;
-                go.transform.localPosition = Vector3.zero;
-                go.transform.localScale = Vector3.one;
-                //go.hideFlags = HideFlags.NotEditable;
+				go.GetComponent<MeshRenderer>().material = material;
+				MeshBender mb = go.GetComponent<MeshBender>();
 
-                go.GetComponent<MeshRenderer>().material = material;
-                MeshBender mb = go.GetComponent<MeshBender>();
-                
-                mb.SetWallPercent(MeshCount, j);
-                mb.SetSourceMesh(mesh, false);
-                mb.SetRotation(Quaternion.Euler(rotation), false);
-                mb.SetTranslation(new Vector3(j*10, YOffset, ZOffset), false);
-                mb.SetCurve(curve, false);
-                mb.SetStartScaleY(scaleY, false);
-                mb.SetEndScaleY(scaleY);
-                mb.SetStartScaleZ(scaleZ, false);
-                mb.SetEndScaleZ(scaleZ);
-                meshes.Add(go);
-            }
-            
-        }
-    }
+				mb.SetWallPercent(MeshCount, j);
+				mb.SetSourceMesh(mesh, false);
+				mb.SetRotation(Quaternion.Euler(rotation), false);
+				mb.SetTranslation(new Vector3(j * 10, YOffset, ZOffset), false);
+				mb.SetCurve(curve, false);
+				mb.SetStartScaleY(scaleY, false);
+				mb.SetEndScaleY(scaleY);
+				mb.SetStartScaleZ(scaleZ, false);
+				mb.SetEndScaleZ(scaleZ);
+				meshes.Add(go);
+			}
+
+		}
+	}
 }

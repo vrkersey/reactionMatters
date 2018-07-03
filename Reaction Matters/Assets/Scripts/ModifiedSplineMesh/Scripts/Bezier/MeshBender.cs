@@ -195,7 +195,8 @@ public class MeshBender : MonoBehaviour
            // Debug.Log(wall);
             float distanceRate = Math.Abs(p.x - minX) / Length / wallCount;
              CurveStart = curve.Length / wallCount;
-            Vector3 curvePoint = curve.GetLocationAtDistance(curve.Length * distanceRate + CurveStart * wall);
+			Debug.Log("MB" + (curve.Length * distanceRate + CurveStart * wall));
+			Vector3 curvePoint = curve.GetLocationAtDistance(curve.Length * distanceRate + CurveStart * wall);
             Vector3 curveTangent = curve.GetTangentAtDistance(curve.Length * distanceRate + CurveStart * wall);
             Quaternion q = CubicBezierCurve.GetRotationFromTangent(curveTangent) * Quaternion.Euler(0, -90, 0);
 
